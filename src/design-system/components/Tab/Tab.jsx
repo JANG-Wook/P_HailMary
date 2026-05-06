@@ -130,6 +130,7 @@ export default function Tab({
   resize           = 'hug',
   horizontalPadding = false,
   trailingContent,
+  scroll           = false,
   className        = '',
 }) {
   const height = SIZE_HEIGHT[size] ?? 48
@@ -141,7 +142,7 @@ export default function Tab({
     alignItems:   'stretch',
     width:        '100%',
     height:       `${height}px`,
-    overflow:     'hidden',
+    overflow:     scroll ? undefined : 'hidden',
     paddingLeft:  horizontalPadding ? 'var(--spacing-16)' : undefined,
     paddingRight: horizontalPadding ? 'var(--spacing-16)' : undefined,
     boxSizing:    'border-box',
@@ -157,12 +158,15 @@ export default function Tab({
   }
 
   const listStyle = {
-    display:       'flex',
-    flexDirection: 'row',
-    alignItems:    'stretch',
-    flex:          1,
-    minWidth:      0,
-    gap:           resize === 'fill' ? 0 : 'var(--spacing-24)',
+    display:          'flex',
+    flexDirection:    'row',
+    alignItems:       'stretch',
+    flex:             1,
+    minWidth:         0,
+    gap:              resize === 'fill' ? 0 : 'var(--spacing-24)',
+    overflowX:        scroll ? 'auto' : undefined,
+    scrollbarWidth:   scroll ? 'none' : undefined,
+    msOverflowStyle:  scroll ? 'none' : undefined,
   }
 
   return (
