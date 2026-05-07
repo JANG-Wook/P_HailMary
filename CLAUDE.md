@@ -1,3 +1,13 @@
+## 작업 경로 (필수)
+
+> 새 세션이 열려도 아래 규칙을 반드시 따를 것.
+
+- **파일 수정**: 항상 `/Users/mac/iXpert_Dev4/HailMary` (메인 브랜치) 경로의 파일을 직접 수정한다.
+- **미리보기 서버**: `http://localhost:5177` (포트 5177)
+- worktree 내부 경로(`/Users/mac/iXpert_Dev4/HailMary/.claude/worktrees/...`)는 편집 대상이 아니다.
+
+---
+
 ### 프로젝트 고유 규칙
 
 ```

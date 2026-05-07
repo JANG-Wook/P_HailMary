@@ -13,15 +13,18 @@
  *                     hug: 탭 자연 너비, fill: 탭 균등 분할
  *  horizontalPadding — true | false  좌우 패딩 추가               기본: false
  *  trailingContent  — ReactNode  우측 고정 영역
+ *  scroll           — true | false  가로 스크롤                     기본: false
  *  className        — 추가 클래스
  *
  * 사용 예:
  *  <Tab items={[{label:'홈'},{label:'탐색'}]} value={0} onChange={setTab} />
  *  <Tab items={tabs} value={tab} onChange={setTab} size="large" resize="fill" />
  *  <Tab items={tabs} value={tab} onChange={setTab} horizontalPadding trailingContent={<Icon />} />
+ *  <Tab items={tabs} value={tab} onChange={setTab} scroll />
  */
 
 import { useState } from 'react'
+import './Tab.css'
 
 const SIZE_HEIGHT = {
   small:  40,
@@ -130,6 +133,7 @@ export default function Tab({
   resize           = 'hug',
   horizontalPadding = false,
   trailingContent,
+  scroll           = false,
   className        = '',
 }) {
   const height = SIZE_HEIGHT[size] ?? 48
@@ -141,7 +145,7 @@ export default function Tab({
     alignItems:   'stretch',
     width:        '100%',
     height:       `${height}px`,
-    overflow:     'hidden',
+    overflow:     scroll ? undefined : 'hidden',
     paddingLeft:  horizontalPadding ? 'var(--spacing-16)' : undefined,
     paddingRight: horizontalPadding ? 'var(--spacing-16)' : undefined,
     boxSizing:    'border-box',
@@ -157,19 +161,22 @@ export default function Tab({
   }
 
   const listStyle = {
-    display:       'flex',
-    flexDirection: 'row',
-    alignItems:    'stretch',
-    flex:          1,
-    minWidth:      0,
-    gap:           resize === 'fill' ? 0 : 'var(--spacing-24)',
+    display:          'flex',
+    flexDirection:    'row',
+    alignItems:       'stretch',
+    flex:             1,
+    minWidth:         0,
+    gap:              resize === 'fill' ? 0 : 'var(--spacing-24)',
+    overflowX:        scroll ? 'auto' : undefined,
+    scrollbarWidth:   scroll ? 'none' : undefined,
+    msOverflowStyle:  scroll ? 'none' : undefined,
   }
 
   return (
     <div style={outerStyle} className={className} role="tablist">
       <div style={dividerStyle} aria-hidden="true" />
 
-      <div style={listStyle}>
+      <div style={listStyle} className={scroll ? 'ax-tab-scroll' : undefined}>
         {items.map((item, index) => (
           <TabItem
             key={index}

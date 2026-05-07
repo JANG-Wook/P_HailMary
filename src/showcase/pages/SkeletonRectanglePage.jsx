@@ -1,5 +1,4 @@
 import SkeletonRect from '../../design-system/components/SkeletonRect/SkeletonRect'
-import Section, { Case } from '../Section'
 
 export default function SkeletonRectanglePage() {
   return (
@@ -9,56 +8,48 @@ export default function SkeletonRectanglePage() {
         lineHeight:   'var(--line-height-title-3)',
         fontWeight:   'var(--font-weight-bold)',
         color:        'var(--color-label-normal)',
-        marginBottom: 'var(--spacing-32)',
+        marginBottom: 'var(--spacing-8)',
       }}>Rectangle</h2>
 
-      <Section title="Color" gap="var(--spacing-24)">
-        <Case label='color="normal"'>
-          <SkeletonRect color="normal" width={120} height={64} radius={8} />
-        </Case>
-        <Case label='color="white"'>
+      <p style={{
+        fontSize:      'var(--font-size-body-2)',
+        lineHeight:    'var(--line-height-body-2-normal)',
+        letterSpacing: 'var(--letter-spacing-body-2)',
+        color:         'var(--color-label-alternative)',
+        marginBottom:  'var(--spacing-48)',
+      }}>네모난 모양을 가진 콘텐츠를 대체하여 사용합니다.</p>
+
+      <div style={{
+        display:    'flex',
+        gap:        'var(--spacing-24)',
+        alignItems: 'flex-start',
+      }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
+          <SkeletonRect color="normal" width={64} height={64} />
+          <p style={{
+            fontSize:      'var(--font-size-caption-1)',
+            lineHeight:    'var(--line-height-caption-1)',
+            letterSpacing: 'var(--letter-spacing-caption-1)',
+            color:         'var(--color-label-assistive)',
+          }}>Color=Normal</p>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
           <div style={{
             padding:         'var(--spacing-16)',
             backgroundColor: 'var(--color-inverse-background)',
             borderRadius:    'var(--spacing-8)',
           }}>
-            <SkeletonRect color="white" width={120} height={64} radius={8} />
+            <SkeletonRect color="white" width={64} height={64} />
           </div>
-        </Case>
-      </Section>
-
-      <Section title="Shape" gap="var(--spacing-24)">
-        <Case label='radius=0'>
-          <SkeletonRect width={120} height={64} radius={0} />
-        </Case>
-        <Case label='radius=8'>
-          <SkeletonRect width={120} height={64} radius={8} />
-        </Case>
-        <Case label='radius=16'>
-          <SkeletonRect width={120} height={64} radius={16} />
-        </Case>
-        <Case label='radius=60 (pill)'>
-          <SkeletonRect width={120} height={36} radius={60} />
-        </Case>
-      </Section>
-
-      <Section title="Aspect Ratio" gap="var(--spacing-24)">
-        <Case label='aspectRatio="1/1"'>
-          <div style={{ width: '100px' }}>
-            <SkeletonRect aspectRatio="1/1" radius={8} />
-          </div>
-        </Case>
-        <Case label='aspectRatio="16/9"'>
-          <div style={{ width: '160px' }}>
-            <SkeletonRect aspectRatio="16/9" radius={8} />
-          </div>
-        </Case>
-        <Case label='aspectRatio="4/3"'>
-          <div style={{ width: '120px' }}>
-            <SkeletonRect aspectRatio="4/3" radius={8} />
-          </div>
-        </Case>
-      </Section>
+          <p style={{
+            fontSize:      'var(--font-size-caption-1)',
+            lineHeight:    'var(--line-height-caption-1)',
+            letterSpacing: 'var(--letter-spacing-caption-1)',
+            color:         'var(--color-label-assistive)',
+          }}>Color=White</p>
+        </div>
+      </div>
     </div>
   )
 }

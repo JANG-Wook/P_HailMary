@@ -2,15 +2,26 @@ import { useState } from 'react'
 import Category from '../../design-system/components/Category/Category'
 import Section, { Case } from '../Section'
 
-const ITEMS_KO = ['전체', '인기', '최신', '추천', '완료', '진행중']
+const ITEMS_5 = [
+  { label: '전체' }, { label: '인기' }, { label: '최신' }, { label: '추천' }, { label: '완료' },
+]
+
+const ITEMS_4 = [
+  { label: '전체' }, { label: '인기' }, { label: '최신' }, { label: '추천' },
+]
+
+const ITEMS_MANY = [
+  { label: '전체' }, { label: '인기' }, { label: '최신' }, { label: '추천' },
+  { label: '완료' }, { label: '진행중' }, { label: '마감' }, { label: '임시' },
+]
 
 export default function CategoryPage() {
-  const [tab0, setTab0] = useState(0)
-  const [tab1, setTab1] = useState(0)
-  const [tab2, setTab2] = useState(0)
-  const [tab3, setTab3] = useState(0)
-  const [tab4, setTab4] = useState(0)
-  const [tab5, setTab5] = useState(0)
+  const [varNormal, setVarNormal] = useState(0)
+  const [varAlt, setVarAlt]       = useState(0)
+  const [hpFalse, setHpFalse]     = useState(0)
+  const [hpTrue, setHpTrue]       = useState(0)
+  const [vpFalse, setVpFalse]     = useState(0)
+  const [vpTrue, setVpTrue]       = useState(0)
 
   return (
     <div>
@@ -22,85 +33,113 @@ export default function CategoryPage() {
         marginBottom: 'var(--spacing-32)',
       }}>Category</h2>
 
-      <Section title="인터랙션 데모" gap="var(--spacing-24)" column>
-        <Case label="칩을 클릭하거나 마우스를 올려보세요">
-          <div style={{ width: '480px', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
-            <Category
-              items={[
-                { label: '전체' }, { label: '인기' }, { label: '최신' },
-                { label: '추천' }, { label: '완료' },
-              ]}
-              value={tab0}
-              onChange={setTab0}
-            />
-            <div style={{
-              padding: 'var(--spacing-12)',
-              borderRadius: 'var(--spacing-8)',
-              backgroundColor: 'var(--color-fill-normal)',
-              textAlign: 'center',
-              fontSize: 'var(--font-size-body-2)',
-              color: 'var(--color-label-alternative)',
-            }}>
-              선택된 카테고리: <strong style={{ color: 'var(--color-label-normal)' }}>
-                {['전체', '인기', '최신', '추천', '완료'][tab0]}
-              </strong>
-            </div>
+      {/* variant */}
+      <Section title="variant" gap="var(--spacing-24)">
+        <Case label="normal (default)">
+          <div style={{ width: '320px' }}>
+            <Category items={ITEMS_5} value={varNormal} onChange={setVarNormal} variant="normal" />
+          </div>
+        </Case>
+        <Case label="alternative">
+          <div style={{ width: '320px' }}>
+            <Category items={ITEMS_5} value={varAlt} onChange={setVarAlt} variant="alternative" />
           </div>
         </Case>
       </Section>
 
-      <Section title="Variant" gap="var(--spacing-24)" column>
-        <Case label='variant="normal"'>
-          <div style={{ width: '480px' }}>
-            <Category items={ITEMS_KO} value={tab0} onChange={setTab0} variant="normal" />
-          </div>
-        </Case>
-        <Case label='variant="alternative"'>
-          <div style={{ width: '480px' }}>
-            <Category items={ITEMS_KO} value={tab1} onChange={setTab1} variant="alternative" />
-          </div>
-        </Case>
-      </Section>
-
-      <Section title="Size" gap="var(--spacing-24)" column>
-        {(['small', 'medium', 'large', 'xlarge']).map((size, i) => (
-          <Case key={size} label={`size="${size}"`}>
-            <div style={{ width: '480px' }}>
-              <Category
-                items={['전체', '인기', '최신', '추천']}
-                value={i === 0 ? tab2 : i === 1 ? tab3 : i === 2 ? tab4 : tab5}
-                onChange={i === 0 ? setTab2 : i === 1 ? setTab3 : i === 2 ? setTab4 : setTab5}
-                size={size}
-              />
+      {/* size */}
+      <Section title="size" gap="var(--spacing-16)">
+        {[
+          { size: 'small',  label: 'small'           },
+          { size: 'medium', label: 'medium (default)' },
+          { size: 'large',  label: 'large'            },
+          { size: 'xlarge', label: 'xlarge'           },
+        ].map(({ size, label }) => (
+          <Case key={size} label={label}>
+            <div style={{ width: '320px' }}>
+              <Category items={ITEMS_4} value={0} size={size} />
             </div>
           </Case>
         ))}
       </Section>
 
-      <Section title="Scroll" gap="var(--spacing-24)" column>
-        <Case label='scroll=true (넘치는 항목 스크롤)'>
-          <div style={{ width: '300px' }}>
-            <Category
-              items={['전체', '디자인', '개발', '마케팅', '기획', '운영', '인사', '재무']}
-              value={tab0}
-              onChange={setTab0}
-              scroll
-            />
+      {/* horizontalPadding */}
+      <Section title="horizontalPadding" gap="var(--spacing-24)">
+        <Case label="false (default)">
+          <div style={{
+            width: '320px',
+            backgroundColor: 'var(--color-bg-normal-alternative)',
+            borderRadius: 'var(--spacing-8)',
+          }}>
+            <Category items={ITEMS_5} value={hpFalse} onChange={setHpFalse} />
+          </div>
+        </Case>
+        <Case label="true">
+          <div style={{
+            width: '360px',
+            backgroundColor: 'var(--color-bg-normal-alternative)',
+            borderRadius: 'var(--spacing-8)',
+          }}>
+            <Category items={ITEMS_5} value={hpTrue} onChange={setHpTrue} horizontalPadding />
           </div>
         </Case>
       </Section>
 
-      <Section title="Padding Options" gap="var(--spacing-24)" column>
-        <Case label='horizontalPadding=true'>
-          <div style={{ width: '480px', backgroundColor: 'var(--color-bg-normal-alternative)', borderRadius: 'var(--spacing-8)' }}>
-            <Category items={ITEMS_KO} value={tab0} onChange={setTab0} horizontalPadding />
+      {/* verticalPadding */}
+      <Section title="verticalPadding" gap="var(--spacing-24)">
+        <Case label="false (default)">
+          <div style={{
+            width: '320px',
+            backgroundColor: 'var(--color-bg-normal-alternative)',
+            borderRadius: 'var(--spacing-8)',
+          }}>
+            <Category items={ITEMS_5} value={vpFalse} onChange={setVpFalse} />
           </div>
         </Case>
-        <Case label='verticalPadding=true'>
-          <div style={{ width: '480px', backgroundColor: 'var(--color-bg-normal-alternative)', borderRadius: 'var(--spacing-8)' }}>
-            <Category items={ITEMS_KO} value={tab0} onChange={setTab0} verticalPadding />
+        <Case label="true">
+          <div style={{
+            width: '375px',
+            backgroundColor: 'var(--color-bg-normal-alternative)',
+            borderRadius: 'var(--spacing-8)',
+          }}>
+            <Category items={ITEMS_5} value={vpTrue} onChange={setVpTrue} verticalPadding />
           </div>
         </Case>
+      </Section>
+
+      {/* scroll */}
+      <Section title="scroll" gap="var(--spacing-24)">
+        <Case label="false (default)">
+          <div style={{ width: '320px' }}>
+            <Category items={ITEMS_MANY} value={0} />
+          </div>
+        </Case>
+        <Case label="true">
+          <div style={{ width: '320px' }}>
+            <Category items={ITEMS_MANY} value={0} scroll />
+          </div>
+        </Case>
+      </Section>
+
+      {/* resource */}
+      <Section title="resource" column gap="var(--spacing-16)">
+        <div>
+          <p style={{
+            fontSize:      'var(--font-size-body-2)',
+            lineHeight:    'var(--line-height-body-2-normal)',
+            fontWeight:    'var(--font-weight-semibold)',
+            color:         'var(--color-label-normal)',
+            marginBottom:  'var(--spacing-16)',
+          }}>chip</p>
+          <div style={{ display: 'flex', gap: 'var(--spacing-24)', alignItems: 'flex-start' }}>
+            <Case label="active = false (default)">
+              <Category items={[{ label: '텍스트' }]} value={-1} />
+            </Case>
+            <Case label="active = true">
+              <Category items={[{ label: '텍스트' }]} value={0} />
+            </Case>
+          </div>
+        </div>
       </Section>
     </div>
   )

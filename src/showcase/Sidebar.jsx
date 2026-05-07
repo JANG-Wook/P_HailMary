@@ -80,9 +80,7 @@ const NAV = [
     group: 'Component Loading',
     items: [
       { id: 'spinner',           label: 'Circular'           },
-      { id: 'skeletonText',      label: 'Skeleton_Text'      },
-      { id: 'skeletonRectangle', label: 'Skeleton_Rectangle' },
-      { id: 'skeletonCircle',    label: 'Skeleton_Circle'    },
+      { id: 'skeleton', label: 'Skeleton' },
     ],
   },
   {

@@ -25,6 +25,7 @@
  */
 
 import { useState } from 'react'
+import './Category.css'
 
 const CHIP_PADDING_Y = {
   small:  'var(--spacing-2)',
@@ -206,7 +207,7 @@ export default function Category({
 
   return (
     <div style={outerStyle} className={className}>
-      <div style={leadingStyle}>
+      <div style={leadingStyle} className={scroll ? 'ax-category-scroll' : undefined}>
         <div style={wrapperStyle}>
           {items.map((item, index) => (
             <ChipItem
