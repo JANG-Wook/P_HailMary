@@ -66,6 +66,22 @@ function ChevronRight({ size = 16 }) {
   )
 }
 
+function ChevronLeftRegular({ size = 24 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M15 6L9 12L15 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function ChevronRightRegular({ size = 24 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 /* ── 인터랙션 오버레이 opacity ───────────────────────────────── */
 const OVERLAY_OPACITY = { hovered: 0.05, focused: 0.08, pressed: 0.12 }
 
@@ -93,7 +109,6 @@ function NavButton({ direction, disabled, btnSizeToken, svgSize, onClick }) {
         alignItems:     'center',
         justifyContent: 'center',
         position:       'relative',
-        overflow:       'hidden',
         width:          btnSizeToken,
         height:         btnSizeToken,
         background:     'none',
@@ -123,8 +138,8 @@ function NavButton({ direction, disabled, btnSizeToken, svgSize, onClick }) {
         transition:      'background-color 0.15s ease',
       }} aria-hidden="true" />
       {isLeft
-        ? <ChevronLeft  size={svgSize} />
-        : <ChevronRight size={svgSize} />
+        ? (svgSize === 24 ? <ChevronLeftRegular  size={svgSize} /> : <ChevronLeft  size={svgSize} />)
+        : (svgSize === 24 ? <ChevronRightRegular size={svgSize} /> : <ChevronRight size={svgSize} />)
       }
     </button>
   )
@@ -148,7 +163,6 @@ function PageButton({ page, isActive, onClick }) {
         alignItems:     'center',
         justifyContent: 'center',
         position:       'relative',
-        overflow:       'hidden',
         minWidth:       'var(--spacing-20)',
         height:         'calc(var(--spacing-24) + var(--spacing-6))',
         paddingTop:     'var(--spacing-4)',
@@ -179,7 +193,13 @@ function PageButton({ page, isActive, onClick }) {
     >
       <div style={{
         position:        'absolute',
-        inset:           0,
+        top:             '50%',
+        left:            'calc(var(--spacing-7) * -1)',
+        right:           'calc(var(--spacing-7) * -1)',
+        height:          'var(--spacing-32)',
+        transform:       'translateY(-50%)',
+        borderRadius:    'var(--spacing-6)',
+        overflow:        'hidden',
         backgroundColor: `color-mix(in srgb, var(--color-label-normal) ${Math.round(overlayOpacity * 100)}%, transparent)`,
         pointerEvents:   'none',
         transition:      'background-color 0.15s ease',
@@ -250,7 +270,7 @@ export default function PaginationNavigation({
         style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--spacing-12)' }}
         className={className}
       >
-        {!isFirst && <NavButton direction="left"  disabled={false} btnSizeToken="var(--spacing-16)" svgSize={16} onClick={goPrev} />}
+        <NavButton direction="left"  disabled={isFirst} btnSizeToken="var(--spacing-16)" svgSize={16} onClick={goPrev} />
         <span style={{
           fontSize:      'var(--font-size-label-2)',
           lineHeight:    'var(--line-height-label-2)',
@@ -261,7 +281,7 @@ export default function PaginationNavigation({
         }}>
           {currentPage}/{total}
         </span>
-        {!isLast  && <NavButton direction="right" disabled={false} btnSizeToken="var(--spacing-16)" svgSize={16} onClick={goNext} />}
+        <NavButton direction="right" disabled={isLast}  btnSizeToken="var(--spacing-16)" svgSize={16} onClick={goNext} />
       </div>
     )
   }
@@ -306,9 +326,9 @@ export default function PaginationNavigation({
       </div>
 
       <div style={navStyle}>
-        {!isFirst && <NavButton direction="left"  disabled={false} btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goPrev} />}
+        <NavButton direction="left"  disabled={isFirst} btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goPrev} />
         <PageList items={items} currentPage={currentPage} onPageClick={onChange} />
-        {!isLast  && <NavButton direction="right" disabled={false} btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goNext} />}
+        <NavButton direction="right" disabled={isLast}  btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goNext} />
       </div>
 
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>

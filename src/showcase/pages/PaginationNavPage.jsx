@@ -17,20 +17,38 @@ function Placeholder() {
 function PerPageSelector() {
   return (
     <div style={{
-      display:       'inline-flex',
-      alignItems:    'center',
-      gap:           'var(--spacing-4)',
-      padding:       'var(--spacing-4) var(--spacing-8)',
-      border:        '1px solid var(--color-line-normal)',
-      borderRadius:  'var(--spacing-4)',
-      fontSize:      'var(--font-size-label-1)',
-      lineHeight:    'var(--line-height-label-1-normal)',
-      letterSpacing: 'var(--letter-spacing-label-1)',
-      color:         'var(--color-label-normal)',
-      whiteSpace:    'nowrap',
-      cursor:        'pointer',
+      display:    'inline-flex',
+      alignItems: 'center',
+      gap:        'var(--spacing-8)',
     }}>
-      10 ▾ 씩 보기
+      <div style={{
+        display:       'inline-flex',
+        alignItems:    'center',
+        gap:           'var(--spacing-1)',
+        paddingLeft:   'var(--spacing-8)',
+        paddingRight:  'var(--spacing-6)',
+        paddingTop:    'var(--spacing-6)',
+        paddingBottom: 'var(--spacing-6)',
+        border:        '1px solid var(--color-line-normal)',
+        borderRadius:  'var(--spacing-8)',
+        fontSize:      'var(--font-size-label-1)',
+        lineHeight:    'var(--line-height-label-1-normal)',
+        letterSpacing: 'var(--letter-spacing-label-1)',
+        fontWeight:    'var(--font-weight-medium)',
+        color:         'var(--color-label-normal)',
+        whiteSpace:    'nowrap',
+        cursor:        'pointer',
+      }}>
+        10 ▾
+      </div>
+      <span style={{
+        fontSize:      'var(--font-size-label-2)',
+        lineHeight:    'var(--line-height-label-2)',
+        letterSpacing: 'var(--letter-spacing-label-2)',
+        fontWeight:    'var(--font-weight-medium)',
+        color:         'var(--color-label-alternative)',
+        whiteSpace:    'nowrap',
+      }}>씩 보기</span>
     </div>
   )
 }
@@ -38,27 +56,34 @@ function PerPageSelector() {
 function GoToPage() {
   return (
     <div style={{
-      display:       'inline-flex',
-      alignItems:    'center',
-      gap:           'var(--spacing-8)',
-      fontSize:      'var(--font-size-label-1)',
-      lineHeight:    'var(--line-height-label-1-normal)',
-      letterSpacing: 'var(--letter-spacing-label-1)',
-      color:         'var(--color-label-normal)',
-      whiteSpace:    'nowrap',
+      display:    'inline-flex',
+      alignItems: 'center',
+      gap:        'var(--spacing-8)',
+      whiteSpace: 'nowrap',
     }}>
-      페이지 이동
+      <span style={{
+        fontSize:      'var(--font-size-label-2)',
+        lineHeight:    'var(--line-height-label-2)',
+        letterSpacing: 'var(--letter-spacing-label-2)',
+        fontWeight:    'var(--font-weight-medium)',
+        color:         'var(--color-label-alternative)',
+        textAlign:     'center',
+      }}>페이지 이동</span>
       <span style={{
         display:        'inline-flex',
         alignItems:     'center',
         justifyContent: 'center',
-        minWidth:       'var(--spacing-32)',
-        padding:        'var(--spacing-4) var(--spacing-8)',
+        width:          'var(--spacing-56)',
+        padding:        'var(--spacing-4) var(--spacing-6)',
         border:         '1px solid var(--color-line-normal)',
-        borderRadius:   'var(--spacing-4)',
+        borderRadius:   'var(--spacing-8)',
         fontSize:       'var(--font-size-label-1)',
+        lineHeight:     'var(--line-height-label-1-normal)',
+        letterSpacing:  'var(--letter-spacing-label-1)',
+        fontWeight:     'var(--font-weight-medium)',
         color:          'var(--color-label-normal)',
-        fontWeight:     'var(--font-weight-regular)',
+        textAlign:      'center',
+        backgroundColor: 'var(--color-bg-transparent)',
       }}>23</span>
     </div>
   )
@@ -84,7 +109,7 @@ export default function PaginationNavPage() {
       {/* ── variant ─────────────────────────────────────────── */}
       <Section title="variant" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
         <Case label='variant="extended"  default'>
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation
               count={11} value={0} variant="extended"
               leadingContent={<PerPageSelector />}
@@ -92,10 +117,10 @@ export default function PaginationNavPage() {
             />
           </div>
         </Case>
-        <Case label='variant="compact"' center>
+        <Case label='variant="compact"'>
           <PaginationNavigation count={7} value={0} variant="compact" />
         </Case>
-        <Case label='variant="minimize"' center>
+        <Case label='variant="minimize"'>
           <PaginationNavigation count={10} value={0} variant="minimize" />
         </Case>
       </Section>
@@ -103,21 +128,21 @@ export default function PaginationNavPage() {
       {/* ── leadingContent ───────────────────────────────────── */}
       <Section title="leadingContent" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
         <Case label='leadingContent  none'>
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation count={11} value={0} variant="extended"
               leadingContent={<Placeholder />}
             />
           </div>
         </Case>
         <Case label='leadingContent  씩 보기'>
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation count={11} value={0} variant="extended"
               leadingContent={<PerPageSelector />}
             />
           </div>
         </Case>
         <Case label='leadingContent  페이지 이동'>
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation count={11} value={0} variant="extended"
               leadingContent={<GoToPage />}
             />
@@ -128,21 +153,21 @@ export default function PaginationNavPage() {
       {/* ── trailingContent ──────────────────────────────────── */}
       <Section title="trailingContent" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
         <Case label='trailingContent  none'>
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation count={11} value={5} variant="extended"
               trailingContent={<Placeholder />}
             />
           </div>
         </Case>
         <Case label='trailingContent  씩 보기'>
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation count={11} value={5} variant="extended"
               trailingContent={<PerPageSelector />}
             />
           </div>
         </Case>
         <Case label='trailingContent  페이지 이동'>
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation count={11} value={5} variant="extended"
               trailingContent={<GoToPage />}
             />
@@ -153,37 +178,49 @@ export default function PaginationNavPage() {
       {/* ── preview ──────────────────────────────────────────── */}
       <Section title="preview" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
         <Case label='extended  count=59  value=0'>
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation count={59} value={0} variant="extended" />
           </div>
         </Case>
         <Case label='extended  count=99  value=8'>
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation count={99} value={8} variant="extended" />
           </div>
         </Case>
         <Case label='extended  count=99  value=98'>
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation count={99} value={98} variant="extended" />
           </div>
         </Case>
-        <Case label='compact  count=99  value=0' center>
-          <PaginationNavigation count={99} value={0} variant="compact" />
+        <Case label='compact  count=99  value=0'>
+          <div style={{ display: 'inline-flex' }}>
+            <PaginationNavigation count={99} value={0} variant="compact" />
+          </div>
         </Case>
-        <Case label='compact  count=99  value=4' center>
-          <PaginationNavigation count={99} value={4} variant="compact" />
+        <Case label='compact  count=99  value=4'>
+          <div style={{ display: 'inline-flex' }}>
+            <PaginationNavigation count={99} value={4} variant="compact" />
+          </div>
         </Case>
-        <Case label='compact  count=99  value=98' center>
-          <PaginationNavigation count={99} value={98} variant="compact" />
+        <Case label='compact  count=99  value=98'>
+          <div style={{ display: 'inline-flex' }}>
+            <PaginationNavigation count={99} value={98} variant="compact" />
+          </div>
         </Case>
-        <Case label='minimize  count=10  value=0' center>
-          <PaginationNavigation count={10} value={0} variant="minimize" />
+        <Case label='minimize  count=10  value=0'>
+          <div style={{ display: 'inline-flex' }}>
+            <PaginationNavigation count={10} value={0} variant="minimize" />
+          </div>
         </Case>
-        <Case label='minimize  count=10  value=4' center>
-          <PaginationNavigation count={10} value={4} variant="minimize" />
+        <Case label='minimize  count=10  value=4'>
+          <div style={{ display: 'inline-flex' }}>
+            <PaginationNavigation count={10} value={4} variant="minimize" />
+          </div>
         </Case>
-        <Case label='minimize  count=10  value=9' center>
-          <PaginationNavigation count={10} value={9} variant="minimize" />
+        <Case label='minimize  count=10  value=9'>
+          <div style={{ display: 'inline-flex' }}>
+            <PaginationNavigation count={10} value={9} variant="minimize" />
+          </div>
         </Case>
       </Section>
 

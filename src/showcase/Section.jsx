@@ -61,7 +61,7 @@ export default function Section({
         flexDirection:  column ? 'column' : 'row',
         flexWrap:       wrap && !column ? 'wrap' : 'nowrap',
         gap,
-        alignItems:     'flex-start',
+        alignItems:     column ? 'stretch' : 'flex-start',
         ...(background ? {
           padding:         'var(--spacing-24)',
           borderRadius:    'var(--spacing-12)',
