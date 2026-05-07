@@ -125,7 +125,7 @@ export default function PageIndicatorCounter({
           fontWeight: 'var(--font-weight-semibold)',
           position:   'relative',
           flexShrink: 0,
-          color:      alternative ? 'var(--color-static-white)' : 'var(--color-interaction-inactive)',
+          color:      'var(--color-static-white)',
           opacity:    alternative ? 0.88 : 0.74,
           textShadow: 'var(--shadow-page-indicator-text)',
         }}>
@@ -137,7 +137,7 @@ export default function PageIndicatorCounter({
           fontWeight: 'var(--font-weight-regular)',
           position:   'relative',
           flexShrink: 0,
-          color:      alternative ? 'var(--color-static-white)' : 'var(--color-interaction-inactive)',
+          color:      'var(--color-static-white)',
           opacity:    alternative ? 0.52 : 0.28,
         }}>
           /
@@ -148,7 +148,7 @@ export default function PageIndicatorCounter({
           fontWeight: 'var(--font-weight-semibold)',
           position:   'relative',
           flexShrink: 0,
-          color:      alternative ? 'var(--color-static-white)' : 'var(--color-interaction-inactive)',
+          color:      'var(--color-static-white)',
           opacity:    alternative ? 0.88 : 0.74,
         }}>
           {total}
