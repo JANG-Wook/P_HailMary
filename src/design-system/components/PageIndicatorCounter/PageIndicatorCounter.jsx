@@ -20,10 +20,10 @@
 
 const SIZE_STYLE = {
   medium: {
-    paddingTop:    '6px',
-    paddingBottom: '6px',
-    paddingLeft:   '12px',
-    paddingRight:  '12px',
+    paddingTop:    'var(--spacing-6)',
+    paddingBottom: 'var(--spacing-6)',
+    paddingLeft:   'var(--spacing-12)',
+    paddingRight:  'var(--spacing-12)',
     gap:           'var(--spacing-4)',
     fontSize:      'var(--font-size-body-2)',
     lineHeight:    'var(--line-height-body-2-normal)',
@@ -32,9 +32,9 @@ const SIZE_STYLE = {
   small: {
     paddingTop:    'var(--spacing-4)',
     paddingBottom: 'var(--spacing-4)',
-    paddingLeft:   '10px',
-    paddingRight:  '10px',
-    gap:           '3px',
+    paddingLeft:   'var(--spacing-10)',
+    paddingRight:  'var(--spacing-10)',
+    gap:           'var(--spacing-3)',
     fontSize:      'var(--font-size-label-2)',
     lineHeight:    'var(--line-height-label-2)',
     letterSpacing: 'var(--letter-spacing-label-2)',
@@ -122,37 +122,34 @@ export default function PageIndicatorCounter({
       <div style={contentStyle}>
         {/* 현재 페이지 */}
         <span style={{
-          fontWeight:   'var(--font-weight-semibold)',
-          position:     'relative',
-          flexShrink:   0,
-          color:        alternative ? 'var(--color-static-white)' : 'var(--color-interaction-inactive)',
-          opacity:      alternative ? 0.88 : 0.74,
-          mixBlendMode: alternative ? undefined : 'plus-lighter',
-          textShadow:   'var(--shadow-page-indicator-text)',
+          fontWeight: 'var(--font-weight-semibold)',
+          position:   'relative',
+          flexShrink: 0,
+          color:      alternative ? 'var(--color-static-white)' : 'var(--color-interaction-inactive)',
+          opacity:    alternative ? 0.88 : 0.74,
+          textShadow: 'var(--shadow-page-indicator-text)',
         }}>
           {current}
         </span>
 
         {/* 구분자 */}
         <span style={{
-          fontWeight:   'var(--font-weight-regular)',
-          position:     'relative',
-          flexShrink:   0,
-          color:        alternative ? 'var(--color-static-white)' : 'var(--color-interaction-inactive)',
-          opacity:      alternative ? 0.52 : 0.28,
-          mixBlendMode: alternative ? undefined : 'plus-lighter',
+          fontWeight: 'var(--font-weight-regular)',
+          position:   'relative',
+          flexShrink: 0,
+          color:      alternative ? 'var(--color-static-white)' : 'var(--color-interaction-inactive)',
+          opacity:    alternative ? 0.52 : 0.28,
         }}>
           /
         </span>
 
         {/* 전체 페이지 */}
         <span style={{
-          fontWeight:   'var(--font-weight-semibold)',
-          position:     'relative',
-          flexShrink:   0,
-          color:        alternative ? 'var(--color-static-white)' : 'var(--color-interaction-inactive)',
-          opacity:      alternative ? 0.88 : 0.74,
-          mixBlendMode: alternative ? undefined : 'plus-lighter',
+          fontWeight: 'var(--font-weight-semibold)',
+          position:   'relative',
+          flexShrink: 0,
+          color:      alternative ? 'var(--color-static-white)' : 'var(--color-interaction-inactive)',
+          opacity:    alternative ? 0.88 : 0.74,
         }}>
           {total}
         </span>

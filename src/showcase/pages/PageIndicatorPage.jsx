@@ -9,41 +9,33 @@ export default function PageIndicatorPage() {
         lineHeight:   'var(--line-height-title-3)',
         fontWeight:   'var(--font-weight-bold)',
         color:        'var(--color-label-normal)',
-        marginBottom: 'var(--spacing-32)',
-      }}>PageIndicatorCounter</h2>
+        marginBottom: 'var(--spacing-8)',
+      }}>Counter</h2>
+      <p style={{
+        fontSize:      'var(--font-size-body-2)',
+        lineHeight:    'var(--line-height-body-2-normal)',
+        color:         'var(--color-label-alternative)',
+        marginBottom:  'var(--spacing-32)',
+      }}>페이지 번호를 숫자 형태로 표시하는 페이지네이션 방식입니다.</p>
 
-      <Section title="Size" background="var(--color-bg-normal-alternative)" gap="var(--spacing-32)">
-        <Case label='size="medium"' center>
-          <PageIndicatorCounter current="3" total="12" size="medium" />
-        </Case>
+      {/* ── size ──────────────────────────────────────────────── */}
+      <Section title="size" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)">
         <Case label='size="small"' center>
-          <PageIndicatorCounter current="3" total="12" size="small" />
+          <PageIndicatorCounter current="1" total="10" size="small" />
+        </Case>
+        <Case label='size="medium"  default' center>
+          <PageIndicatorCounter current="1" total="10" size="medium" />
         </Case>
       </Section>
 
-      <Section title="Alternative Style" gap="var(--spacing-32)">
-        <Case label='alternative=false (글래스)' background="var(--color-bg-normal-alternative)">
-          <div style={{ padding: 'var(--spacing-24)' }}>
-            <PageIndicatorCounter current="5" total="20" alternative={false} />
-          </div>
+      {/* ── alternative ───────────────────────────────────────── */}
+      <Section title="alternative" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)">
+        <Case label='alternative=false  default' center>
+          <PageIndicatorCounter current="1" total="10" />
         </Case>
-        <Case label='alternative=true (텍스트만)'>
-          <PageIndicatorCounter current="5" total="20" alternative={true} />
+        <Case label='alternative=true' center>
+          <PageIndicatorCounter current="1" total="10" alternative />
         </Case>
-      </Section>
-
-      <Section title="Various Values" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)">
-        {[
-          { current: '1',  total: '10'  },
-          { current: '5',  total: '20'  },
-          { current: '10', total: '10'  },
-          { current: '1',  total: '100' },
-          { current: '99', total: '100' },
-        ].map(({ current, total }) => (
-          <Case key={`${current}/${total}`} label={`${current} / ${total}`} center>
-            <PageIndicatorCounter current={current} total={total} />
-          </Case>
-        ))}
       </Section>
     </div>
   )
