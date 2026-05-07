@@ -70,7 +70,7 @@ function ChevronRight({ size = 16 }) {
 const OVERLAY_OPACITY = { hovered: 0.05, focused: 0.08, pressed: 0.12 }
 
 /* ── 서브컴포넌트: 이전/다음 아이콘 버튼 ──────────────────── */
-function NavButton({ direction, disabled, iconSize, onClick }) {
+function NavButton({ direction, disabled, btnSizeToken, svgSize, onClick }) {
   const [isHovered, setIsHovered] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const [isPressed, setIsPressed] = useState(false)
@@ -94,8 +94,8 @@ function NavButton({ direction, disabled, iconSize, onClick }) {
         justifyContent: 'center',
         position:       'relative',
         overflow:       'hidden',
-        width:          `${iconSize}px`,
-        height:         `${iconSize}px`,
+        width:          btnSizeToken,
+        height:         btnSizeToken,
         background:     'none',
         border:         'none',
         borderRadius:   '50%',
@@ -123,8 +123,8 @@ function NavButton({ direction, disabled, iconSize, onClick }) {
         transition:      'background-color 0.15s ease',
       }} aria-hidden="true" />
       {isLeft
-        ? <ChevronLeft  size={iconSize} />
-        : <ChevronRight size={iconSize} />
+        ? <ChevronLeft  size={svgSize} />
+        : <ChevronRight size={svgSize} />
       }
     </button>
   )
@@ -250,7 +250,7 @@ export default function PaginationNavigation({
         style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--spacing-12)' }}
         className={className}
       >
-        <NavButton direction="left"  disabled={isFirst} iconSize={16} onClick={goPrev} />
+        <NavButton direction="left"  disabled={isFirst} btnSizeToken="var(--spacing-16)" svgSize={16} onClick={goPrev} />
         <span style={{
           fontSize:      'var(--font-size-label-2)',
           lineHeight:    'var(--line-height-label-2)',
@@ -261,15 +261,16 @@ export default function PaginationNavigation({
         }}>
           {currentPage}/{total}
         </span>
-        <NavButton direction="right" disabled={isLast}  iconSize={16} onClick={goNext} />
+        <NavButton direction="right" disabled={isLast}  btnSizeToken="var(--spacing-16)" svgSize={16} onClick={goNext} />
       </div>
     )
   }
 
   /* ── Compact / Extended 공통 페이지 목록 ────────────────────── */
-  const windowSize = variant === 'extended' ? 9 : 5
-  const iconSize   = variant === 'extended' ? 16 : 24
-  const items      = getVisiblePages(total, current, windowSize)
+  const windowSize   = variant === 'extended' ? 9 : 5
+  const btnSizeToken = variant === 'extended' ? 'var(--spacing-16)' : 'var(--spacing-24)'
+  const svgSize      = variant === 'extended' ? 16 : 24
+  const items        = getVisiblePages(total, current, windowSize)
 
   const pagesAndNav = (
     <div style={{
@@ -278,9 +279,9 @@ export default function PaginationNavigation({
       gap:        'var(--spacing-4)',
       minHeight:  'var(--spacing-32)',
     }}>
-      <NavButton direction="left"  disabled={isFirst} iconSize={iconSize} onClick={goPrev} />
+      <NavButton direction="left"  disabled={isFirst} btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goPrev} />
       <PageList items={items} currentPage={currentPage} onPageClick={onChange} />
-      <NavButton direction="right" disabled={isLast}  iconSize={iconSize} onClick={goNext} />
+      <NavButton direction="right" disabled={isLast}  btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goNext} />
     </div>
   )
 

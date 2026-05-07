@@ -1,13 +1,58 @@
-import { useState } from 'react'
 import PaginationNavigation from '../../design-system/components/PaginationNavigation/PaginationNavigation'
 import Section, { Case } from '../Section'
 
-export default function PaginationNavPage() {
-  const [p0, setP0] = useState(0)
-  const [p1, setP1] = useState(4)
-  const [p2, setP2] = useState(2)
-  const [p3, setP3] = useState(0)
+/* ── 쇼케이스용 leadingContent / trailingContent 예시 ─────────── */
+function PerPageSelector() {
+  return (
+    <div style={{
+      display:       'inline-flex',
+      alignItems:    'center',
+      gap:           'var(--spacing-4)',
+      padding:       'var(--spacing-4) var(--spacing-8)',
+      border:        '1px solid var(--color-line-normal)',
+      borderRadius:  'var(--spacing-4)',
+      fontSize:      'var(--font-size-label-1)',
+      lineHeight:    'var(--line-height-label-1-normal)',
+      letterSpacing: 'var(--letter-spacing-label-1)',
+      color:         'var(--color-label-normal)',
+      whiteSpace:    'nowrap',
+      cursor:        'pointer',
+    }}>
+      10 ▾ 씩 보기
+    </div>
+  )
+}
 
+function GoToPage() {
+  return (
+    <div style={{
+      display:       'inline-flex',
+      alignItems:    'center',
+      gap:           'var(--spacing-8)',
+      fontSize:      'var(--font-size-label-1)',
+      lineHeight:    'var(--line-height-label-1-normal)',
+      letterSpacing: 'var(--letter-spacing-label-1)',
+      color:         'var(--color-label-normal)',
+      whiteSpace:    'nowrap',
+    }}>
+      페이지 이동
+      <span style={{
+        display:        'inline-flex',
+        alignItems:     'center',
+        justifyContent: 'center',
+        minWidth:       'var(--spacing-32)',
+        padding:        'var(--spacing-4) var(--spacing-8)',
+        border:         '1px solid var(--color-line-normal)',
+        borderRadius:   'var(--spacing-4)',
+        fontSize:       'var(--font-size-label-1)',
+        color:          'var(--color-label-normal)',
+        fontWeight:     'var(--font-weight-regular)',
+      }}>23</span>
+    </div>
+  )
+}
+
+export default function PaginationNavPage() {
   return (
     <div>
       <h2 style={{
@@ -15,83 +60,130 @@ export default function PaginationNavPage() {
         lineHeight:   'var(--line-height-title-3)',
         fontWeight:   'var(--font-weight-bold)',
         color:        'var(--color-label-normal)',
-        marginBottom: 'var(--spacing-32)',
-      }}>PaginationNavigation</h2>
+        marginBottom: 'var(--spacing-8)',
+      }}>Navigation</h2>
+      <p style={{
+        fontSize:      'var(--font-size-body-2)',
+        lineHeight:    'var(--line-height-body-2-normal)',
+        color:         'var(--color-label-alternative)',
+        marginBottom:  'var(--spacing-32)',
+      }}>페이지의 위치를 숫자로 표시하고 이동할 수 있는 내비게이션 방식을 사용합니다.</p>
 
-      <Section title="인터랙션 데모" gap="var(--spacing-24)" column>
-        <Case label="버튼을 클릭하거나 마우스를 올려보세요">
-          <div style={{ width: '480px', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
-            <PaginationNavigation variant="compact" count={20} value={p0} onChange={setP0} />
-            <div style={{
-              padding: 'var(--spacing-12)',
-              borderRadius: 'var(--spacing-8)',
-              backgroundColor: 'var(--color-fill-normal)',
-              textAlign: 'center',
-              fontSize: 'var(--font-size-body-2)',
-              color: 'var(--color-label-alternative)',
-            }}>
-              현재 페이지: <strong style={{ color: 'var(--color-label-normal)' }}>{p0 + 1}</strong> / 20
-            </div>
-          </div>
-        </Case>
-      </Section>
-
-      <Section title="Variant" gap="var(--spacing-24)" column>
-        <Case label='variant="compact"'>
-          <div style={{ width: '480px' }}>
-            <PaginationNavigation variant="compact" count={10} value={p0} onChange={setP0} />
-          </div>
-        </Case>
-        <Case label='variant="minimize"'>
-          <div style={{ width: '480px' }}>
-            <PaginationNavigation variant="minimize" count={10} value={p1} onChange={setP1} />
-          </div>
-        </Case>
-        <Case label='variant="full"'>
-          <div style={{ width: '480px' }}>
-            <PaginationNavigation variant="full" count={10} value={p2} onChange={setP2} />
-          </div>
-        </Case>
-      </Section>
-
-      <Section title="Edge States" gap="var(--spacing-24)" column>
-        <Case label="첫 페이지 (prev 비활성)">
-          <div style={{ width: '480px' }}>
-            <PaginationNavigation variant="compact" count={10} value={0} onChange={() => {}} />
-          </div>
-        </Case>
-        <Case label="마지막 페이지 (next 비활성)">
-          <div style={{ width: '480px' }}>
-            <PaginationNavigation variant="compact" count={10} value={9} onChange={() => {}} />
-          </div>
-        </Case>
-        <Case label="단일 페이지 (both 비활성)">
-          <div style={{ width: '480px' }}>
-            <PaginationNavigation variant="compact" count={1} value={0} onChange={() => {}} />
-          </div>
-        </Case>
-      </Section>
-
-      <Section title="With Leading / Trailing Content" gap="var(--spacing-24)" column>
-        <Case label="leadingContent + trailingContent">
-          <div style={{ width: '480px' }}>
+      {/* ── variant ─────────────────────────────────────────── */}
+      <Section title="variant" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
+        <Case label='variant="extended"  default'>
+          <div style={{ width: '100%' }}>
             <PaginationNavigation
-              variant="minimize"
-              count={10}
-              value={p3}
-              onChange={setP3}
-              leadingContent={
-                <span style={{ fontSize: 'var(--font-size-caption-1)', color: 'var(--color-label-alternative)' }}>
-                  총 100개
-                </span>
-              }
-              trailingContent={
-                <span style={{ fontSize: 'var(--font-size-caption-1)', color: 'var(--color-label-alternative)' }}>
-                  10개씩 보기
-                </span>
-              }
+              count={11} value={0} variant="extended"
+              leadingContent={<PerPageSelector />}
+              trailingContent={<GoToPage />}
             />
           </div>
+        </Case>
+        <Case label='variant="compact"' center>
+          <PaginationNavigation count={7} value={0} variant="compact" />
+        </Case>
+        <Case label='variant="minimize"' center>
+          <PaginationNavigation count={10} value={0} variant="minimize" />
+        </Case>
+      </Section>
+
+      {/* ── leadingContent ───────────────────────────────────── */}
+      <Section title="leadingContent" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
+        <Case label='leadingContent  none'>
+          <div style={{ width: '100%' }}>
+            <PaginationNavigation count={11} value={0} variant="extended" />
+          </div>
+        </Case>
+        <Case label='leadingContent  씩 보기'>
+          <div style={{ width: '100%' }}>
+            <PaginationNavigation count={11} value={0} variant="extended"
+              leadingContent={<PerPageSelector />}
+            />
+          </div>
+        </Case>
+        <Case label='leadingContent  페이지 이동'>
+          <div style={{ width: '100%' }}>
+            <PaginationNavigation count={11} value={0} variant="extended"
+              leadingContent={<GoToPage />}
+            />
+          </div>
+        </Case>
+      </Section>
+
+      {/* ── trailingContent ──────────────────────────────────── */}
+      <Section title="trailingContent" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
+        <Case label='trailingContent  none'>
+          <div style={{ width: '100%' }}>
+            <PaginationNavigation count={11} value={0} variant="extended" />
+          </div>
+        </Case>
+        <Case label='trailingContent  씩 보기'>
+          <div style={{ width: '100%' }}>
+            <PaginationNavigation count={11} value={0} variant="extended"
+              trailingContent={<PerPageSelector />}
+            />
+          </div>
+        </Case>
+        <Case label='trailingContent  페이지 이동'>
+          <div style={{ width: '100%' }}>
+            <PaginationNavigation count={11} value={0} variant="extended"
+              trailingContent={<GoToPage />}
+            />
+          </div>
+        </Case>
+      </Section>
+
+      {/* ── preview ──────────────────────────────────────────── */}
+      <Section title="preview" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
+        <Case label='extended  count=59  value=0'>
+          <div style={{ width: '100%' }}>
+            <PaginationNavigation count={59} value={0} variant="extended" />
+          </div>
+        </Case>
+        <Case label='extended  count=99  value=8'>
+          <div style={{ width: '100%' }}>
+            <PaginationNavigation count={99} value={8} variant="extended" />
+          </div>
+        </Case>
+        <Case label='extended  count=99  value=98'>
+          <div style={{ width: '100%' }}>
+            <PaginationNavigation count={99} value={98} variant="extended" />
+          </div>
+        </Case>
+        <Case label='compact  count=99  value=0' center>
+          <PaginationNavigation count={99} value={0} variant="compact" />
+        </Case>
+        <Case label='compact  count=99  value=4' center>
+          <PaginationNavigation count={99} value={4} variant="compact" />
+        </Case>
+        <Case label='compact  count=99  value=98' center>
+          <PaginationNavigation count={99} value={98} variant="compact" />
+        </Case>
+        <Case label='minimize  count=10  value=0' center>
+          <PaginationNavigation count={10} value={0} variant="minimize" />
+        </Case>
+        <Case label='minimize  count=10  value=4' center>
+          <PaginationNavigation count={10} value={4} variant="minimize" />
+        </Case>
+        <Case label='minimize  count=10  value=9' center>
+          <PaginationNavigation count={10} value={9} variant="minimize" />
+        </Case>
+      </Section>
+
+      {/* ── Resource ─────────────────────────────────────────── */}
+      <Section title="Resource" background="var(--color-bg-normal-alternative)" gap="var(--spacing-16)" column>
+        <Case label='compact  count=2  value=0' center>
+          <PaginationNavigation count={2} value={0} variant="compact" />
+        </Case>
+        <Case label='compact  count=1  value=0' center>
+          <PaginationNavigation count={1} value={0} variant="compact" />
+        </Case>
+        <Case label='pageInput' center>
+          <GoToPage />
+        </Case>
+        <Case label='perPage' center>
+          <PerPageSelector />
         </Case>
       </Section>
     </div>
