@@ -24,8 +24,20 @@
 
 /* ── 크기별 스펙 ─────────────────────────────────────────── */
 const SIZE_SPEC = {
-  medium: { gap: '10px', active: 10, inactive: 10, nearEdge: 8, farEdge: 6 },
-  small:  { gap: 'var(--spacing-6)', active: 6, inactive: 6, nearEdge: 4, farEdge: 2 },
+  medium: {
+    gap:      'var(--spacing-10)',
+    active:   'var(--spacing-10)',
+    inactive: 'var(--spacing-10)',
+    nearEdge: 'var(--spacing-8)',
+    farEdge:  'var(--spacing-6)',
+  },
+  small: {
+    gap:      'var(--spacing-6)',
+    active:   'var(--spacing-6)',
+    inactive: 'var(--spacing-6)',
+    nearEdge: 'var(--spacing-4)',
+    farEdge:  'var(--spacing-2)',
+  },
 }
 
 /* ── 변형별 스펙 ─────────────────────────────────────────── */
@@ -73,8 +85,8 @@ function getWindowDots(count, value) {
   })
 }
 
-/* ── dot 타입별 픽셀 크기 반환 ─────────────────────────────── */
-function getDotPx(type, spec) {
+/* ── dot 타입별 토큰 크기 반환 ──────────────────────────────── */
+function getDotSize(type, spec) {
   switch (type) {
     case 'active':     return spec.active
     case 'inactive':   return spec.inactive
@@ -107,12 +119,12 @@ export default function PaginationDots({
   return (
     <div style={wrapperStyle} className={className} role="tablist" aria-label="페이지 인디케이터">
       {dots.map((dot, i) => {
-        const px      = getDotPx(dot.type, spec)
+        const sz      = getDotSize(dot.type, spec)
         const opacity = dot.type === 'active' ? vspec.activeOpacity : vspec.inactiveOpacity
 
         const dotStyle = {
-          width:           `${px}px`,
-          height:          `${px}px`,
+          width:           sz,
+          height:          sz,
           borderRadius:    '1000px',
           backgroundColor: vspec.color,
           opacity,

@@ -1,10 +1,7 @@
-import { useState } from 'react'
 import PaginationDots from '../../design-system/components/PaginationDots/PaginationDots'
 import Section, { Case } from '../Section'
 
 export default function PaginationDotsPage() {
-  const [page, setPage] = useState(2)
-
   return (
     <div>
       <h2 style={{
@@ -12,49 +9,48 @@ export default function PaginationDotsPage() {
         lineHeight:   'var(--line-height-title-3)',
         fontWeight:   'var(--font-weight-bold)',
         color:        'var(--color-label-normal)',
-        marginBottom: 'var(--spacing-32)',
-      }}>PaginationDots</h2>
+        marginBottom: 'var(--spacing-8)',
+      }}>Dot</h2>
+      <p style={{
+        fontSize:      'var(--font-size-body-2)',
+        lineHeight:    'var(--line-height-body-2-normal)',
+        color:         'var(--color-label-alternative)',
+        marginBottom:  'var(--spacing-32)',
+      }}>페이지를 작은 점(dot) 형태로 표시하여 사용자가 현재 페이지와 다른 페이지로 쉽게 이동할 수 있도록 돕습니다.</p>
 
-      <Section title="Variant" background="var(--color-bg-normal-alternative)" gap="var(--spacing-32)">
-        <Case label='variant="normal"' center>
-          <PaginationDots count={5} value={2} variant="normal" />
+      {/* ── variant ─────────────────────────────────────────── */}
+      <Section title="variant" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)">
+        <Case label='variant="normal"  default' center>
+          <PaginationDots count={5} value={0} variant="normal" />
         </Case>
-        <Case label='variant="overflow"' center>
-          <PaginationDots count={10} value={4} variant="overflow" />
+        <Case label='variant="white"' center>
+          <PaginationDots count={5} value={0} variant="white" />
         </Case>
       </Section>
 
-      <Section title="Size" background="var(--color-bg-normal-alternative)" gap="var(--spacing-32)">
-        <Case label='size="medium"' center>
-          <PaginationDots count={5} value={2} size="medium" />
-        </Case>
+      {/* ── size ────────────────────────────────────────────── */}
+      <Section title="size" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)">
         <Case label='size="small"' center>
-          <PaginationDots count={5} value={2} size="small" />
+          <PaginationDots count={5} value={0} size="small" />
+        </Case>
+        <Case label='size="medium"  default' center>
+          <PaginationDots count={5} value={0} size="medium" />
         </Case>
       </Section>
 
-      <Section title="Count Variations" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)">
-        {[3, 5, 7, 10].map(count => (
-          <Case key={count} label={`count={${count}}`} center>
-            <PaginationDots count={count} value={Math.floor(count / 2)} />
-          </Case>
-        ))}
-      </Section>
-
-      <Section title="Position (value)" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)">
-        {[0, 1, 2, 3, 4].map(v => (
-          <Case key={v} label={`value={${v}}`} center>
-            <PaginationDots count={5} value={v} />
-          </Case>
-        ))}
-      </Section>
-
-      <Section title="Dark Background" background="var(--color-inverse-background)" gap="var(--spacing-32)">
-        <Case label="dark bg · normal" center>
-          <PaginationDots count={5} value={2} />
+      {/* ── Resource ────────────────────────────────────────── */}
+      <Section title="Resource" background="var(--color-bg-normal-alternative)" gap="var(--spacing-16)">
+        <Case label='size="medium"  variant="normal"' center>
+          <PaginationDots count={2} value={0} size="medium" variant="normal" />
         </Case>
-        <Case label="dark bg · overflow" center>
-          <PaginationDots count={10} value={4} variant="overflow" />
+        <Case label='size="medium"  variant="white"' center>
+          <PaginationDots count={2} value={0} size="medium" variant="white" />
+        </Case>
+        <Case label='size="small"  variant="normal"' center>
+          <PaginationDots count={2} value={0} size="small" variant="normal" />
+        </Case>
+        <Case label='size="small"  variant="white"' center>
+          <PaginationDots count={2} value={0} size="small" variant="white" />
         </Case>
       </Section>
     </div>
