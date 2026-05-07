@@ -1,7 +1,19 @@
 import PaginationNavigation from '../../design-system/components/PaginationNavigation/PaginationNavigation'
 import Section, { Case } from '../Section'
 
-/* ── 쇼케이스용 leadingContent / trailingContent 예시 ─────────── */
+/* ── 쇼케이스용 헬퍼 컴포넌트 ─────────────────────────────────── */
+function Placeholder() {
+  return (
+    <div style={{
+      width:           'var(--spacing-56)',
+      height:          'var(--spacing-24)',
+      borderRadius:    'var(--spacing-4)',
+      backgroundColor: 'var(--color-fill-strong)',
+      flexShrink:      0,
+    }} />
+  )
+}
+
 function PerPageSelector() {
   return (
     <div style={{
@@ -92,7 +104,9 @@ export default function PaginationNavPage() {
       <Section title="leadingContent" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
         <Case label='leadingContent  none'>
           <div style={{ width: '100%' }}>
-            <PaginationNavigation count={11} value={0} variant="extended" />
+            <PaginationNavigation count={11} value={0} variant="extended"
+              leadingContent={<Placeholder />}
+            />
           </div>
         </Case>
         <Case label='leadingContent  씩 보기'>
@@ -115,19 +129,21 @@ export default function PaginationNavPage() {
       <Section title="trailingContent" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
         <Case label='trailingContent  none'>
           <div style={{ width: '100%' }}>
-            <PaginationNavigation count={11} value={0} variant="extended" />
+            <PaginationNavigation count={11} value={5} variant="extended"
+              trailingContent={<Placeholder />}
+            />
           </div>
         </Case>
         <Case label='trailingContent  씩 보기'>
           <div style={{ width: '100%' }}>
-            <PaginationNavigation count={11} value={0} variant="extended"
+            <PaginationNavigation count={11} value={5} variant="extended"
               trailingContent={<PerPageSelector />}
             />
           </div>
         </Case>
         <Case label='trailingContent  페이지 이동'>
           <div style={{ width: '100%' }}>
-            <PaginationNavigation count={11} value={0} variant="extended"
+            <PaginationNavigation count={11} value={5} variant="extended"
               trailingContent={<GoToPage />}
             />
           </div>

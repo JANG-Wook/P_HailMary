@@ -250,7 +250,7 @@ export default function PaginationNavigation({
         style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--spacing-12)' }}
         className={className}
       >
-        <NavButton direction="left"  disabled={isFirst} btnSizeToken="var(--spacing-16)" svgSize={16} onClick={goPrev} />
+        {!isFirst && <NavButton direction="left"  disabled={false} btnSizeToken="var(--spacing-16)" svgSize={16} onClick={goPrev} />}
         <span style={{
           fontSize:      'var(--font-size-label-2)',
           lineHeight:    'var(--line-height-label-2)',
@@ -261,29 +261,23 @@ export default function PaginationNavigation({
         }}>
           {currentPage}/{total}
         </span>
-        <NavButton direction="right" disabled={isLast}  btnSizeToken="var(--spacing-16)" svgSize={16} onClick={goNext} />
+        {!isLast  && <NavButton direction="right" disabled={false} btnSizeToken="var(--spacing-16)" svgSize={16} onClick={goNext} />}
       </div>
     )
   }
 
-  /* ── Compact / Extended 공통 페이지 목록 ────────────────────── */
+  /* ── Compact / Extended 공통 ────────────────────────────────── */
   const windowSize   = variant === 'extended' ? 9 : 5
   const btnSizeToken = variant === 'extended' ? 'var(--spacing-16)' : 'var(--spacing-24)'
   const svgSize      = variant === 'extended' ? 16 : 24
   const items        = getVisiblePages(total, current, windowSize)
 
-  const pagesAndNav = (
-    <div style={{
-      display:    'inline-flex',
-      alignItems: 'center',
-      gap:        'var(--spacing-4)',
-      minHeight:  'var(--spacing-32)',
-    }}>
-      <NavButton direction="left"  disabled={isFirst} btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goPrev} />
-      <PageList items={items} currentPage={currentPage} onPageClick={onChange} />
-      <NavButton direction="right" disabled={isLast}  btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goNext} />
-    </div>
-  )
+  const navStyle = {
+    display:    'inline-flex',
+    alignItems: 'center',
+    gap:        'var(--spacing-4)',
+    minHeight:  'var(--spacing-32)',
+  }
 
   /* ── Compact ──────────────────────────────────────────────── */
   if (variant === 'compact') {
@@ -292,36 +286,34 @@ export default function PaginationNavigation({
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         className={className}
       >
-        {pagesAndNav}
+        <div style={navStyle}>
+          <NavButton direction="left"  disabled={isFirst} btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goPrev} />
+          <PageList items={items} currentPage={currentPage} onPageClick={onChange} />
+          <NavButton direction="right" disabled={isLast}  btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goNext} />
+        </div>
       </div>
     )
   }
 
-  /* ── Extended ─────────────────────────────────────────────── */
+  /* ── Extended — disabled nav 숨김, flex 레이아웃 ─────────────── */
   return (
     <div
-      style={{
-        position:       'relative',
-        display:        'flex',
-        alignItems:     'center',
-        justifyContent: 'center',
-        width:          '100%',
-      }}
+      style={{ display: 'flex', alignItems: 'center', width: '100%' }}
       className={className}
     >
-      {leadingContent && (
-        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, display: 'flex', alignItems: 'center' }}>
-          {leadingContent}
-        </div>
-      )}
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+        {leadingContent}
+      </div>
 
-      {pagesAndNav}
+      <div style={navStyle}>
+        {!isFirst && <NavButton direction="left"  disabled={false} btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goPrev} />}
+        <PageList items={items} currentPage={currentPage} onPageClick={onChange} />
+        {!isLast  && <NavButton direction="right" disabled={false} btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goNext} />}
+      </div>
 
-      {trailingContent && (
-        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, display: 'flex', alignItems: 'center' }}>
-          {trailingContent}
-        </div>
-      )}
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+        {trailingContent}
+      </div>
     </div>
   )
 }
