@@ -107,36 +107,50 @@ export default function Toast({
 
   const outerStyle = {
     position:            'relative',
-    display:             'inline-flex',
-    flexDirection:       'column',
-    alignItems:          'center',
-    justifyContent:      'center',
+    display:             'flex',
+    alignItems:          'flex-start',
+    minWidth:            '335px',
     maxWidth:            '420px',
-    backdropFilter:      'blur(32px)',
-    WebkitBackdropFilter: 'blur(32px)',
+    paddingTop:          '11px',
+    paddingBottom:       '11px',
+    paddingLeft:         'var(--spacing-16)',
+    paddingRight:        'var(--spacing-16)',
     borderRadius:        '12px',
     overflow:            'hidden',
+    backdropFilter:      'blur(32px)',
+    WebkitBackdropFilter: 'blur(32px)',
   }
 
-  const contentStyle = {
-    display:      'flex',
-    flexDirection: 'row',
-    alignItems:   'center',
-    gap:          'var(--spacing-8)',
-    paddingTop:    '11px',
-    paddingBottom: '11px',
-    paddingLeft:  'var(--spacing-16)',
-    paddingRight: 'var(--spacing-16)',
-    position:     'relative',
+  const containerStyle = {
+    display:    'flex',
+    flex:       '1 0 0',
+    alignItems: 'center',
+    gap:        'var(--spacing-8)',
+    minHeight:  '32px',
+    position:   'relative',
+  }
+
+  const messageStyle = {
+    display:        'flex',
+    flexDirection:  'column',
+    flex:           '1 0 0',
+    alignItems:     'flex-start',
+    justifyContent: 'center',
+    paddingTop:     'var(--spacing-5)',
+    paddingBottom:  'var(--spacing-5)',
+    paddingLeft:    'var(--spacing-2)',
+    paddingRight:   'var(--spacing-2)',
+    minWidth:       '1px',
   }
 
   const textStyle = {
-    fontSize:      'var(--font-size-body-2)',
-    lineHeight:    'var(--line-height-body-2-normal)',
-    letterSpacing: 'var(--letter-spacing-body-2)',
-    fontWeight:    'var(--font-weight-semibold)',
-    color:         'var(--color-static-white)',
-    opacity:       0.88,
+    fontSize:            'var(--font-size-body-2)',
+    lineHeight:          'var(--line-height-body-2-normal)',
+    letterSpacing:       'var(--letter-spacing-body-2)',
+    fontWeight:          'var(--font-weight-semibold)',
+    color:               'var(--color-static-white)',
+    opacity:             0.88,
+    fontFeatureSettings: "'ss10' 1",
   }
 
   return (
@@ -162,11 +176,10 @@ export default function Toast({
         aria-hidden="true"
       />
 
-      {/* 콘텐츠 */}
-      <div style={contentStyle}>
+      <div style={containerStyle}>
         {/* Normal: 외부 leadingIcon */}
         {variant === 'normal' && leadingIcon && (
-          <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center' }}>
+          <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', height: '22px' }}>
             {leadingIcon}
           </div>
         )}
@@ -177,7 +190,9 @@ export default function Toast({
           return <Icon color={iconSpec.color} />
         })()}
 
-        <span style={textStyle}>{text}</span>
+        <div style={messageStyle}>
+          <span style={textStyle}>{text}</span>
+        </div>
       </div>
     </div>
   )

@@ -19,6 +19,11 @@
  *  <Snackbar message="알림" icon={<Icon />} actionLabel="확인" onAction={fn} onClose={fn} />
  */
 
+import { useState } from 'react'
+
+/* ── 인터랙션 오버레이 opacity ───────────────────────────────── */
+const OVERLAY_OPACITY = { hovered: 0.05, focused: 0.08, pressed: 0.12 }
+
 /* ── 닫기 아이콘 SVG ────────────────────────────────────────── */
 function XIcon() {
   return (
@@ -40,6 +45,122 @@ function XIcon() {
   )
 }
 
+/* ── 액션 버튼 서브컴포넌트 ─────────────────────────────────── */
+function ActionButton({ label, onClick }) {
+  const [isHovered, setIsHovered] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
+  const [isPressed, setIsPressed] = useState(false)
+
+  const overlayOpacity = isPressed ? OVERLAY_OPACITY.pressed
+    : isFocused                    ? OVERLAY_OPACITY.focused
+    : isHovered                    ? OVERLAY_OPACITY.hovered
+    : 0
+
+  return (
+    <button
+      style={{
+        position:            'relative',
+        display:             'flex',
+        alignItems:          'center',
+        justifyContent:      'center',
+        paddingTop:          'var(--spacing-4)',
+        paddingBottom:       'var(--spacing-4)',
+        background:          'none',
+        border:              'none',
+        cursor:              'pointer',
+        fontSize:            'var(--font-size-body-2)',
+        lineHeight:          'var(--line-height-body-2-normal)',
+        letterSpacing:       'var(--letter-spacing-body-2)',
+        fontWeight:          'var(--font-weight-semibold)',
+        fontFeatureSettings: "'ss10' 1",
+        color:               'var(--color-static-white)',
+        whiteSpace:          'nowrap',
+        flexShrink:          0,
+        outline:             'none',
+      }}
+      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => { setIsHovered(false); setIsPressed(false) }}
+      onMouseDown={() => setIsPressed(true)}
+      onMouseUp={() => setIsPressed(false)}
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => { setIsFocused(false); setIsPressed(false) }}
+    >
+      <div
+        style={{
+          position:        'absolute',
+          left:            '-7px',
+          right:           '-7px',
+          top:             '50%',
+          transform:       'translateY(-50%)',
+          height:          'var(--spacing-32)',
+          borderRadius:    'var(--spacing-6)',
+          overflow:        'clip',
+          backgroundColor: `color-mix(in srgb, var(--color-static-white) ${Math.round(overlayOpacity * 100)}%, transparent)`,
+          pointerEvents:   'none',
+          transition:      'background-color 0.15s ease',
+        }}
+        aria-hidden="true"
+      />
+      <span style={{ position: 'relative' }}>{label}</span>
+    </button>
+  )
+}
+
+/* ── 닫기 버튼 서브컴포넌트 ─────────────────────────────────── */
+function CloseButton({ onClick }) {
+  const [isHovered, setIsHovered] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
+  const [isPressed, setIsPressed] = useState(false)
+
+  const overlayOpacity = isPressed ? OVERLAY_OPACITY.pressed
+    : isFocused                    ? OVERLAY_OPACITY.focused
+    : isHovered                    ? OVERLAY_OPACITY.hovered
+    : 0
+
+  return (
+    <button
+      style={{
+        position:       'relative',
+        display:        'flex',
+        flexDirection:  'column',
+        alignItems:     'center',
+        justifyContent: 'center',
+        padding:        'var(--spacing-2)',
+        background:     'none',
+        border:         'none',
+        cursor:         'pointer',
+        color:          'var(--color-static-white)',
+        opacity:        0.61,
+        flexShrink:     0,
+        lineHeight:     0,
+        outline:        'none',
+      }}
+      onClick={onClick}
+      aria-label="닫기"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => { setIsHovered(false); setIsPressed(false) }}
+      onMouseDown={() => setIsPressed(true)}
+      onMouseUp={() => setIsPressed(false)}
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => { setIsFocused(false); setIsPressed(false) }}
+    >
+      <div
+        style={{
+          position:        'absolute',
+          inset:           '-8px',
+          borderRadius:    '1000px',
+          backgroundColor: `color-mix(in srgb, var(--color-static-white) ${Math.round(overlayOpacity * 100)}%, transparent)`,
+          pointerEvents:   'none',
+          transition:      'background-color 0.15s ease',
+        }}
+        aria-hidden="true"
+      />
+      <XIcon />
+    </button>
+  )
+}
+
 /* ── 메인 컴포넌트 ──────────────────────────────────────────── */
 export default function Snackbar({
   message      = '',
@@ -52,14 +173,15 @@ export default function Snackbar({
 }) {
   const outerStyle = {
     position:             'relative',
-    display:              'inline-flex',
+    display:              'flex',
     alignItems:           'flex-start',
-    overflow:             'hidden',
+    overflow:             'clip',
     paddingTop:           '11px',
     paddingBottom:        '11px',
     paddingLeft:          'var(--spacing-16)',
     paddingRight:         'var(--spacing-16)',
     borderRadius:         '12px',
+    width:                '335px',
     maxWidth:             '420px',
     backdropFilter:       'blur(32px)',
     WebkitBackdropFilter: 'blur(32px)',
@@ -67,24 +189,24 @@ export default function Snackbar({
   }
 
   const containerStyle = {
-    display:    'flex',
+    display:       'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-    gap:        'var(--spacing-12)',
-    minHeight:  '32px',
-    flex:       '1 0 0',
-    minWidth:   0,
-    position:   'relative',
+    alignItems:    'center',
+    gap:           'var(--spacing-12)',
+    minHeight:     '32px',
+    flex:          '1 0 0',
+    minWidth:      0,
+    position:      'relative',
   }
 
   const contentStyle = {
-    display:    'flex',
+    display:       'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-    gap:        'var(--spacing-8)',
-    flex:       '1 0 0',
-    minWidth:   0,
-    position:   'relative',
+    alignItems:    'center',
+    gap:           'var(--spacing-8)',
+    flex:          '1 0 0',
+    minWidth:      0,
+    position:      'relative',
   }
 
   const messageStyle = {
@@ -102,76 +224,33 @@ export default function Snackbar({
   }
 
   const headingStyle = {
-    fontSize:      'var(--font-size-body-2)',
-    lineHeight:    'var(--line-height-body-2-normal)',
-    letterSpacing: 'var(--letter-spacing-body-2)',
-    fontWeight:    'var(--font-weight-semibold)',
-    color:         'var(--color-static-white)',
-    opacity:       0.88,
-    width:         '100%',
-    flexShrink:    0,
-    position:      'relative',
+    fontSize:            'var(--font-size-body-2)',
+    lineHeight:          'var(--line-height-body-2-normal)',
+    letterSpacing:       'var(--letter-spacing-body-2)',
+    fontWeight:          'var(--font-weight-semibold)',
+    fontFeatureSettings: "'ss10' 1",
+    color:               'var(--color-static-white)',
+    opacity:             0.88,
+    width:               '100%',
+    flexShrink:          0,
+    margin:              0,
+    position:            'relative',
   }
 
   const descriptionStyle = {
-    fontSize:      'var(--font-size-label-2)',
-    lineHeight:    'var(--line-height-label-2)',
-    letterSpacing: 'var(--letter-spacing-label-2)',
-    fontWeight:    'var(--font-weight-regular)',
-    color:         'var(--color-static-white)',
-    opacity:       0.88,
-    width:         '100%',
-    flexShrink:    0,
-    overflow:      'hidden',
-    textOverflow:  'ellipsis',
-    whiteSpace:    'nowrap',
-    position:      'relative',
-  }
-
-  const actionStyle = {
-    display:        'flex',
-    alignItems:     'center',
-    justifyContent: 'flex-end',
-    paddingLeft:    'var(--spacing-2)',
-    paddingRight:   'var(--spacing-2)',
-    flexShrink:     0,
-    position:       'relative',
-  }
-
-  const actionBtnStyle = {
-    display:        'flex',
-    alignItems:     'center',
-    justifyContent: 'center',
-    paddingTop:     'var(--spacing-4)',
-    paddingBottom:  'var(--spacing-4)',
-    background:     'none',
-    border:         'none',
-    cursor:         'pointer',
-    fontSize:       'var(--font-size-body-2)',
-    lineHeight:     'var(--line-height-body-2-normal)',
-    letterSpacing:  'var(--letter-spacing-body-2)',
-    fontWeight:     'var(--font-weight-semibold)',
-    color:          'var(--color-static-white)',
-    whiteSpace:     'nowrap',
-    flexShrink:     0,
-    padding:        0,
-    paddingTop:     'var(--spacing-4)',
-    paddingBottom:  'var(--spacing-4)',
-  }
-
-  const closeBtnStyle = {
-    display:        'flex',
-    flexDirection:  'column',
-    alignItems:     'center',
-    justifyContent: 'center',
-    padding:        'var(--spacing-2)',
-    background:     'none',
-    border:         'none',
-    cursor:         'pointer',
-    color:          'var(--color-static-white)',
-    opacity:        0.61,
-    flexShrink:     0,
-    lineHeight:     0,
+    fontSize:            'var(--font-size-label-2)',
+    lineHeight:          'var(--line-height-label-2)',
+    letterSpacing:       'var(--letter-spacing-label-2)',
+    fontWeight:          'var(--font-weight-regular)',
+    fontFeatureSettings: "'ss10' 1",
+    color:               'var(--color-static-white)',
+    opacity:             0.88,
+    width:               '100%',
+    flexShrink:          0,
+    overflow:            'hidden',
+    textOverflow:        'ellipsis',
+    margin:              0,
+    position:            'relative',
   }
 
   return (
@@ -203,12 +282,12 @@ export default function Snackbar({
           {/* 선택적 왼쪽 아이콘 */}
           {icon && (
             <div style={{
-              display:        'flex',
-              alignItems:     'center',
-              alignSelf:      'stretch',
-              maxHeight:      '40px',
-              flexShrink:     0,
-              position:       'relative',
+              display:    'flex',
+              alignItems: 'center',
+              alignSelf:  'stretch',
+              maxHeight:  '40px',
+              flexShrink: 0,
+              position:   'relative',
             }}>
               {icon}
             </div>
@@ -216,7 +295,7 @@ export default function Snackbar({
 
           {/* 메시지 영역 */}
           <div style={messageStyle}>
-            <p style={headingStyle}>{message}</p>
+            {message && <p style={headingStyle}>{message}</p>}
             {description && (
               <p style={descriptionStyle}>{description}</p>
             )}
@@ -225,23 +304,21 @@ export default function Snackbar({
 
         {/* 액션 버튼 */}
         {actionLabel && (
-          <div style={actionStyle}>
-            <button style={actionBtnStyle} onClick={onAction}>
-              {actionLabel}
-            </button>
+          <div style={{
+            display:        'flex',
+            alignItems:     'center',
+            justifyContent: 'flex-end',
+            paddingLeft:    'var(--spacing-2)',
+            paddingRight:   'var(--spacing-2)',
+            flexShrink:     0,
+            position:       'relative',
+          }}>
+            <ActionButton label={actionLabel} onClick={onAction} />
           </div>
         )}
 
         {/* 닫기 버튼 */}
-        {onClose && (
-          <button
-            style={closeBtnStyle}
-            onClick={onClose}
-            aria-label="닫기"
-          >
-            <XIcon />
-          </button>
-        )}
+        {onClose && <CloseButton onClick={onClose} />}
       </div>
     </div>
   )

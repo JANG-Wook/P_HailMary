@@ -15,33 +15,57 @@ export default function ToastPage() {
         marginBottom:  'var(--spacing-32)',
       }}>Toast</h2>
 
-      <Section title="Variant" background="var(--color-bg-normal-alternative)">
+      <Section
+        title="Variant"
+        background="var(--color-bg-normal-alternative)"
+        column
+      >
         {VARIANTS.map(v => (
-          <Case key={v} label={`variant="${v}"`} center>
-            <Toast variant={v} text="저장되었습니다" />
+          <Case key={v} label={v === 'normal' ? 'variant="normal" (default)' : `variant="${v}"`}>
+            <Toast
+              variant={v}
+              text="메시지에 마침표를 찍어요."
+              leadingIcon={v === 'normal'
+                ? <Icon name="bell" size={20} color="var(--color-static-white)" />
+                : undefined
+              }
+            />
           </Case>
         ))}
       </Section>
 
-      <Section title="Normal + Leading Icon" background="var(--color-bg-normal-alternative)">
-        <Case label="leadingIcon 있음" center>
-          <Toast
-            variant="normal"
-            text="알림이 도착했습니다"
-            leadingIcon={<Icon name="bell" size={20} color="var(--color-static-white)" />}
-          />
+      <Section
+        title="Width"
+        description="최소 335px, 최대 420px 너비를 가집니다."
+        background="var(--color-bg-normal-alternative)"
+        column
+      >
+        <Case label="짧은 텍스트 → min-width 335px">
+          <Toast variant="normal" text="완료" />
         </Case>
-        <Case label="leadingIcon 없음" center>
-          <Toast variant="normal" text="알림이 도착했습니다" />
+        <Case label="긴 텍스트 → max-width 420px">
+          <Toast variant="negative" text="일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요." />
         </Case>
       </Section>
 
-      <Section title="Long Text" background="var(--color-bg-normal-alternative)">
-        <Case label="짧은 텍스트" center>
-          <Toast variant="positive" text="완료" />
+      <Section
+        title="Leading Icon"
+        description="normal variant에서만 적용됩니다."
+        background="var(--color-bg-normal-alternative)"
+        column
+      >
+        <Case label='leadingIcon={<Icon />} (default)'>
+          <Toast
+            variant="normal"
+            text="메시지에 마침표를 찍어요."
+            leadingIcon={<Icon name="bell" size={20} color="var(--color-static-white)" />}
+          />
         </Case>
-        <Case label="긴 텍스트" center>
-          <Toast variant="negative" text="일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요." />
+        <Case label="leadingIcon 없음">
+          <Toast
+            variant="normal"
+            text="메시지에 마침표를 찍어요."
+          />
         </Case>
       </Section>
     </div>

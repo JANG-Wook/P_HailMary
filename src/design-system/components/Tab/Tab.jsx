@@ -35,8 +35,14 @@ const SIZE_HEIGHT = {
 /* ── 인터랙션 오버레이 opacity ───────────────────────────────── */
 const OVERLAY_OPACITY = { hovered: 0.05, focused: 0.08, pressed: 0.12 }
 
+const SIZE_FONT = {
+  small:  { fontSize: 'var(--font-size-body-2)',     lineHeight: 'var(--line-height-body-2-normal)',   letterSpacing: 'var(--letter-spacing-body-2)'    },
+  medium: { fontSize: 'var(--font-size-headline-2)', lineHeight: 'var(--line-height-headline-2)',      letterSpacing: 'var(--letter-spacing-headline-2)' },
+  large:  { fontSize: 'var(--font-size-heading-2)',  lineHeight: 'var(--line-height-heading-2)',       letterSpacing: 'var(--letter-spacing-heading-2)'  },
+}
+
 /* ── 개별 탭 아이템 (독립적인 인터랙션 상태) ─────────────────── */
-function TabItem({ item, isActive, resize, onChange }) {
+function TabItem({ item, isActive, size, resize, onChange }) {
   const [isHovered, setIsHovered] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const [isPressed, setIsPressed] = useState(false)
@@ -51,7 +57,7 @@ function TabItem({ item, isActive, resize, onChange }) {
     display:        'flex',
     alignItems:     'center',
     justifyContent: 'center',
-    gap:            'var(--spacing-4)',
+    gap:            'var(--spacing-10)',
     height:         '100%',
     minWidth:       'var(--spacing-32)',
     flex:           resize === 'fill' ? 1 : undefined,
@@ -67,25 +73,23 @@ function TabItem({ item, isActive, resize, onChange }) {
 
   const overlayStyle = {
     position:        'absolute',
-    top:             'var(--spacing-6)',
-    bottom:          'var(--spacing-6)',
+    top:             0,
+    bottom:          0,
     left:            0,
     right:           0,
     backgroundColor: `color-mix(in srgb, var(--color-label-normal) ${Math.round(overlayOpacity * 100)}%, transparent)`,
-    borderRadius:    'var(--spacing-6)',
     pointerEvents:   'none',
     transition:      'background-color 0.15s ease',
   }
 
   const labelStyle = {
-    fontSize:      'var(--font-size-headline-2)',
-    lineHeight:    'var(--line-height-headline-2)',
-    fontWeight:    'var(--font-weight-semibold)',
-    letterSpacing: 'var(--letter-spacing-headline-2)',
-    color:         isActive
+    ...SIZE_FONT[size] ?? SIZE_FONT.medium,
+    fontWeight:          'var(--font-weight-semibold)',
+    fontFeatureSettings: "'ss10' 1",
+    color:               isActive
       ? 'var(--color-label-strong)'
       : 'var(--color-label-assistive)',
-    whiteSpace:    'nowrap',
+    whiteSpace:          'nowrap',
   }
 
   const indicatorStyle = {
@@ -146,8 +150,8 @@ export default function Tab({
     width:        '100%',
     height:       `${height}px`,
     overflow:     scroll ? undefined : 'hidden',
-    paddingLeft:  horizontalPadding ? 'var(--spacing-16)' : undefined,
-    paddingRight: horizontalPadding ? 'var(--spacing-16)' : undefined,
+    paddingLeft:  horizontalPadding ? 'var(--spacing-20)' : undefined,
+    paddingRight: horizontalPadding ? 'var(--spacing-20)' : undefined,
     boxSizing:    'border-box',
   }
 
@@ -182,6 +186,7 @@ export default function Tab({
             key={index}
             item={{ ...item, _index: index }}
             isActive={index === value}
+            size={size}
             resize={resize}
             onChange={onChange}
           />

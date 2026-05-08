@@ -130,13 +130,15 @@ function NavButton({ direction, disabled, btnSizeToken, svgSize, onClick }) {
       onFocus={() => setIsFocused(true)}
       onBlur={() => { setIsFocused(false); setIsPressed(false) }}
     >
-      <div style={{
-        position:        'absolute',
-        inset:           0,
-        backgroundColor: `color-mix(in srgb, var(--color-label-normal) ${Math.round(overlayOpacity * 100)}%, transparent)`,
-        pointerEvents:   'none',
-        transition:      'background-color 0.15s ease',
-      }} aria-hidden="true" />
+      <div style={{ position: 'absolute', inset: '-8px', pointerEvents: 'none' }} aria-hidden="true">
+        <div style={{
+          position:        'absolute',
+          inset:           0,
+          borderRadius:    '1000px',
+          backgroundColor: `color-mix(in srgb, var(--color-label-normal) ${Math.round(overlayOpacity * 100)}%, transparent)`,
+          transition:      'background-color 0.15s ease',
+        }} />
+      </div>
       {isLeft
         ? (svgSize === 24 ? <ChevronLeftRegular  size={svgSize} /> : <ChevronLeft  size={svgSize} />)
         : (svgSize === 24 ? <ChevronRightRegular size={svgSize} /> : <ChevronRight size={svgSize} />)
@@ -176,11 +178,12 @@ function PageButton({ page, isActive, onClick }) {
         fontSize:       'var(--font-size-body-2)',
         lineHeight:     'var(--line-height-body-2-normal)',
         letterSpacing:  'var(--letter-spacing-body-2)',
-        fontWeight:     isActive ? 'var(--font-weight-medium)' : 'var(--font-weight-regular)',
-        color:          isActive ? 'var(--color-label-strong)' : 'var(--color-label-neutral)',
-        textAlign:      'center',
-        whiteSpace:     'nowrap',
-        outline:        'none',
+        fontWeight:          isActive ? 'var(--font-weight-medium)' : 'var(--font-weight-regular)',
+        color:               isActive ? 'var(--color-label-strong)' : 'var(--color-label-neutral)',
+        textAlign:           'center',
+        whiteSpace:          'nowrap',
+        outline:             'none',
+        fontFeatureSettings: "'ss10' 1",
       }}
       onClick={() => onClick?.(page - 1)}
       aria-current={isActive ? 'page' : undefined}
@@ -219,12 +222,13 @@ function PageList({ items, currentPage, onPageClick }) {
             <span
               key={`ellipsis-${i}`}
               style={{
-                fontSize:      'var(--font-size-body-2)',
-                lineHeight:    'var(--line-height-body-2-normal)',
-                letterSpacing: 'var(--letter-spacing-body-2)',
-                fontWeight:    'var(--font-weight-regular)',
-                color:         'var(--color-label-alternative)',
-                userSelect:    'none',
+                fontSize:            'var(--font-size-body-2)',
+                lineHeight:          'var(--line-height-body-2-normal)',
+                letterSpacing:       'var(--letter-spacing-body-2)',
+                fontWeight:          'var(--font-weight-regular)',
+                color:               'var(--color-label-alternative)',
+                userSelect:          'none',
+                fontFeatureSettings: "'ss10' 1",
               }}
             >
               …
@@ -272,12 +276,13 @@ export default function PaginationNavigation({
       >
         <NavButton direction="left"  disabled={isFirst} btnSizeToken="var(--spacing-16)" svgSize={16} onClick={goPrev} />
         <span style={{
-          fontSize:      'var(--font-size-label-2)',
-          lineHeight:    'var(--line-height-label-2)',
-          letterSpacing: 'var(--letter-spacing-label-2)',
-          fontWeight:    'var(--font-weight-medium)',
-          color:         'var(--color-label-neutral)',
-          whiteSpace:    'nowrap',
+          fontSize:            'var(--font-size-label-2)',
+          lineHeight:          'var(--line-height-label-2)',
+          letterSpacing:       'var(--letter-spacing-label-2)',
+          fontWeight:          'var(--font-weight-medium)',
+          color:               'var(--color-label-neutral)',
+          whiteSpace:          'nowrap',
+          fontFeatureSettings: "'ss10' 1",
         }}>
           {currentPage}/{total}
         </span>
@@ -296,7 +301,8 @@ export default function PaginationNavigation({
     display:    'inline-flex',
     alignItems: 'center',
     gap:        'var(--spacing-4)',
-    minHeight:  'var(--spacing-32)',
+    height:     'var(--spacing-32)',
+    overflow:   'clip',
   }
 
   /* ── Compact ──────────────────────────────────────────────── */

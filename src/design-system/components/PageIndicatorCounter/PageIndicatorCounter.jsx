@@ -84,7 +84,7 @@ export default function PageIndicatorCounter({
       <div style={{
         position: 'absolute',
         inset:    0,
-        overflow: 'hidden',
+        overflow: 'clip',
         borderRadius: '1000px',
       }} aria-hidden="true">
         {alternative ? (
@@ -122,34 +122,40 @@ export default function PageIndicatorCounter({
       <div style={contentStyle}>
         {/* 현재 페이지 */}
         <span style={{
-          fontWeight: 'var(--font-weight-semibold)',
-          position:   'relative',
-          flexShrink: 0,
-          color:      'var(--color-static-white)',
-          opacity:    alternative ? 0.88 : 0.74,
-          textShadow: 'var(--shadow-page-indicator-text)',
+          fontWeight:          'var(--font-weight-semibold)',
+          position:            'relative',
+          flexShrink:          0,
+          color:               alternative ? 'var(--color-static-white)' : 'var(--color-interaction-inactive)',
+          opacity:             alternative ? 0.88 : 0.74,
+          mixBlendMode:        alternative ? undefined : 'plus-lighter',
+          textShadow:          'var(--shadow-page-indicator-text)',
+          fontFeatureSettings: "'ss10' 1",
         }}>
           {current}
         </span>
 
         {/* 구분자 */}
         <span style={{
-          fontWeight: 'var(--font-weight-regular)',
-          position:   'relative',
-          flexShrink: 0,
-          color:      'var(--color-static-white)',
-          opacity:    alternative ? 0.52 : 0.28,
+          fontWeight:          'var(--font-weight-regular)',
+          position:            'relative',
+          flexShrink:          0,
+          color:               alternative ? 'var(--color-static-white)' : 'var(--color-interaction-inactive)',
+          opacity:             alternative ? 0.52 : 0.28,
+          mixBlendMode:        alternative ? undefined : 'plus-lighter',
+          fontFeatureSettings: "'ss10' 1",
         }}>
           /
         </span>
 
         {/* 전체 페이지 */}
         <span style={{
-          fontWeight: 'var(--font-weight-semibold)',
-          position:   'relative',
-          flexShrink: 0,
-          color:      'var(--color-static-white)',
-          opacity:    alternative ? 0.88 : 0.74,
+          fontWeight:          'var(--font-weight-semibold)',
+          position:            'relative',
+          flexShrink:          0,
+          color:               alternative ? 'var(--color-static-white)' : 'var(--color-interaction-inactive)',
+          opacity:             alternative ? 0.88 : 0.74,
+          mixBlendMode:        alternative ? undefined : 'plus-lighter',
+          fontFeatureSettings: "'ss10' 1",
         }}>
           {total}
         </span>

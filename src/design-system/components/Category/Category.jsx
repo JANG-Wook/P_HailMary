@@ -52,7 +52,7 @@ function ChipItem({ label, icon, isActive, isAlternative, paddingY, onClick }) {
 
   const chipStyle = {
     position:      'relative',
-    overflow:      'hidden',
+    overflow:      'clip',
     display:       'flex',
     alignItems:    'center',
     gap:           'var(--spacing-2)',
@@ -81,13 +81,14 @@ function ChipItem({ label, icon, isActive, isAlternative, paddingY, onClick }) {
   }
 
   const labelStyle = {
-    fontSize:      'var(--font-size-label-1)',
-    lineHeight:    'var(--line-height-label-1-normal)',
-    fontWeight:    'var(--font-weight-medium)',
-    letterSpacing: 'var(--letter-spacing-label-1)',
-    whiteSpace:    'nowrap',
-    position:      'relative',
-    zIndex:        1,
+    fontSize:            'var(--font-size-label-1)',
+    lineHeight:          'var(--line-height-label-1-normal)',
+    fontWeight:          'var(--font-weight-medium)',
+    letterSpacing:       'var(--letter-spacing-label-1)',
+    whiteSpace:          'nowrap',
+    position:            'relative',
+    zIndex:              1,
+    fontFeatureSettings: "'ss10' 1",
     color: isActive
       ? (isAlternative ? 'var(--color-primary-normal)' : 'var(--color-inverse-label)')
       : 'var(--color-label-alternative)',
@@ -177,7 +178,7 @@ export default function Category({
     display:       'flex',
     flexDirection: 'row',
     alignItems:    'center',
-    overflow:      'hidden',
+    overflow:      'clip',
     width:         '100%',
     paddingLeft:   horizontalPadding ? 'var(--spacing-20)' : undefined,
     paddingRight:  horizontalPadding ? 'var(--spacing-20)' : undefined,
@@ -191,8 +192,9 @@ export default function Category({
     alignItems:    'center',
     flex:          '1 0 0',
     minWidth:      0,
-    overflowX:     scroll ? 'auto' : 'hidden',
-    overflowY:     'hidden',
+    overflowX:     scroll ? 'auto' : undefined,
+    overflowY:     scroll ? 'hidden' : undefined,
+    overflow:      scroll ? undefined : 'clip',
   }
 
   const wrapperStyle = {

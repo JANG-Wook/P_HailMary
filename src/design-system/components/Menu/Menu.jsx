@@ -470,6 +470,7 @@ export default function Menu({
     flexDirection:   'column',
     alignItems:      'flex-start',
     minWidth:        '140px',
+    maxWidth:        '320px',
     position:        'relative',
   }
 
