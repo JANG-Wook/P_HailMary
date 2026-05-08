@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react'
 import logo from '/T1_parksy/Infobank_Logo_Color_CMYK_Dark Grey.png'
+import Switch from '../design-system/components/Switch/Switch'
 
 const NAV = [
   {
@@ -89,8 +91,7 @@ const NAV = [
       { id: 'tab',           label: 'Tab'                    },
       { id: 'category',      label: 'Category'               },
       { id: 'pageIndicator', label: 'Page Indicator Counter' },
-      { id: 'paginationDots',label: 'Pagination_Dot'         },
-      { id: 'paginationNav', label: 'Pagination_Navigation'  },
+      { id: 'pagination',    label: 'Pagination'             },
     ],
   },
   {
@@ -111,6 +112,16 @@ const NAV = [
 ]
 
 export default function Sidebar({ activePage, onNavigate }) {
+  const [theme, setTheme] = useState(() => {
+    return document.documentElement.dataset.theme || 'light'
+  })
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+  }, [theme])
+
+  const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark')
+
   return (
     <nav className="sidebar-scroll" style={{
       width:           '220px',
@@ -139,6 +150,27 @@ export default function Sidebar({ activePage, onNavigate }) {
           draggable={false}
           style={{ width: '75%', height: 'auto', display: 'block' }}
         />
+        <div style={{
+          marginTop:   'var(--spacing-20)',
+          display:     'flex',
+          alignItems:  'center',
+          gap:         'var(--spacing-8)',
+        }}>
+          <Switch
+            active={theme === 'dark'}
+            size="small"
+            onChange={toggleTheme}
+          />
+          <span style={{
+            fontSize:      'var(--font-size-label-2)',
+            lineHeight:    'var(--line-height-label-2)',
+            letterSpacing: 'var(--letter-spacing-label-2)',
+            fontWeight:    'var(--font-weight-medium)',
+            color:         'var(--color-label-alternative)',
+          }}>
+            Dark
+          </span>
+        </div>
       </div>
 
       {NAV.map(({ group, items }) => (

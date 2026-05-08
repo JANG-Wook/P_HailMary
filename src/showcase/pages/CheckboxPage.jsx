@@ -51,11 +51,11 @@ export default function CheckboxPage() {
         marginBottom: 'var(--spacing-32)',
       }}>Checkbox</h2>
 
-      <Section title="test" column gap="var(--spacing-16)">
+      <Section title="Test" column gap="var(--spacing-16)">
         <CheckboxTest />
       </Section>
 
-      <Section title="size" gap="var(--spacing-24)">
+      <Section title="Size" gap="var(--spacing-24)">
         <Case label='size="small"'>
           <Checkbox state="checked" size="small" label={"텍스트\n텍스트"} />
         </Case>
@@ -64,7 +64,7 @@ export default function CheckboxPage() {
         </Case>
       </Section>
 
-      <Section title="state" gap="var(--spacing-24)">
+      <Section title="State" gap="var(--spacing-24)">
         <Case label='state="unchecked"'>
           <Checkbox state="unchecked" label={"텍스트\n텍스트"} />
         </Case>
@@ -76,7 +76,7 @@ export default function CheckboxPage() {
         </Case>
       </Section>
 
-      <Section title="label" gap="var(--spacing-24)">
+      <Section title="Label" gap="var(--spacing-24)">
         <Case label='label="텍스트" (default)'>
           <Checkbox state="checked" label="텍스트" />
         </Case>
@@ -85,7 +85,7 @@ export default function CheckboxPage() {
         </Case>
       </Section>
 
-      <Section title="tight" gap="var(--spacing-24)">
+      <Section title="Tight" gap="var(--spacing-24)">
         <Case label='tight=false (default)'>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
             <Checkbox state="checked" size="medium" tight={false} label={"텍스트\n텍스트"} />
@@ -100,7 +100,7 @@ export default function CheckboxPage() {
         </Case>
       </Section>
 
-      <Section title="bold" gap="var(--spacing-24)">
+      <Section title="Bold" gap="var(--spacing-24)">
         <Case label='bold=false (default)'>
           <Checkbox state="checked" bold={false} label={"텍스트\n텍스트"} />
         </Case>
@@ -109,7 +109,7 @@ export default function CheckboxPage() {
         </Case>
       </Section>
 
-      <Section title="disabled" gap="var(--spacing-24)">
+      <Section title="Disabled" gap="var(--spacing-24)">
         <Case label='disabled=false (default)'>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
             <Checkbox state="unchecked"     label="텍스트" />
@@ -136,7 +136,7 @@ export default function CheckboxPage() {
         marginBottom: 'var(--spacing-32)',
       }}>Resource / Control</h2>
 
-      <Section title="size" gap="var(--spacing-24)">
+      <Section title="Size" gap="var(--spacing-24)">
         <Case label='size="small"'>
           <Checkbox state="checked" size="small" />
         </Case>
@@ -145,7 +145,7 @@ export default function CheckboxPage() {
         </Case>
       </Section>
 
-      <Section title="state" gap="var(--spacing-24)">
+      <Section title="State" gap="var(--spacing-24)">
         <Case label='state="unchecked"'>
           <Checkbox state="unchecked" />
         </Case>
@@ -157,7 +157,7 @@ export default function CheckboxPage() {
         </Case>
       </Section>
 
-      <Section title="tight" column gap="var(--spacing-24)">
+      <Section title="Tight" column gap="var(--spacing-24)">
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', alignItems: 'center' }}>
           <Checkbox state="checked" size="medium" tight={false} />
           <Checkbox state="checked" size="medium" tight />
@@ -176,7 +176,7 @@ export default function CheckboxPage() {
         </div>
       </Section>
 
-      <Section title="disabled" gap="var(--spacing-24)">
+      <Section title="Disabled" gap="var(--spacing-24)">
         <Case label='disabled=false (default)'>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
             <Checkbox state="unchecked" />
@@ -193,7 +193,7 @@ export default function CheckboxPage() {
         </Case>
       </Section>
 
-      <Section title="interaction" gap="var(--spacing-24)">
+      <Section title="Interaction" gap="var(--spacing-24)">
         <Case label='interaction="normal"'>
           <Checkbox state="checked" forceInteraction="normal" />
         </Case>

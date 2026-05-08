@@ -23,8 +23,7 @@ import IconPage           from './showcase/pages/IconPage'
 import ListCellPage       from './showcase/pages/ListCellPage'
 import MenuPage           from './showcase/pages/MenuPage'
 import PageIndicatorPage  from './showcase/pages/PageIndicatorPage'
-import PaginationDotsPage from './showcase/pages/PaginationDotsPage'
-import PaginationNavPage  from './showcase/pages/PaginationNavPage'
+import PaginationPage     from './showcase/pages/PaginationPage'
 import RadioPage          from './showcase/pages/RadioPage'
 import SegmentedControlPage from './showcase/pages/SegmentedControlPage'
 import SelectPage         from './showcase/pages/SelectPage'
@@ -74,8 +73,7 @@ const PAGE_MAP = {
   listCell:         ListCellPage,
   menu:             MenuPage,
   pageIndicator:    PageIndicatorPage,
-  paginationDots:   PaginationDotsPage,
-  paginationNav:    PaginationNavPage,
+  pagination:       PaginationPage,
   radio:            RadioPage,
   segmentedControl: SegmentedControlPage,
   select:           SelectPage,

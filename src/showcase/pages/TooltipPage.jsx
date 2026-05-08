@@ -26,7 +26,7 @@ export default function TooltipPage() {
       }}>Tooltip</h2>
 
       {/* ── size ─────────────────────────────────────────────── */}
-      <Section title="size" gap="var(--spacing-24)">
+      <Section title="Size" gap="var(--spacing-24)">
         <Case label='size="medium" (default)' center>
           <Tooltip size="medium" label="메시지에 마침표를 찍어요." position="bottom" />
         </Case>
@@ -36,7 +36,7 @@ export default function TooltipPage() {
       </Section>
 
       {/* ── position ─────────────────────────────────────────── */}
-      <Section title="position">
+      <Section title="Position">
         <div style={{
           display:         'flex',
           flexDirection:   'column',
@@ -76,7 +76,7 @@ export default function TooltipPage() {
       </Section>
 
       {/* ── align — arrow = vertical (position = top, bottom) ── */}
-      <Section title="align  —  arrow = vertical" gap="var(--spacing-32)">
+      <Section title="Align  —  arrow = vertical" gap="var(--spacing-32)">
         {['start', 'center', 'end'].map(align => (
           <Case key={align} label={`align="${align}"`} center>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--spacing-24)' }}>
@@ -96,7 +96,7 @@ export default function TooltipPage() {
       </Section>
 
       {/* ── align — arrow = horizontal (position = left, right) ─ */}
-      <Section title="align  —  arrow = horizontal" gap="var(--spacing-48)">
+      <Section title="Align  —  arrow = horizontal" gap="var(--spacing-48)">
         {['start', 'center', 'end'].map(align => (
           <Case key={align} label={`align="${align}"`} center>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
@@ -116,7 +116,7 @@ export default function TooltipPage() {
       </Section>
 
       {/* ── shortcut ──────────────────────────────────────────── */}
-      <Section title="shortcut" column gap="var(--spacing-24)">
+      <Section title="Shortcut" column gap="var(--spacing-24)">
         {/* medium */}
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap', alignItems: 'flex-start' }}>
           <Case label='size="medium"  shortcut=false (default)' center>

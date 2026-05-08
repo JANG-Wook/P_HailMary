@@ -180,7 +180,7 @@ function InteractionSection() {
                        'inactive'
 
   return (
-    <Section title="test">
+    <Section title="Test">
       <div style={CARD}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', width: `${TA_W}px` }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-6)' }}>
@@ -226,7 +226,7 @@ function StatusSection() {
   }
 
   return (
-    <Section title="status">
+    <Section title="Status">
       <div style={CARD}>
         <PropHead name="status" values={['Normal', 'Negative']} />
 
@@ -258,7 +258,7 @@ function StatusSection() {
 ══════════════════════════════════════════════════════════════ */
 function ResizeSection() {
   return (
-    <Section title="resize">
+    <Section title="Resize">
       <div style={CARD}>
         <PropHead name="resize" values={['Normal', 'Limit', 'Fixed']} />
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap', alignItems: 'flex-start' }}>
@@ -288,7 +288,7 @@ function ResizeSection() {
 ══════════════════════════════════════════════════════════════ */
 function ActiveSection() {
   return (
-    <Section title="active">
+    <Section title="Active">
       <div style={CARD}>
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap', alignItems: 'flex-start' }}>
           <TAItem label="false">
@@ -310,7 +310,7 @@ function ActiveSection() {
 ══════════════════════════════════════════════════════════════ */
 function FocusSection() {
   return (
-    <Section title="focus">
+    <Section title="Focus">
       <div style={CARD}>
         <PropHead name="forceFocused" values={['false', 'true']} />
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap', alignItems: 'flex-start' }}>
@@ -334,7 +334,7 @@ function FocusSection() {
 function DisableSection() {
   const GAP = 'var(--spacing-24)'
   return (
-    <Section title="disable">
+    <Section title="Disable">
       <div style={CARD}>
         <PropHead name="disabled" values={['false', 'true']} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-20)' }}>
@@ -369,7 +369,7 @@ function DisableSection() {
 ══════════════════════════════════════════════════════════════ */
 function HeadingSection() {
   return (
-    <Section title="heading">
+    <Section title="Heading">
       <div style={CARD}>
         <PropHead name="heading" values={['none', '"string"']} />
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap', alignItems: 'flex-end' }}>
@@ -392,7 +392,7 @@ function HeadingSection() {
 ══════════════════════════════════════════════════════════════ */
 function RequiredBadgeSection() {
   return (
-    <Section title="requiredBadge">
+    <Section title="RequiredBadge">
       <div style={CARD}>
         <PropHead name="required" values={['false', 'true']} />
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap', alignItems: 'flex-start' }}>
@@ -415,7 +415,7 @@ function RequiredBadgeSection() {
 ══════════════════════════════════════════════════════════════ */
 function DescriptionSection() {
   return (
-    <Section title="description">
+    <Section title="Description">
       <div style={CARD}>
         <PropHead name="description" values={['none', '"string"']} />
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap', alignItems: 'flex-start' }}>
@@ -478,7 +478,7 @@ function BottomSection() {
   ]
 
   return (
-    <Section title="bottom">
+    <Section title="Bottom">
       <div style={CARD}>
         <PropHead name="bottom" values={['false', 'true']} />
         <div style={{ display: 'flex', gap: GAP, flexWrap: 'wrap', alignItems: 'flex-start' }}>
@@ -491,7 +491,7 @@ function BottomSection() {
           </TAItem>
         </div>
 
-        <SubSection title="leadingContent">
+        <SubSection title="LeadingContent">
           <PropHead name="leadingContent" values={['none', 'characterCounter', 'button', 'normalIconButton', 'icon', 'badge']} />
           <div style={{ display: 'flex', gap: GAP, flexWrap: 'wrap', alignItems: 'flex-start' }}>
             {leadingResources.map(({ label, maxLength, leadingContent }) => (
@@ -507,7 +507,7 @@ function BottomSection() {
           </div>
         </SubSection>
 
-        <SubSection title="trailingContent">
+        <SubSection title="TrailingContent">
           <PropHead name="trailingContent" values={['characterCounter', 'textButton', 'primaryIconButton', 'iconButton', 'icon', 'badge', 'chip']} />
           <div style={{ display: 'flex', gap: GAP, flexWrap: 'wrap', alignItems: 'flex-start' }}>
             {trailingResources.map(({ label, trailingContent }) => (
@@ -522,7 +522,7 @@ function BottomSection() {
           </div>
         </SubSection>
 
-        <SubSection title="overflow">
+        <SubSection title="Overflow">
           <PropHead name="overflow" values={['value default', 'value']} />
           <div style={{ display: 'flex', gap: GAP, flexWrap: 'wrap', alignItems: 'flex-start' }}>
             <TAItem label="value default">

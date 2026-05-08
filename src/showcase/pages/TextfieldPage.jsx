@@ -119,7 +119,7 @@ function InteractionSection() {
                        'inactive'
 
   return (
-    <Section title="test">
+    <Section title="Test">
       <div style={CARD}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', width: `${TF_W}px` }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-6)' }}>
@@ -194,7 +194,7 @@ function StatusSection() {
   const rowStyle = { display: 'flex', gap: GAP, alignItems: 'flex-start' }
 
   return (
-    <Section title="status">
+    <Section title="Status">
       <div style={CARD}>
         <PropHead name="status" values={STATUSES} />
 
@@ -259,7 +259,7 @@ function StatusSection() {
 ══════════════════════════════════════════════════════════════ */
 function ActiveSection() {
   return (
-    <Section title="active">
+    <Section title="Active">
       <div style={CARD}>
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap' }}>
           <TFItem label="false">
@@ -279,7 +279,7 @@ function ActiveSection() {
 ══════════════════════════════════════════════════════════════ */
 function FocusSection() {
   return (
-    <Section title="focus">
+    <Section title="Focus">
       <div style={CARD}>
         <PropHead name="forceFocused" values={['false', 'true']} />
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap', alignItems: 'flex-end' }}>
@@ -300,7 +300,7 @@ function FocusSection() {
 ══════════════════════════════════════════════════════════════ */
 function DisableSection() {
   return (
-    <Section title="disable">
+    <Section title="Disable">
       <div style={CARD}>
         <PropHead name="disabled" values={['false', 'true']} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-20)' }}>
@@ -331,7 +331,7 @@ function DisableSection() {
 ══════════════════════════════════════════════════════════════ */
 function HeadingSection() {
   return (
-    <Section title="heading">
+    <Section title="Heading">
       <div style={CARD}>
         <PropHead name="heading" values={['none', '"string"']} />
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap', alignItems: 'flex-end' }}>
@@ -352,7 +352,7 @@ function HeadingSection() {
 ══════════════════════════════════════════════════════════════ */
 function RequiredBadgeSection() {
   return (
-    <Section title="requiredBadge">
+    <Section title="RequiredBadge">
       <div style={CARD}>
         <PropHead name="required" values={['false', 'true']} />
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap', alignItems: 'flex-end' }}>
@@ -373,7 +373,7 @@ function RequiredBadgeSection() {
 ══════════════════════════════════════════════════════════════ */
 function DescriptionSection() {
   return (
-    <Section title="description">
+    <Section title="Description">
       <div style={CARD}>
         <PropHead name="description" values={['none', '"string"']} />
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap', alignItems: 'flex-start' }}>
@@ -394,7 +394,7 @@ function DescriptionSection() {
 ══════════════════════════════════════════════════════════════ */
 function IconSection() {
   return (
-    <Section title="icon">
+    <Section title="Icon">
       <div style={CARD}>
         <PropHead name="icon" values={['false', 'true']} />
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap' }}>
@@ -430,7 +430,7 @@ function TrailingButtonSection() {
   const TB_NORMAL_DISABLED = { label: '텍스트', variant: 'normal', disabled: true }
 
   return (
-    <Section title="trailingButton">
+    <Section title="TrailingButton">
       <div style={CARD}>
         <PropHead name="trailingButton" values={['false', 'true']} />
 
@@ -495,7 +495,7 @@ function TrailingButtonSection() {
           </div>
         </div>
 
-        <SubSection title="trailingButton">
+        <SubSection title="TrailingButton">
           <PropHead name="variant" values={['normal', 'assistive']} />
           <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap', marginBottom: 'var(--spacing-24)' }}>
             <TFItem label="normal" width={280}>
@@ -577,7 +577,7 @@ function TrailingContentSection() {
   ]
 
   return (
-    <Section title="trailingContent">
+    <Section title="TrailingContent">
       <div style={CARD}>
         <PropHead name="trailingContent" values={['false', 'true']} />
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', flexWrap: 'wrap' }}>
@@ -594,7 +594,7 @@ function TrailingContentSection() {
           </TFItem>
         </div>
 
-        <SubSection title="resource">
+        <SubSection title="Resource">
           <div style={{ display: 'flex', gap: 'var(--spacing-20)', flexWrap: 'wrap' }}>
             {resources.map(({ label, content }) => (
               <TFItem key={label} label={label} width={280}>
@@ -625,7 +625,7 @@ const AUTO_SUGGESTIONS = [
 
 function AutoCompleteSection() {
   return (
-    <Section title="autoComplete">
+    <Section title="AutoComplete">
       <div style={CARD}>
         <PropHead name="autoComplete" values={['false', 'true']} />
         <div style={{ display: 'flex', gap: 'var(--spacing-40)', flexWrap: 'wrap', alignItems: 'flex-start' }}>

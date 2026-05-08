@@ -48,7 +48,7 @@ export default function ToggleIconPage() {
       }}>Toggle Icon</h2>
 
       {/* ── 인터랙션 데모 ── */}
-      <Section title="test" gap="var(--spacing-24)">
+      <Section title="Test" gap="var(--spacing-24)">
         <Case label="클릭해서 활성/비활성을 전환해보세요">
           <div style={{ display: 'flex', gap: 'var(--spacing-32)', alignItems: 'center' }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--spacing-8)' }}>

@@ -184,7 +184,7 @@ function InteractiveSection() {
   })
 
   return (
-    <Section title="test">
+    <Section title="Test">
       <div style={CARD}>
         <div style={{ display: 'flex', gap: GAP, flexWrap: 'wrap', alignItems: 'flex-start' }}>
           {/* Text Select */}
@@ -235,7 +235,7 @@ function InteractiveSection() {
 ══════════════════════════════════════════════════════════════ */
 function RenderSection() {
   return (
-    <Section title="render">
+    <Section title="Render">
       <div style={CARD}>
         <PropHead name="render" values={['text', 'chip']} defaults={['text']} />
         <div style={{ display: 'flex', gap: GAP, flexWrap: 'wrap' }}>
@@ -256,7 +256,7 @@ function RenderSection() {
 ══════════════════════════════════════════════════════════════ */
 function ActiveSection() {
   return (
-    <Section title="active">
+    <Section title="Active">
       <div style={CARD}>
         <div style={{ display: 'flex', gap: GAP, flexWrap: 'wrap' }}>
           <SelItem label="false">
@@ -276,7 +276,7 @@ function ActiveSection() {
 ══════════════════════════════════════════════════════════════ */
 function FocusSection() {
   return (
-    <Section title="focus">
+    <Section title="Focus">
       <div style={CARD}>
         <PropHead name="forceFocused" values={['false', 'true']} defaults={['false']} />
         <div style={{ display: 'flex', gap: GAP, flexWrap: 'wrap' }}>
@@ -315,7 +315,7 @@ function StatusSection() {
   const PH = '선택해주세요.'
 
   return (
-    <Section title="status">
+    <Section title="Status">
       <div style={CARD}>
         <PropHead name="status" values={['normal', 'negative']} defaults={['normal']} />
 
@@ -360,7 +360,7 @@ function DisableSection() {
   const PH = '선택해주세요.'
 
   return (
-    <Section title="disable">
+    <Section title="Disable">
       <div style={CARD}>
         <PropHead name="disabled" values={['false', 'true']} defaults={['false']} />
 
@@ -409,7 +409,7 @@ function DisableSection() {
 ══════════════════════════════════════════════════════════════ */
 function HeadingSection() {
   return (
-    <Section title="heading">
+    <Section title="Heading">
       <div style={CARD}>
         <PropHead name="heading" values={['none', '"string"']} defaults={['none']} />
         <div style={{ display: 'flex', gap: GAP, flexWrap: 'wrap', alignItems: 'flex-end' }}>
@@ -430,7 +430,7 @@ function HeadingSection() {
 ══════════════════════════════════════════════════════════════ */
 function RequiredBadgeSection() {
   return (
-    <Section title="requiredBadge">
+    <Section title="RequiredBadge">
       <div style={CARD}>
         <PropHead name="required" values={['false', 'true']} defaults={['false']} />
         <div style={{ display: 'flex', gap: GAP, flexWrap: 'wrap', alignItems: 'flex-end' }}>
@@ -451,7 +451,7 @@ function RequiredBadgeSection() {
 ══════════════════════════════════════════════════════════════ */
 function DescriptionSection() {
   return (
-    <Section title="description">
+    <Section title="Description">
       <div style={CARD}>
         <PropHead name="description" values={['none', '"string"']} defaults={['none']} />
         <div style={{ display: 'flex', gap: GAP, flexWrap: 'wrap', alignItems: 'flex-start' }}>
@@ -477,7 +477,7 @@ function OverflowSection() {
   const CHIPS = ['텍스트', '텍스트', '텍스트', '텍스트', '텍스트', '텍스트']
 
   return (
-    <Section title="overflow">
+    <Section title="Overflow">
       <div style={CARD}>
         <PropHead name="overflow" values={['false', 'true']} defaults={['false']} />
 
@@ -516,7 +516,7 @@ function OverflowSection() {
 ══════════════════════════════════════════════════════════════ */
 function LeadingIconSection() {
   return (
-    <Section title="leadingIcon">
+    <Section title="LeadingIcon">
       <div style={CARD}>
         <PropHead name="leadingIcon" values={['false', 'true']} defaults={['false']} />
         <div style={{ display: 'flex', gap: GAP, flexWrap: 'wrap' }}>

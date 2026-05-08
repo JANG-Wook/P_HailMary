@@ -1,7 +1,56 @@
+import { useState } from 'react'
+import Tab from '../../design-system/components/Tab/Tab'
+import PaginationDots from '../../design-system/components/PaginationDots/PaginationDots'
 import PaginationNavigation from '../../design-system/components/PaginationNavigation/PaginationNavigation'
 import Section, { Case } from '../Section'
 
-/* ── 쇼케이스용 헬퍼 컴포넌트 ─────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   Dot 탭
+══════════════════════════════════════════════════════════════ */
+
+function DotContent() {
+  return (
+    <div>
+      <Section title="Variant" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)">
+        <Case label='variant="normal"  default' center>
+          <PaginationDots count={5} value={0} variant="normal" />
+        </Case>
+        <Case label='variant="white"' center>
+          <PaginationDots count={5} value={0} variant="white" />
+        </Case>
+      </Section>
+
+      <Section title="Size" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)">
+        <Case label='size="small"' center>
+          <PaginationDots count={5} value={0} size="small" />
+        </Case>
+        <Case label='size="medium"  default' center>
+          <PaginationDots count={5} value={0} size="medium" />
+        </Case>
+      </Section>
+
+      <Section title="Resource" background="var(--color-bg-normal-alternative)" gap="var(--spacing-16)">
+        <Case label='size="medium"  variant="normal"' center>
+          <PaginationDots count={2} value={0} size="medium" variant="normal" />
+        </Case>
+        <Case label='size="medium"  variant="white"' center>
+          <PaginationDots count={2} value={0} size="medium" variant="white" />
+        </Case>
+        <Case label='size="small"  variant="normal"' center>
+          <PaginationDots count={2} value={0} size="small" variant="normal" />
+        </Case>
+        <Case label='size="small"  variant="white"' center>
+          <PaginationDots count={2} value={0} size="small" variant="white" />
+        </Case>
+      </Section>
+    </div>
+  )
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Navigation 탭
+══════════════════════════════════════════════════════════════ */
+
 function Placeholder() {
   return (
     <div style={{
@@ -70,44 +119,29 @@ function GoToPage() {
         textAlign:     'center',
       }}>페이지 이동</span>
       <span style={{
-        display:        'inline-flex',
-        alignItems:     'center',
-        justifyContent: 'center',
-        width:          'var(--spacing-56)',
-        padding:        'var(--spacing-4) var(--spacing-6)',
-        border:         '1px solid var(--color-line-normal)',
-        borderRadius:   'var(--spacing-8)',
-        fontSize:       'var(--font-size-label-1)',
-        lineHeight:     'var(--line-height-label-1-normal)',
-        letterSpacing:  'var(--letter-spacing-label-1)',
-        fontWeight:     'var(--font-weight-medium)',
-        color:          'var(--color-label-normal)',
-        textAlign:      'center',
+        display:         'inline-flex',
+        alignItems:      'center',
+        justifyContent:  'center',
+        width:           'var(--spacing-56)',
+        padding:         'var(--spacing-4) var(--spacing-6)',
+        border:          '1px solid var(--color-line-normal)',
+        borderRadius:    'var(--spacing-8)',
+        fontSize:        'var(--font-size-label-1)',
+        lineHeight:      'var(--line-height-label-1-normal)',
+        letterSpacing:   'var(--letter-spacing-label-1)',
+        fontWeight:      'var(--font-weight-medium)',
+        color:           'var(--color-label-normal)',
+        textAlign:       'center',
         backgroundColor: 'var(--color-bg-transparent)',
       }}>23</span>
     </div>
   )
 }
 
-export default function PaginationNavPage() {
+function NavigationContent() {
   return (
     <div>
-      <h2 style={{
-        fontSize:     'var(--font-size-title-3)',
-        lineHeight:   'var(--line-height-title-3)',
-        fontWeight:   'var(--font-weight-bold)',
-        color:        'var(--color-label-normal)',
-        marginBottom: 'var(--spacing-8)',
-      }}>Navigation</h2>
-      <p style={{
-        fontSize:      'var(--font-size-body-2)',
-        lineHeight:    'var(--line-height-body-2-normal)',
-        color:         'var(--color-label-alternative)',
-        marginBottom:  'var(--spacing-32)',
-      }}>페이지의 위치를 숫자로 표시하고 이동할 수 있는 내비게이션 방식을 사용합니다.</p>
-
-      {/* ── variant ─────────────────────────────────────────── */}
-      <Section title="variant" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
+      <Section title="Variant" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
         <Case label='variant="extended"  default'>
           <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation
@@ -125,8 +159,7 @@ export default function PaginationNavPage() {
         </Case>
       </Section>
 
-      {/* ── leadingContent ───────────────────────────────────── */}
-      <Section title="leadingContent" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
+      <Section title="LeadingContent" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
         <Case label='leadingContent  none'>
           <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation count={11} value={0} variant="extended"
@@ -150,8 +183,7 @@ export default function PaginationNavPage() {
         </Case>
       </Section>
 
-      {/* ── trailingContent ──────────────────────────────────── */}
-      <Section title="trailingContent" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
+      <Section title="TrailingContent" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
         <Case label='trailingContent  none'>
           <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation count={11} value={5} variant="extended"
@@ -175,8 +207,7 @@ export default function PaginationNavPage() {
         </Case>
       </Section>
 
-      {/* ── preview ──────────────────────────────────────────── */}
-      <Section title="preview" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
+      <Section title="Preview" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)" column>
         <Case label='extended  count=59  value=0'>
           <div style={{ width: '760px', maxWidth: '100%' }}>
             <PaginationNavigation count={59} value={0} variant="extended" />
@@ -224,7 +255,6 @@ export default function PaginationNavPage() {
         </Case>
       </Section>
 
-      {/* ── Resource ─────────────────────────────────────────── */}
       <Section title="Resource" background="var(--color-bg-normal-alternative)" gap="var(--spacing-16)" column>
         <Case label='compact  count=2  value=0' center>
           <PaginationNavigation count={2} value={0} variant="compact" />
@@ -239,6 +269,34 @@ export default function PaginationNavPage() {
           <PerPageSelector />
         </Case>
       </Section>
+    </div>
+  )
+}
+
+/* ══════════════════════════════════════════════════════════════
+   메인 페이지
+══════════════════════════════════════════════════════════════ */
+
+const TAB_ITEMS = [{ label: 'Dot' }, { label: 'Navigation' }]
+
+export default function PaginationPage() {
+  const [activeTab, setActiveTab] = useState(0)
+
+  return (
+    <div>
+      <h2 style={{
+        fontSize:     'var(--font-size-title-3)',
+        lineHeight:   'var(--line-height-title-3)',
+        fontWeight:   'var(--font-weight-bold)',
+        color:        'var(--color-label-normal)',
+        marginBottom: 'var(--spacing-24)',
+      }}>Pagination</h2>
+
+      <div style={{ marginBottom: 'var(--spacing-40)' }}>
+        <Tab items={TAB_ITEMS} value={activeTab} onChange={setActiveTab} />
+      </div>
+
+      {activeTab === 0 ? <DotContent /> : <NavigationContent />}
     </div>
   )
 }

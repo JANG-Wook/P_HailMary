@@ -19,7 +19,7 @@ export default function PageIndicatorPage() {
       }}>페이지 번호를 숫자 형태로 표시하는 페이지네이션 방식입니다.</p>
 
       {/* ── size ──────────────────────────────────────────────── */}
-      <Section title="size" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)">
+      <Section title="Size" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)">
         <Case label='size="small"' center>
           <PageIndicatorCounter current="1" total="10" size="small" />
         </Case>
@@ -29,7 +29,7 @@ export default function PageIndicatorPage() {
       </Section>
 
       {/* ── alternative ───────────────────────────────────────── */}
-      <Section title="alternative" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)">
+      <Section title="Alternative" background="var(--color-bg-normal-alternative)" gap="var(--spacing-24)">
         <Case label='alternative=false  default' center>
           <PageIndicatorCounter current="1" total="10" />
         </Case>

@@ -61,7 +61,7 @@ function CardContent() {
       </Section>
 
       {/* ── platform = ── */}
-      <Section title="platform =" gap="var(--spacing-24)">
+      <Section title="Platform =" gap="var(--spacing-24)">
         <Case label='platform="desktop"  default'>
           <div style={{ width: '240px' }}>
             <Card
@@ -91,7 +91,7 @@ function CardContent() {
       </Section>
 
       {/* ── thumbnailOverlay = ── */}
-      <Section title="thumbnailOverlay =" gap="var(--spacing-24)">
+      <Section title="ThumbnailOverlay =" gap="var(--spacing-24)">
         <Case label='thumbnailOverlay={false}  default'>
           <div style={{ width: '240px' }}>
             <Card
@@ -119,7 +119,7 @@ function CardContent() {
       </Section>
 
       {/* ── overlayCaption = ── */}
-      <Section title="overlayCaption =" gap="var(--spacing-24)">
+      <Section title="OverlayCaption =" gap="var(--spacing-24)">
         <Case label='overlayCaption 있음  default'>
           <div style={{ width: '240px' }}>
             <Card
@@ -148,7 +148,7 @@ function CardContent() {
       </Section>
 
       {/* ── toggleIcon = ── */}
-      <Section title="toggleIcon =" gap="var(--spacing-24)">
+      <Section title="ToggleIcon =" gap="var(--spacing-24)">
         <Case label='onToggleSave 있음  default'>
           <div style={{ width: '240px' }}>
             <Card
@@ -177,7 +177,7 @@ function CardContent() {
       </Section>
 
       {/* ── caption = ── */}
-      <Section title="caption =" gap="var(--spacing-24)">
+      <Section title="Caption =" gap="var(--spacing-24)">
         <Case label='caption="캡션"  default'>
           <div style={{ width: '240px' }}>
             <Card
@@ -204,7 +204,7 @@ function CardContent() {
       </Section>
 
       {/* ── extraCaption = ── */}
-      <Section title="extraCaption =" gap="var(--spacing-24)">
+      <Section title="ExtraCaption =" gap="var(--spacing-24)">
         <Case label='extraCaption 없음  default'>
           <div style={{ width: '240px' }}>
             <Card
@@ -233,7 +233,7 @@ function CardContent() {
       </Section>
 
       {/* ── topContent ── */}
-      <Section title="topContent" gap="var(--spacing-24)">
+      <Section title="TopContent" gap="var(--spacing-24)">
         <Case label="topContent 없음  default">
           <div style={{ width: '240px' }}>
             <Card
@@ -281,7 +281,7 @@ function CardContent() {
       </Section>
 
       {/* ── bottomContent ── */}
-      <Section title="bottomContent" gap="var(--spacing-24)">
+      <Section title="BottomContent" gap="var(--spacing-24)">
         <Case label="bottomContent 없음  default">
           <div style={{ width: '240px' }}>
             <Card
@@ -334,7 +334,7 @@ function CardContent() {
       </Section>
 
       {/* ── skeleton ── */}
-      <Section title="skeleton" column gap="var(--spacing-24)">
+      <Section title="Skeleton" column gap="var(--spacing-24)">
         <div style={{ display: 'flex', gap: 'var(--spacing-16)', alignItems: 'flex-start', flexWrap: 'wrap' }}>
           <Case label='platform="desktop"  기본'>
             <div style={{ width: '240px' }}>
@@ -372,7 +372,7 @@ function ListCardContent() {
   return (
     <div>
       {/* ── platform = ── */}
-      <Section title="platform =" gap="var(--spacing-24)" column>
+      <Section title="Platform =" gap="var(--spacing-24)" column>
         <Case label='platform="desktop"  default'>
           <div style={{ width: '480px' }}>
             <ListCard
@@ -399,7 +399,7 @@ function ListCardContent() {
       </Section>
 
       {/* ── extraCaption = ── */}
-      <Section title="extraCaption =" gap="var(--spacing-24)" column>
+      <Section title="ExtraCaption =" gap="var(--spacing-24)" column>
         <Case label='extraCaption 없음  default'>
           <div style={{ width: '480px' }}>
             <ListCard
@@ -424,7 +424,7 @@ function ListCardContent() {
       </Section>
 
       {/* ── caption = ── */}
-      <Section title="caption =" gap="var(--spacing-24)" column>
+      <Section title="Caption =" gap="var(--spacing-24)" column>
         <Case label='caption 있음  default'>
           <div style={{ width: '480px' }}>
             <ListCard
@@ -447,7 +447,7 @@ function ListCardContent() {
       </Section>
 
       {/* ── topContent ── */}
-      <Section title="topContent" gap="var(--spacing-24)" column>
+      <Section title="TopContent" gap="var(--spacing-24)" column>
         <Case label="topContent 없음  default">
           <div style={{ width: '480px' }}>
             <ListCard
@@ -489,7 +489,7 @@ function ListCardContent() {
       </Section>
 
       {/* ── bottomContent ── */}
-      <Section title="bottomContent" gap="var(--spacing-24)" column>
+      <Section title="BottomContent" gap="var(--spacing-24)" column>
         <Case label="bottomContent 없음  default">
           <div style={{ width: '480px' }}>
             <ListCard
@@ -536,7 +536,7 @@ function ListCardContent() {
       </Section>
 
       {/* ── leadingContent ── */}
-      <Section title="leadingContent" gap="var(--spacing-24)" column>
+      <Section title="LeadingContent" gap="var(--spacing-24)" column>
         <Case label="leadingContent 없음  default">
           <div style={{ width: '480px' }}>
             <ListCard
@@ -572,7 +572,7 @@ function ListCardContent() {
       </Section>
 
       {/* ── trailingContent ── */}
-      <Section title="trailingContent" gap="var(--spacing-24)" column>
+      <Section title="TrailingContent" gap="var(--spacing-24)" column>
         <Case label="trailingContent 없음  default">
           <div style={{ width: '480px' }}>
             <ListCard
@@ -619,7 +619,7 @@ function ListCardContent() {
       </Section>
 
       {/* ── skeleton ── */}
-      <Section title="skeleton" gap="var(--spacing-24)" column>
+      <Section title="Skeleton" gap="var(--spacing-24)" column>
         <Case label='platform="desktop"  기본'>
           <div style={{ width: '480px' }}>
             <ListCard skeleton />

@@ -62,7 +62,7 @@ export default function TabPage() {
       }}>클릭하거나 선택하여 목적에 따라 구분된 콘텐츠를 볼 수 있도록 돕습니다.</p>
 
       {/* ── resize ──────────────────────────────────────────── */}
-      <Section title="resize" gap="var(--spacing-24)">
+      <Section title="Resize" gap="var(--spacing-24)">
         <Case label='resize="hug"  각 탭이 텍스트 너비에 맞춤'>
           <TabBox>
             <Tab items={ITEMS_3} value={t1} onChange={setT1} size="small" resize="hug" />
@@ -76,7 +76,7 @@ export default function TabPage() {
       </Section>
 
       {/* ── size ────────────────────────────────────────────── */}
-      <Section title="size" column gap="var(--spacing-24)">
+      <Section title="Size" column gap="var(--spacing-24)">
         <Case label='size="small"  (40px)'>
           <TabBox>
             <Tab
@@ -113,7 +113,7 @@ export default function TabPage() {
       </Section>
 
       {/* ── padding ─────────────────────────────────────────── */}
-      <Section title="padding" column gap="var(--spacing-24)">
+      <Section title="Padding" column gap="var(--spacing-24)">
         <Case label='size="small"  /  padding=false  →  padding=true'>
           <TwoCol>
             <TabBox>
@@ -147,7 +147,7 @@ export default function TabPage() {
       </Section>
 
       {/* ── trailingIconButton ───────────────────────────────── */}
-      <Section title="trailingIconButton" column gap="var(--spacing-24)">
+      <Section title="TrailingIconButton" column gap="var(--spacing-24)">
         <Case label='horizontalPadding=false  /  trailingIconButton=false  →  true'>
           <TwoCol>
             <TabBox>
@@ -184,7 +184,7 @@ export default function TabPage() {
       </Section>
 
       {/* ── scroll ──────────────────────────────────────────── */}
-      <Section title="scroll" gap="var(--spacing-24)">
+      <Section title="Scroll" gap="var(--spacing-24)">
         <Case label="false (default)">
           <TabBox>
             <Tab items={SCROLL_ITEMS} value={t6} onChange={setT6} />

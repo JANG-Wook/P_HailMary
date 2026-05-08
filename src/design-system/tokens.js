@@ -169,6 +169,92 @@ export const color = {
   },
 }
 
+export const darkColor = {
+  label: {
+    strong:      '#ffffff',
+    normal:      '#f7f7f8',
+    neutral:     'rgba(194, 196, 200, 0.88)',
+    alternative: 'rgba(174, 176, 182, 0.61)',
+    assistive:   'rgba(174, 176, 182, 0.28)',
+    disable:     'rgba(152, 155, 162, 0.16)',
+  },
+  background: {
+    normal:                 '#1b1c1e',
+    normalAlternative:      '#0f0f10',
+    elevated:               '#212225',
+    elevatedAlternative:    '#141415',
+    transparent:            'rgba(33, 34, 37, 0.61)',
+    transparentAlternative: 'rgba(33, 34, 37, 0.61)',
+  },
+  line: {
+    normal:          'rgba(112, 115, 124, 0.32)',
+    strong:          'rgba(194, 196, 200, 0.52)',
+    neutral:         'rgba(112, 115, 124, 0.28)',
+    alternative:     'rgba(112, 115, 124, 0.22)',
+    solidNormal:     '#37383c',
+    solidNeutral:    '#333438',
+    solidAlternative: '#2e2f33',
+  },
+  fill: {
+    normal:      'rgba(112, 115, 124, 0.22)',
+    alternative: 'rgba(112, 115, 124, 0.12)',
+    strong:      'rgba(112, 115, 124, 0.28)',
+  },
+  interaction: {
+    inactive: '#5a5c63',
+    disable:  '#2e2f33',
+  },
+  atomic: {
+    green:  { 60: '#1ed45a' },
+    orange: { 60: '#ffa938' },
+    red:    { 60: '#ff6363' },
+  },
+  primary: {
+    normal: '#3385ff',
+    strong: '#1a75ff',
+    heavy:  '#0066ff',
+  },
+  status: {
+    positive:   '#1ed45a',
+    cautionary: '#ffa938',
+    negative:   '#ff6363',
+  },
+  accentBackground: {
+    redOrange: '#ff7b2e',
+    lime:      '#6be016',
+    cyan:      '#28d0ed',
+    lightBlue: '#3dc2ff',
+    violet:    '#7d5ef7',
+    purple:    '#d478ff',
+    pink:      '#fa73e3',
+  },
+  accentForeground: {
+    red:       '#ff6363',
+    redOrange: '#ff7b2e',
+    orange:    '#ff9200',
+    lime:      '#58cf04',
+    green:     '#1ed45a',
+    cyan:      '#00bdde',
+    lightBlue: '#00aeff',
+    blue:      '#4f95ff',
+    violet:    '#9e86fc',
+    purple:    '#d478ff',
+    pink:      '#fa73e3',
+  },
+  inverse: {
+    primary:    '#0066ff',
+    background: '#ffffff',
+    label:      '#171719',
+  },
+  static: {
+    white: '#ffffff',
+    black: '#000000',
+  },
+  material: {
+    dimmer: 'rgba(23, 23, 25, 0.74)',
+  },
+}
+
 export const divider = {
   thickness: {
     normal: '1px',

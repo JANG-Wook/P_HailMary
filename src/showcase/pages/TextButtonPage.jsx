@@ -108,7 +108,7 @@ export default function TextButtonPage() {
       }}>Text Button</h2>
 
       {/* ── 인터랙션 데모 ── */}
-      <Section title="test">
+      <Section title="Test">
         <div style={{ ...CARD, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
           <SubLabel>마우스를 올리거나 클릭해보세요</SubLabel>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', alignItems: 'center' }}>
@@ -122,7 +122,7 @@ export default function TextButtonPage() {
       </Section>
 
       {/* ── 1. Color ── */}
-      <Section title="1. Color">
+      <Section title="Color">
         <div style={{ ...CARD, display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)' }}>
           <Group label="primary">
             <TextButton color="primary" label="텍스트" />
@@ -134,7 +134,7 @@ export default function TextButtonPage() {
       </Section>
 
       {/* ── 2. Size ── */}
-      <Section title="2. Size">
+      <Section title="Size">
         <div style={{ ...CARD, display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', alignItems: 'flex-end' }}>
           <Group label="medium">
             <TextButton size="medium" label="텍스트" />
@@ -146,7 +146,7 @@ export default function TextButtonPage() {
       </Section>
 
       {/* ── 3. Icon ── */}
-      <Section title="3. Icon">
+      <Section title="Icon">
         <div style={{ ...CARD, display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)' }}>
           <Group label="none">
             <TextButton label="텍스트" />
@@ -164,7 +164,7 @@ export default function TextButtonPage() {
       </Section>
 
       {/* ── 4. Disabled ── */}
-      <Section title="4. Disabled">
+      <Section title="Disabled">
         <div style={{ ...CARD, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
           <Group label="primary" row>
             <Group label="false">
@@ -186,7 +186,7 @@ export default function TextButtonPage() {
       </Section>
 
       {/* ── 5. Loading ── */}
-      <Section title="5. Loading">
+      <Section title="Loading">
         <div style={{ ...CARD, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
           <Group label="primary" row>
             <Group label="false">
@@ -208,7 +208,7 @@ export default function TextButtonPage() {
       </Section>
 
       {/* ── 6. Interaction ── */}
-      <Section title="6. Interaction">
+      <Section title="Interaction">
         <div style={{ ...CARD, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-32)' }}>
           <InteractionRow
             label="primary"

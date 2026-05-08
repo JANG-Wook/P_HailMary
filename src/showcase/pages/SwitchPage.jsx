@@ -123,7 +123,7 @@ function InnerCard({ children }) {
       flexDirection:   'column',
       gap:             'var(--spacing-24)',
       padding:         'var(--spacing-24)',
-      backgroundColor: 'var(--color-static-white)',
+      backgroundColor: 'var(--color-bg-normal)',
       border:          '1px solid var(--color-line-normal)',
       borderRadius:    '16px',
       width:           '100%',
@@ -228,12 +228,12 @@ export default function SwitchPage() {
         marginBottom: 'var(--spacing-32)',
       }}>Switch</h2>
 
-      <Section title="test" column gap="var(--spacing-16)">
+      <Section title="Test" column gap="var(--spacing-16)">
         <SwitchTest />
       </Section>
 
       {/* ─── platform 비교 ─────────────────────────────────── */}
-      <Section title="platform" column gap="var(--spacing-16)">
+      <Section title="Platform" column gap="var(--spacing-16)">
         <ContentBox>
           {/* normal 열 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>

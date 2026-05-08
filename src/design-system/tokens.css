@@ -402,6 +402,157 @@ html, body, #root { margin: 0; padding: 0; height: 100%; }
 
 }
 
+/* ============================================================
+   Dark Mode — color tokens only
+   Typography, Spacing, Shadow, Layout 토큰은 변경 없음
+   ============================================================ */
+
+/* data-theme="dark" 수동 강제 다크 */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-label-strong:      #ffffff;
+  --color-label-normal:      #f7f7f8;
+  --color-label-neutral:     rgba(194, 196, 200, 0.88);
+  --color-label-alternative: rgba(174, 176, 182, 0.61);
+  --color-label-assistive:   rgba(174, 176, 182, 0.28);
+  --color-label-disable:     rgba(152, 155, 162, 0.16);
+
+  --color-bg-normal:                  #1b1c1e;
+  --color-bg-normal-alternative:      #0f0f10;
+  --color-bg-elevated:                #212225;
+  --color-bg-elevated-alternative:    #141415;
+  --color-bg-transparent:             rgba(33, 34, 37, 0.61);
+  --color-bg-transparent-alternative: rgba(33, 34, 37, 0.61);
+
+  --color-line-normal:            rgba(112, 115, 124, 0.32);
+  --color-line-strong:            rgba(194, 196, 200, 0.52);
+  --color-line-neutral:           rgba(112, 115, 124, 0.28);
+  --color-line-alternative:       rgba(112, 115, 124, 0.22);
+  --color-line-solid-normal:      #37383c;
+  --color-line-solid-neutral:     #333438;
+  --color-line-solid-alternative: #2e2f33;
+
+  --color-fill-normal:      rgba(112, 115, 124, 0.22);
+  --color-fill-alternative: rgba(112, 115, 124, 0.12);
+  --color-fill-strong:      rgba(112, 115, 124, 0.28);
+
+  --color-interaction-inactive: #5a5c63;
+  --color-interaction-disable:  #2e2f33;
+
+  --color-atomic-green-60:  #1ed45a;
+  --color-atomic-orange-60: #ffa938;
+  --color-atomic-red-60:    #ff6363;
+
+  --color-primary-normal: #3385ff;
+  --color-primary-strong: #1a75ff;
+  --color-primary-heavy:  #0066ff;
+
+  --color-status-positive:   #1ed45a;
+  --color-status-cautionary: #ffa938;
+  --color-status-negative:   #ff6363;
+
+  --color-accent-bg-red-orange: #ff7b2e;
+  --color-accent-bg-lime:       #6be016;
+  --color-accent-bg-cyan:       #28d0ed;
+  --color-accent-bg-light-blue: #3dc2ff;
+  --color-accent-bg-violet:     #7d5ef7;
+  --color-accent-bg-purple:     #d478ff;
+  --color-accent-bg-pink:       #fa73e3;
+
+  --color-accent-fg-red:        #ff6363;
+  --color-accent-fg-red-orange: #ff7b2e;
+  --color-accent-fg-orange:     #ff9200;
+  --color-accent-fg-lime:       #58cf04;
+  --color-accent-fg-green:      #1ed45a;
+  --color-accent-fg-cyan:       #00bdde;
+  --color-accent-fg-light-blue: #00aeff;
+  --color-accent-fg-blue:       #4f95ff;
+  --color-accent-fg-violet:     #9e86fc;
+  --color-accent-fg-purple:     #d478ff;
+  --color-accent-fg-pink:       #fa73e3;
+
+  --color-inverse-primary:    #0066ff;
+  --color-inverse-background: #ffffff;
+  --color-inverse-label:      #171719;
+
+  --color-material-dimmer: rgba(23, 23, 25, 0.74);
+}
+
+/* OS 다크모드 자동 적용 (data-theme="light"로 강제 라이트 시 무시) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --color-label-strong:      #ffffff;
+    --color-label-normal:      #f7f7f8;
+    --color-label-neutral:     rgba(194, 196, 200, 0.88);
+    --color-label-alternative: rgba(174, 176, 182, 0.61);
+    --color-label-assistive:   rgba(174, 176, 182, 0.28);
+    --color-label-disable:     rgba(152, 155, 162, 0.16);
+
+    --color-bg-normal:                  #1b1c1e;
+    --color-bg-normal-alternative:      #0f0f10;
+    --color-bg-elevated:                #212225;
+    --color-bg-elevated-alternative:    #141415;
+    --color-bg-transparent:             rgba(33, 34, 37, 0.61);
+    --color-bg-transparent-alternative: rgba(33, 34, 37, 0.61);
+
+    --color-line-normal:            rgba(112, 115, 124, 0.32);
+    --color-line-strong:            rgba(194, 196, 200, 0.52);
+    --color-line-neutral:           rgba(112, 115, 124, 0.28);
+    --color-line-alternative:       rgba(112, 115, 124, 0.22);
+    --color-line-solid-normal:      #37383c;
+    --color-line-solid-neutral:     #333438;
+    --color-line-solid-alternative: #2e2f33;
+
+    --color-fill-normal:      rgba(112, 115, 124, 0.22);
+    --color-fill-alternative: rgba(112, 115, 124, 0.12);
+    --color-fill-strong:      rgba(112, 115, 124, 0.28);
+
+    --color-interaction-inactive: #5a5c63;
+    --color-interaction-disable:  #2e2f33;
+
+    --color-atomic-green-60:  #1ed45a;
+    --color-atomic-orange-60: #ffa938;
+    --color-atomic-red-60:    #ff6363;
+
+    --color-primary-normal: #3385ff;
+    --color-primary-strong: #1a75ff;
+    --color-primary-heavy:  #0066ff;
+
+    --color-status-positive:   #1ed45a;
+    --color-status-cautionary: #ffa938;
+    --color-status-negative:   #ff6363;
+
+    --color-accent-bg-red-orange: #ff7b2e;
+    --color-accent-bg-lime:       #6be016;
+    --color-accent-bg-cyan:       #28d0ed;
+    --color-accent-bg-light-blue: #3dc2ff;
+    --color-accent-bg-violet:     #7d5ef7;
+    --color-accent-bg-purple:     #d478ff;
+    --color-accent-bg-pink:       #fa73e3;
+
+    --color-accent-fg-red:        #ff6363;
+    --color-accent-fg-red-orange: #ff7b2e;
+    --color-accent-fg-orange:     #ff9200;
+    --color-accent-fg-lime:       #58cf04;
+    --color-accent-fg-green:      #1ed45a;
+    --color-accent-fg-cyan:       #00bdde;
+    --color-accent-fg-light-blue: #00aeff;
+    --color-accent-fg-blue:       #4f95ff;
+    --color-accent-fg-violet:     #9e86fc;
+    --color-accent-fg-purple:     #d478ff;
+    --color-accent-fg-pink:       #fa73e3;
+
+    --color-inverse-primary:    #0066ff;
+    --color-inverse-background: #ffffff;
+    --color-inverse-label:      #171719;
+
+    --color-material-dimmer: rgba(23, 23, 25, 0.74);
+  }
+}
+
 /* --------------------------------------------------
    Global — Input Placeholder
    인라인 스타일로 제어 불가한 ::placeholder 색상

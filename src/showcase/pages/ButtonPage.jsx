@@ -109,7 +109,7 @@ export default function ButtonPage() {
       }}>Button</h2>
 
       {/* ── 인터랙션 데모 ── */}
-      <Section title="test">
+      <Section title="Test">
         <div style={{ ...CARD, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
           <SubLabel>마우스를 올리거나 클릭해보세요</SubLabel>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-16)', alignItems: 'center' }}>
@@ -124,7 +124,7 @@ export default function ButtonPage() {
       </Section>
 
       {/* ── 1. Variant ── */}
-      <Section title="1. Variant">
+      <Section title="Variant">
         <div style={{ ...CARD, display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)' }}>
           <Group label="solid">
             <Button variant="solid" color="primary" label="버튼" />
@@ -136,7 +136,7 @@ export default function ButtonPage() {
       </Section>
 
       {/* ── 2. Color ── */}
-      <Section title="2. Color">
+      <Section title="Color">
         <div style={{ ...CARD, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
           {/* solid */}
           <Group label="solid" row>
@@ -160,7 +160,7 @@ export default function ButtonPage() {
       </Section>
 
       {/* ── 3. Size ── */}
-      <Section title="3. Size">
+      <Section title="Size">
         <div style={{ ...CARD, display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', alignItems: 'flex-end' }}>
           <Group label="large">
             <Button size="large" label="버튼" />
@@ -178,7 +178,7 @@ export default function ButtonPage() {
       </Section>
 
       {/* ── 4. Icon ── */}
-      <Section title="4. Icon">
+      <Section title="Icon">
         <div style={{ ...CARD, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
           <Group label="none" row>
             <Button label="버튼" />
@@ -196,7 +196,7 @@ export default function ButtonPage() {
       </Section>
 
       {/* ── 5. IconOnly ── */}
-      <Section title="5. IconOnly">
+      <Section title="IconOnly">
         <div style={{ ...CARD, display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-32)', alignItems: 'flex-end' }}>
           <Group label="large" row>
             <Group label="false">
@@ -226,7 +226,7 @@ export default function ButtonPage() {
       </Section>
 
       {/* ── 6. Disabled ── */}
-      <Section title="6. Disabled">
+      <Section title="Disabled">
         <div style={{ ...CARD, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
           {[
             { variant: 'solid',    color: 'primary'  },
@@ -247,7 +247,7 @@ export default function ButtonPage() {
       </Section>
 
       {/* ── 7. Loading ── */}
-      <Section title="7. Loading">
+      <Section title="Loading">
         <div style={{ ...CARD, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
           {[
             { variant: 'solid',    color: 'primary'  },
@@ -268,7 +268,7 @@ export default function ButtonPage() {
       </Section>
 
       {/* ── 8. Interaction ── */}
-      <Section title="8. Interaction">
+      <Section title="Interaction">
         <div style={{ ...CARD, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-32)' }}>
           <InteractionRow
             label="solid / primary"

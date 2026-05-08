@@ -34,7 +34,7 @@ function OutlinedContent() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-32)' }}>
 
-      <Section title="test" gap="var(--spacing-24)">
+      <Section title="Test" gap="var(--spacing-24)">
         <Case label="마우스를 올리거나 클릭해보세요">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)', width: 'fit-content' }}>
             <div style={{ display: 'flex', gap: 'var(--spacing-24)', alignItems: 'center' }}>
@@ -122,7 +122,7 @@ function SolidContent() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-32)' }}>
 
-      <Section title="test" gap="var(--spacing-24)">
+      <Section title="Test" gap="var(--spacing-24)">
         <Case label="마우스를 올리거나 클릭해보세요">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)', width: 'fit-content' }}>
             <div style={{ display: 'flex', gap: 'var(--spacing-24)', alignItems: 'center' }}>

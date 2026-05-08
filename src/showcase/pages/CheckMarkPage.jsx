@@ -52,11 +52,11 @@ export default function CheckMarkPage() {
         marginBottom: 'var(--spacing-32)',
       }}>Check mark</h2>
 
-      <Section title="test" column gap="var(--spacing-16)">
+      <Section title="Test" column gap="var(--spacing-16)">
         <CheckMarkTest />
       </Section>
 
-      <Section title="size" gap="var(--spacing-24)">
+      <Section title="Size" gap="var(--spacing-24)">
         <Case label='size="small"'>
           <CheckMark checked size="small" label={"텍스트\n텍스트"} />
         </Case>
@@ -65,7 +65,7 @@ export default function CheckMarkPage() {
         </Case>
       </Section>
 
-      <Section title="state" gap="var(--spacing-24)">
+      <Section title="State" gap="var(--spacing-24)">
         <Case label='checked=false'>
           <CheckMark checked={false} label={"텍스트\n텍스트"} />
         </Case>
@@ -74,7 +74,7 @@ export default function CheckMarkPage() {
         </Case>
       </Section>
 
-      <Section title="tight" gap="var(--spacing-24)">
+      <Section title="Tight" gap="var(--spacing-24)">
         <Case label='tight=false (default)'>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
             <CheckMark checked size="medium" tight={false} label={"텍스트\n텍스트"} />
@@ -89,7 +89,7 @@ export default function CheckMarkPage() {
         </Case>
       </Section>
 
-      <Section title="label" gap="var(--spacing-24)">
+      <Section title="Label" gap="var(--spacing-24)">
         <Case label='label="텍스트" (default)'>
           <CheckMark checked label="텍스트" />
         </Case>
@@ -98,7 +98,7 @@ export default function CheckMarkPage() {
         </Case>
       </Section>
 
-      <Section title="disabled" gap="var(--spacing-24)">
+      <Section title="Disabled" gap="var(--spacing-24)">
         <Case label='disabled=false (default)'>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
             <CheckMark checked={false} label="텍스트" />
@@ -123,7 +123,7 @@ export default function CheckMarkPage() {
         marginBottom: 'var(--spacing-32)',
       }}>Resource / Control</h2>
 
-      <Section title="size" gap="var(--spacing-24)">
+      <Section title="Size" gap="var(--spacing-24)">
         <Case label='size="small"'>
           <CheckMark checked size="small" />
         </Case>
@@ -132,7 +132,7 @@ export default function CheckMarkPage() {
         </Case>
       </Section>
 
-      <Section title="state" gap="var(--spacing-24)">
+      <Section title="State" gap="var(--spacing-24)">
         <Case label='checked=false'>
           <CheckMark checked={false} />
         </Case>
@@ -141,7 +141,7 @@ export default function CheckMarkPage() {
         </Case>
       </Section>
 
-      <Section title="tight" column gap="var(--spacing-24)">
+      <Section title="Tight" column gap="var(--spacing-24)">
         <div style={{ display: 'flex', gap: 'var(--spacing-24)', alignItems: 'center' }}>
           <CheckMark checked size="medium" tight={false} />
           <CheckMark checked size="medium" tight />
@@ -160,7 +160,7 @@ export default function CheckMarkPage() {
         </div>
       </Section>
 
-      <Section title="disabled" gap="var(--spacing-24)">
+      <Section title="Disabled" gap="var(--spacing-24)">
         <Case label='disabled=false (default)'>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
             <CheckMark checked={false} />
@@ -175,7 +175,7 @@ export default function CheckMarkPage() {
         </Case>
       </Section>
 
-      <Section title="interaction" gap="var(--spacing-24)">
+      <Section title="Interaction" gap="var(--spacing-24)">
         <Case label='interaction="normal"'>
           <CheckMark checked forceInteraction="normal" />
         </Case>

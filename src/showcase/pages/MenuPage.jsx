@@ -74,7 +74,7 @@ export default function MenuPage() {
       }}>Menu</h2>
 
       {/* ── variant ─────────────────────────────────────────── */}
-      <Section title="variant" gap="var(--spacing-24)">
+      <Section title="Variant" gap="var(--spacing-24)">
         <Case label="Normal">
           <Menu items={interactiveNormal} variant="normal" />
         </Case>
@@ -97,7 +97,7 @@ export default function MenuPage() {
       </Section>
 
       {/* ── menuActionArea ───────────────────────────────────── */}
-      <Section title="menuActionArea" gap="var(--spacing-24)">
+      <Section title="MenuActionArea" gap="var(--spacing-24)">
         <Case label="false">
           <Menu variant="checkbox" items={actionItems} />
         </Case>
@@ -116,7 +116,7 @@ export default function MenuPage() {
       </Section>
 
       {/* ── scroll ───────────────────────────────────────────── */}
-      <Section title="scroll" gap="var(--spacing-24)">
+      <Section title="Scroll" gap="var(--spacing-24)">
         <Case label="false">
           <div style={{ width: '240px' }}>
             <Menu items={manyItems} />

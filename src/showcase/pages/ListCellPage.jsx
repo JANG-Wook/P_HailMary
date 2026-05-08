@@ -28,7 +28,7 @@ export default function ListCellPage() {
       }}>ListCell</h2>
 
       {/* 1. verticalPadding */}
-      <Section title="verticalPadding" gap="var(--spacing-8)" column>
+      <Section title="VerticalPadding" gap="var(--spacing-8)" column>
         <div style={{ width: '335px', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
           <Case label='verticalPadding="none"'>
             <Bound><ListCell label="텍스트" verticalPadding="none" /></Bound>
@@ -46,7 +46,7 @@ export default function ListCellPage() {
       </Section>
 
       {/* 2. verticalAlign */}
-      <Section title="verticalAlign" gap="var(--spacing-8)" column>
+      <Section title="VerticalAlign" gap="var(--spacing-8)" column>
         <div style={{ display: 'flex', gap: 'var(--spacing-24)' }}>
           <div style={{ width: '335px' }}>
             <Case label='verticalAlign="top" (default)'>
@@ -76,7 +76,7 @@ export default function ListCellPage() {
       </Section>
 
       {/* 3. fillWidth */}
-      <Section title="fillWidth" gap="var(--spacing-8)" column>
+      <Section title="FillWidth" gap="var(--spacing-8)" column>
         <Case label='fillWidth=false (default) — 335px 고정 너비'>
           <div style={{ width: '335px' }}>
             <Bound><ListCell label="텍스트" /></Bound>
@@ -88,7 +88,7 @@ export default function ListCellPage() {
       </Section>
 
       {/* 4. textEllipsis */}
-      <Section title="textEllipsis" gap="var(--spacing-8)" column>
+      <Section title="TextEllipsis" gap="var(--spacing-8)" column>
         <div style={{ display: 'flex', gap: 'var(--spacing-24)' }}>
           <div style={{ width: '335px' }}>
             <Case label='textEllipsis=false (default)'>
@@ -116,7 +116,7 @@ export default function ListCellPage() {
       </Section>
 
       {/* 5. divider */}
-      <Section title="divider" gap="var(--spacing-8)" column>
+      <Section title="Divider" gap="var(--spacing-8)" column>
         <div style={{ display: 'flex', gap: 'var(--spacing-24)' }}>
           <div style={{ width: '335px' }}>
             <Case label='divider=false (default)'>
@@ -138,7 +138,7 @@ export default function ListCellPage() {
       </Section>
 
       {/* 6. chevron */}
-      <Section title="chevron" gap="var(--spacing-8)" column>
+      <Section title="Chevron" gap="var(--spacing-8)" column>
         <div style={{ display: 'flex', gap: 'var(--spacing-24)' }}>
           <div style={{ width: '335px' }}>
             <Case label='chevron=false (default)'>
@@ -154,7 +154,7 @@ export default function ListCellPage() {
       </Section>
 
       {/* 7. selected */}
-      <Section title="selected" gap="var(--spacing-8)" column>
+      <Section title="Selected" gap="var(--spacing-8)" column>
         <div style={{ display: 'flex', gap: 'var(--spacing-24)' }}>
           <div style={{ width: '335px' }}>
             <Case label='selected=false (default)'>
@@ -176,7 +176,7 @@ export default function ListCellPage() {
       </Section>
 
       {/* 8. disabled */}
-      <Section title="disabled" gap="var(--spacing-8)" column>
+      <Section title="Disabled" gap="var(--spacing-8)" column>
         <div style={{ display: 'flex', gap: 'var(--spacing-24)' }}>
           <div style={{ width: '335px' }}>
             <Case label='disabled=false (default)'>
@@ -198,7 +198,7 @@ export default function ListCellPage() {
       </Section>
 
       {/* 9. interaction */}
-      <Section title="interaction" gap="var(--spacing-8)" column>
+      <Section title="Interaction" gap="var(--spacing-8)" column>
         <div style={{ display: 'flex', gap: 'var(--spacing-24)' }}>
           <div style={{ width: '335px' }}>
             <Case label='interaction=false (default, onClick 없음)'>
@@ -232,7 +232,7 @@ export default function ListCellPage() {
       </Section>
 
       {/* 10. leadingContent */}
-      <Section title="leadingContent" gap="var(--spacing-8)" column>
+      <Section title="LeadingContent" gap="var(--spacing-8)" column>
         <div style={{ width: '335px' }}>
           <Bound>
             <ListCell
@@ -244,7 +244,7 @@ export default function ListCellPage() {
       </Section>
 
       {/* 11. trailingContent */}
-      <Section title="trailingContent" gap="var(--spacing-8)" column>
+      <Section title="TrailingContent" gap="var(--spacing-8)" column>
         <div style={{ width: '335px' }}>
           <Bound>
             <ListCell
@@ -256,7 +256,7 @@ export default function ListCellPage() {
       </Section>
 
       {/* 12. customize */}
-      <Section title="customize" gap="var(--spacing-8)" column>
+      <Section title="Customize" gap="var(--spacing-8)" column>
         <span style={{
           fontSize: 'var(--font-size-label-2)',
           color:    'var(--color-label-alternative)',

@@ -13,7 +13,7 @@ export default function SnackbarPage() {
         marginBottom: 'var(--spacing-32)',
       }}>Snackbar</h2>
 
-      <Section title="heading =" background="var(--color-bg-normal-alternative)">
+      <Section title="Heading =" background="var(--color-bg-normal-alternative)">
         <Case label="true (default)" center>
           <Snackbar
             message="메시지에 마침표를 찍어요."
@@ -31,7 +31,7 @@ export default function SnackbarPage() {
         </Case>
       </Section>
 
-      <Section title="description =" background="var(--color-bg-normal-alternative)">
+      <Section title="Description =" background="var(--color-bg-normal-alternative)">
         <Case label="false (default)" center>
           <Snackbar
             message="메시지에 마침표를 찍어요."
@@ -49,7 +49,7 @@ export default function SnackbarPage() {
         </Case>
       </Section>
 
-      <Section title="icon =" background="var(--color-bg-normal-alternative)">
+      <Section title="Icon =" background="var(--color-bg-normal-alternative)">
         <Case label="false (default)" center>
           <Snackbar
             message="메시지에 마침표를 찍어요."
@@ -84,7 +84,7 @@ export default function SnackbarPage() {
         </Case>
       </Section>
 
-      <Section title="close button =" background="var(--color-bg-normal-alternative)">
+      <Section title="Close button =" background="var(--color-bg-normal-alternative)">
         <Case label="false (default)" center>
           <Snackbar
             message="메시지에 마침표를 찍어요."

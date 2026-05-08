@@ -34,7 +34,7 @@ export default function CategoryPage() {
       }}>Category</h2>
 
       {/* variant */}
-      <Section title="variant" gap="var(--spacing-24)">
+      <Section title="Variant" gap="var(--spacing-24)">
         <Case label="normal (default)">
           <div style={{ width: '320px' }}>
             <Category items={ITEMS_5} value={varNormal} onChange={setVarNormal} variant="normal" />
@@ -48,7 +48,7 @@ export default function CategoryPage() {
       </Section>
 
       {/* size */}
-      <Section title="size" gap="var(--spacing-16)">
+      <Section title="Size" gap="var(--spacing-16)">
         {[
           { size: 'small',  label: 'small'           },
           { size: 'medium', label: 'medium (default)' },
@@ -64,7 +64,7 @@ export default function CategoryPage() {
       </Section>
 
       {/* horizontalPadding */}
-      <Section title="horizontalPadding" gap="var(--spacing-24)">
+      <Section title="HorizontalPadding" gap="var(--spacing-24)">
         <Case label="false (default)">
           <div style={{
             width: '320px',
@@ -86,7 +86,7 @@ export default function CategoryPage() {
       </Section>
 
       {/* verticalPadding */}
-      <Section title="verticalPadding" gap="var(--spacing-24)">
+      <Section title="VerticalPadding" gap="var(--spacing-24)">
         <Case label="false (default)">
           <div style={{
             width: '320px',
@@ -108,7 +108,7 @@ export default function CategoryPage() {
       </Section>
 
       {/* scroll */}
-      <Section title="scroll" gap="var(--spacing-24)">
+      <Section title="Scroll" gap="var(--spacing-24)">
         <Case label="false (default)">
           <div style={{ width: '320px' }}>
             <Category items={ITEMS_MANY} value={0} />
@@ -122,7 +122,7 @@ export default function CategoryPage() {
       </Section>
 
       {/* resource */}
-      <Section title="resource" column gap="var(--spacing-16)">
+      <Section title="Resource" column gap="var(--spacing-16)">
         <div>
           <p style={{
             fontSize:      'var(--font-size-body-2)',
