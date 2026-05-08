@@ -5,8 +5,11 @@ const SCALE = [
   { token: '--spacing-0-5', value: 0.5,  label: '.5'   },
   { token: '--spacing-1',   value: 1,    label: '1'    },
   { token: '--spacing-2',   value: 2,    label: '2'    },
+  { token: '--spacing-3',   value: 3,    label: '3'    },
   { token: '--spacing-4',   value: 4,    label: '4'    },
+  { token: '--spacing-5',   value: 5,    label: '5'    },
   { token: '--spacing-6',   value: 6,    label: '6'    },
+  { token: '--spacing-7',   value: 7,    label: '7'    },
   { token: '--spacing-8',   value: 8,    label: '8'    },
   { token: '--spacing-10',  value: 10,   label: '10'   },
   { token: '--spacing-12',  value: 12,   label: '12'   },
@@ -24,13 +27,14 @@ const MAX_BAR_H = 120
 const MAX_VAL   = 56
 
 const ALTERNATING = [6, 10, 14]
+const CORRECTION  = [0.5, 3, 5, 7]
 
 function getBarColor(value, isBase) {
-  if (isBase)                 return 'var(--color-primary-normal)'
-  if (value === 0.5)          return 'var(--color-status-negative)'
-  if (value === 1)            return 'var(--color-status-cautionary)'
-  if (value === 2)            return 'var(--color-accent-fg-cyan)'
-  if (ALTERNATING.includes(value)) return 'var(--color-status-cautionary)'
+  if (isBase)                       return 'var(--color-primary-normal)'
+  if (CORRECTION.includes(value))   return 'var(--color-status-negative)'
+  if (value === 1)                  return 'var(--color-status-cautionary)'
+  if (value === 2)                  return 'var(--color-accent-fg-cyan)'
+  if (ALTERNATING.includes(value))  return 'var(--color-status-cautionary)'
   return 'var(--color-status-positive)'
 }
 
@@ -177,7 +181,7 @@ function Card2() {
   return (
     <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'stretch', position: 'relative' }}>
       {/* 상단 2px 간격 바 */}
-      <div style={{ position: 'relative', height: '2px' }}>
+      <div style={{ position: 'relative', height: 'var(--spacing-2)' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--color-status-negative)', opacity: 0.3 }} />
         <div style={{ position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%)', paddingBottom: 'var(--spacing-4)' }}>
           <SpacingBadge value="2" />
@@ -187,7 +191,7 @@ function Card2() {
       {/* 중간 행: 좌 5px | 텍스트 | 우 5px */}
       <div style={{ display: 'flex', alignItems: 'center' }}>
         {/* 좌 5px 간격 바 */}
-        <div style={{ position: 'relative', width: '5px', alignSelf: 'stretch' }}>
+        <div style={{ position: 'relative', width: 'var(--spacing-5)', alignSelf: 'stretch' }}>
           <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--color-status-negative)', opacity: 0.3 }} />
           <div style={{ position: 'absolute', right: '100%', top: '50%', transform: 'translateY(-50%)', paddingRight: 'var(--spacing-4)' }}>
             <SpacingBadge value="5" />
@@ -202,7 +206,7 @@ function Card2() {
         }}>라벨</span>
 
         {/* 우 5px 간격 바 */}
-        <div style={{ position: 'relative', width: '5px', alignSelf: 'stretch' }}>
+        <div style={{ position: 'relative', width: 'var(--spacing-5)', alignSelf: 'stretch' }}>
           <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--color-status-negative)', opacity: 0.3 }} />
           <div style={{ position: 'absolute', left: '100%', top: '50%', transform: 'translateY(-50%)', paddingLeft: 'var(--spacing-4)' }}>
             <SpacingBadge value="5" />
@@ -211,7 +215,7 @@ function Card2() {
       </div>
 
       {/* 하단 2px 간격 바 */}
-      <div style={{ position: 'relative', height: '2px' }}>
+      <div style={{ position: 'relative', height: 'var(--spacing-2)' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--color-status-negative)', opacity: 0.3 }} />
         <div style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)', paddingTop: 'var(--spacing-4)' }}>
           <SpacingBadge value="2" />

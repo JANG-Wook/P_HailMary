@@ -2,20 +2,21 @@ import Section from '../Section'
 
 /* ── 플랫폼별 Safe Area 데이터 ───────────────────────────────── */
 const STATUS_PLATFORMS = [
-  { platform: 'iOS',     height: 44 },
-  { platform: 'Android', height: 36 },
-  { platform: 'Web',     height: 0  },
+  { platform: 'iOS',     token: '--safe-area-status-ios',     height: 44 },
+  { platform: 'Android', token: '--safe-area-status-android', height: 36 },
+  { platform: 'Web',     token: null,                         height: 0  },
 ]
 
 const BOTTOM_PLATFORMS = [
-  { platform: 'iOS',     height: 34 },
-  { platform: 'Android', height: 14 },
-  { platform: 'Web',     height: 0  },
+  { platform: 'iOS',     token: '--safe-area-bottom-ios',     height: 34 },
+  { platform: 'Android', token: '--safe-area-bottom-android', height: 14 },
+  { platform: 'Web',     token: null,                         height: 0  },
 ]
 
 /* ── Safe Area 바 한 행 ──────────────────────────────────────── */
-function SafeAreaRow({ platform, height }) {
+function SafeAreaRow({ platform, token, height }) {
   const isZero = height === 0
+  const barH   = isZero ? 'var(--spacing-2)' : token ? `var(${token})` : `${height}px`
   return (
     <div style={{
       display:    'flex',
@@ -36,7 +37,7 @@ function SafeAreaRow({ platform, height }) {
       <div style={{ flex: 1, position: 'relative' }}>
         <div style={{
           width:        '100%',
-          height:       isZero ? '2px' : `${height}px`,
+          height:       barH,
           borderRadius: 'var(--spacing-4)',
           border:       '1.5px dashed var(--color-accent-fg-violet)',
           position:     'relative',
@@ -56,13 +57,13 @@ function SafeAreaRow({ platform, height }) {
 
       {/* 높이 뱃지 */}
       <span style={{
-        fontSize:        '11px',
+        fontSize:        'var(--font-size-caption-2)',
         fontWeight:      'var(--font-weight-semibold)',
         color:           isZero ? 'var(--color-label-assistive)' : 'var(--color-static-white)',
         backgroundColor: isZero ? 'transparent'                  : 'var(--color-status-negative)',
         border:          isZero ? '1px solid var(--color-line-normal)' : 'none',
         borderRadius:    '100px',
-        padding:         '2px var(--spacing-6)',
+        padding:         'var(--spacing-2) var(--spacing-6)',
         whiteSpace:      'nowrap',
         lineHeight:      1,
         flexShrink:      0,
@@ -106,7 +107,7 @@ export default function ElementSafeAreaPage() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-20)' }}>
             {STATUS_PLATFORMS.map(item => (
-              <SafeAreaRow key={item.platform} platform={item.platform} height={item.height} />
+              <SafeAreaRow key={item.platform} platform={item.platform} token={item.token} height={item.height} />
             ))}
           </div>
         </div>
@@ -132,7 +133,7 @@ export default function ElementSafeAreaPage() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-20)' }}>
             {BOTTOM_PLATFORMS.map(item => (
-              <SafeAreaRow key={item.platform} platform={item.platform} height={item.height} />
+              <SafeAreaRow key={item.platform} platform={item.platform} token={item.token} height={item.height} />
             ))}
           </div>
         </div>

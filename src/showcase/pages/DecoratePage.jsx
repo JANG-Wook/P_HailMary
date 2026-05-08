@@ -153,35 +153,35 @@ const VARIANTS = [
   {
     key: 'normal', label: 'Normal',
     states: [
-      { key: 'normal',  pct: null,  value: 0    },
-      { key: 'hovered', pct: '5%',  value: 0.05 },
-      { key: 'focused', pct: '8%',  value: 0.08 },
-      { key: 'pressed', pct: '12%', value: 0.12 },
+      { key: 'normal',  pct: null,  token: null                                    },
+      { key: 'hovered', pct: '5%',  token: '--interaction-opacity-normal-hovered'  },
+      { key: 'focused', pct: '8%',  token: '--interaction-opacity-normal-focused'  },
+      { key: 'pressed', pct: '12%', token: '--interaction-opacity-normal-pressed'  },
     ],
   },
   {
     key: 'light', label: 'Light',
     states: [
-      { key: 'normal',  pct: null,  value: 0    },
-      { key: 'hovered', pct: '4%',  value: 0.04 },
-      { key: 'focused', pct: '6%',  value: 0.06 },
-      { key: 'pressed', pct: '9%',  value: 0.09 },
+      { key: 'normal',  pct: null,  token: null                                    },
+      { key: 'hovered', pct: '4%',  token: '--interaction-opacity-light-hovered'   },
+      { key: 'focused', pct: '6%',  token: '--interaction-opacity-light-focused'   },
+      { key: 'pressed', pct: '9%',  token: '--interaction-opacity-light-pressed'   },
     ],
   },
   {
     key: 'strong', label: 'Strong',
     states: [
-      { key: 'normal',  pct: null,  value: 0    },
-      { key: 'hovered', pct: '8%',  value: 0.08 },
-      { key: 'focused', pct: '12%', value: 0.12 },
-      { key: 'pressed', pct: '18%', value: 0.18 },
+      { key: 'normal',  pct: null,  token: null                                    },
+      { key: 'hovered', pct: '8%',  token: '--interaction-opacity-strong-hovered'  },
+      { key: 'focused', pct: '12%', token: '--interaction-opacity-strong-focused'  },
+      { key: 'pressed', pct: '18%', token: '--interaction-opacity-strong-pressed'  },
     ],
   },
 ]
 
 const STATE_LABELS = ['Normal', 'Hovered', 'Focused', 'Pressed']
 
-function InteractionCell({ pct, value }) {
+function InteractionCell({ pct, token }) {
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--spacing-8)' }}>
       <div style={{
@@ -191,7 +191,7 @@ function InteractionCell({ pct, value }) {
         border: '1px solid var(--color-line-alternative)',
         flexShrink: 0,
       }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--color-label-normal)', opacity: value }} />
+        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--color-label-normal)', opacity: token ? `var(${token})` : 0 }} />
       </div>
       {pct ? (
         <span style={{ fontSize: 'var(--font-size-caption-1)', lineHeight: 'var(--line-height-caption-1)', fontWeight: 'var(--font-weight-semibold)', color: 'var(--color-label-normal)' }}>{pct}</span>
@@ -230,7 +230,7 @@ function InteractionContent() {
                 <div style={{ width: '72px', flexShrink: 0, paddingTop: 'var(--spacing-16)' }}>
                   <span style={{ fontSize: 'var(--font-size-label-2)', lineHeight: 'var(--line-height-label-2)', fontWeight: 'var(--font-weight-semibold)', color: 'var(--color-label-normal)' }}>{v.label}</span>
                 </div>
-                {v.states.map(s => <InteractionCell key={s.key} pct={s.pct} value={s.value} />)}
+                {v.states.map(s => <InteractionCell key={s.key} pct={s.pct} token={s.token} />)}
               </div>
             ))}
           </div>

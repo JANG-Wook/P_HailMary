@@ -77,12 +77,12 @@ function ActionArea({ children, divider, extra, caption, safeAreaH = 0, compact 
   return (
     <div>
       {divider && (
-        <div style={{ height: '1px', backgroundColor: 'var(--color-line-neutral)' }} />
+        <div style={{ height: 'var(--spacing-1)', backgroundColor: 'var(--color-line-neutral)' }} />
       )}
       {extra && (
         <div style={{
           margin:          `var(--spacing-20) var(--spacing-20) 0`,
-          height:          '48px',
+          height:          'var(--spacing-48)',
           backgroundColor: 'var(--color-accent-bg-violet)',
           opacity:         0.14,
         }} />
@@ -345,7 +345,7 @@ export default function ActionBottomPage() {
               <div style={{ padding: 'var(--spacing-20)', display: 'flex', gap: 'var(--spacing-12)', alignItems: 'center', justifyContent: 'flex-end' }}>
                 <div style={{
                   flex:            1,
-                  height:          '48px',
+                  height:          'var(--spacing-48)',
                   backgroundColor: 'var(--color-accent-bg-violet)',
                   opacity:         0.08,
                 }} />
@@ -730,7 +730,7 @@ export default function ActionBottomPage() {
                 </ActionArea>
                 {/* Home Bar */}
                 <div style={{
-                  height:          '34px',
+                  height:          'var(--safe-area-bottom-ios)',
                   backgroundColor: 'var(--color-fill-normal)',
                   display:         'flex',
                   alignItems:      'center',
@@ -739,7 +739,7 @@ export default function ActionBottomPage() {
                 }}>
                   <div style={{
                     width:           '38%',
-                    height:          '4px',
+                    height:          'var(--spacing-4)',
                     backgroundColor: 'var(--color-label-strong)',
                     borderRadius:    'var(--spacing-4)',
                     opacity:         0.35,
@@ -755,7 +755,7 @@ export default function ActionBottomPage() {
                 </ActionArea>
                 {/* Navigation Bar */}
                 <div style={{
-                  height:          '14px',
+                  height:          'var(--safe-area-bottom-android)',
                   backgroundColor: 'var(--color-fill-normal)',
                   display:         'flex',
                   alignItems:      'center',
@@ -764,7 +764,7 @@ export default function ActionBottomPage() {
                 }}>
                   <div style={{
                     width:           '32%',
-                    height:          '2px',
+                    height:          'var(--spacing-2)',
                     backgroundColor: 'var(--color-label-strong)',
                     borderRadius:    'var(--spacing-4)',
                     opacity:         0.35,

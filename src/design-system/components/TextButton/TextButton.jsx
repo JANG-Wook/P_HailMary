@@ -33,7 +33,7 @@ const SIZE = {
     paddingBottom: 'var(--spacing-4)',
     fontSize:      'var(--font-size-body-1)',
     lineHeight:    'var(--line-height-body-1-normal)',
-    iconSize:      20,
+    iconSize:      'var(--spacing-20)',
     gap:           'var(--spacing-4)',
     spinnerSize:   16,
   },
@@ -42,7 +42,7 @@ const SIZE = {
     paddingBottom: 'var(--spacing-4)',
     fontSize:      'var(--font-size-label-1)',
     lineHeight:    'var(--line-height-label-1-normal)',
-    iconSize:      16,
+    iconSize:      'var(--spacing-16)',
     gap:           'var(--spacing-4)',
     spinnerSize:   14,
   },
@@ -129,8 +129,8 @@ export default function TextButton({
   const iconWrapStyle = {
     display:    'flex',
     alignItems: 'center',
-    width:      `${sz.iconSize}px`,
-    height:     `${sz.iconSize}px`,
+    width:      sz.iconSize,
+    height:     sz.iconSize,
     flexShrink: 0,
   }
 

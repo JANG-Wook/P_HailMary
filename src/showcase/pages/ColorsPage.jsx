@@ -33,9 +33,12 @@ const COLOR_GROUPS = [
   {
     title: 'Background',
     tokens: [
-      { name: '--color-bg-normal',             label: 'bg-normal'             },
-      { name: '--color-bg-normal-alternative', label: 'bg-normal-alternative' },
-      { name: '--color-bg-elevated',           label: 'bg-elevated'           },
+      { name: '--color-bg-normal',                  label: 'bg-normal'                  },
+      { name: '--color-bg-normal-alternative',      label: 'bg-normal-alternative'      },
+      { name: '--color-bg-elevated',                label: 'bg-elevated'                },
+      { name: '--color-bg-elevated-alternative',    label: 'bg-elevated-alternative'    },
+      { name: '--color-bg-transparent',             label: 'bg-transparent'             },
+      { name: '--color-bg-transparent-alternative', label: 'bg-transparent-alternative' },
     ],
   },
   {
@@ -50,11 +53,19 @@ const COLOR_GROUPS = [
     title: 'Line',
     tokens: [
       { name: '--color-line-normal',           label: 'line-normal'           },
+      { name: '--color-line-strong',           label: 'line-strong'           },
       { name: '--color-line-neutral',          label: 'line-neutral'          },
       { name: '--color-line-alternative',      label: 'line-alternative'      },
       { name: '--color-line-solid-neutral',    label: 'line-solid-neutral'    },
       { name: '--color-line-solid-normal',     label: 'line-solid-normal'     },
       { name: '--color-line-solid-alternative',label: 'line-solid-alternative'},
+    ],
+  },
+  {
+    title: 'Interaction',
+    tokens: [
+      { name: '--color-interaction-inactive', label: 'interaction-inactive' },
+      { name: '--color-interaction-disable',  label: 'interaction-disable'  },
     ],
   },
   {
