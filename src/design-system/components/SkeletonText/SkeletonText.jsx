@@ -59,7 +59,7 @@ export default function SkeletonText({
     width:           length,
     height:          '100%',
     minWidth:        0,
-    borderRadius:    '3px',
+    borderRadius:    'var(--spacing-3)',
     backgroundColor: isWhite
       ? 'var(--color-static-white)'
       : 'var(--color-fill-normal)',

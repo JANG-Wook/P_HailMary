@@ -75,7 +75,7 @@ export default function ListCard({
     position:        'relative',
     width:           p.thumbnailWidth,
     aspectRatio:     '3/2',
-    borderRadius:    '12px',
+    borderRadius:    'var(--spacing-12)',
     overflow:        'hidden',
     flexShrink:      0,
     backgroundColor: 'var(--color-fill-normal)',
@@ -94,7 +94,7 @@ export default function ListCard({
     position:     'absolute',
     inset:        0,
     border:       '1px solid var(--color-line-alternative)',
-    borderRadius: '12px',
+    borderRadius: 'var(--spacing-12)',
     pointerEvents:'none',
   }
 
@@ -147,9 +147,9 @@ export default function ListCard({
   }
 
   /* ── 스켈레톤 rect ── */
-  const skeletonRect = (width = '100%', height = '16px') => ({
+  const skeletonRect = (width = '100%', height = 'var(--spacing-16)') => ({
     backgroundColor: 'var(--color-fill-normal)',
-    borderRadius:    '4px',
+    borderRadius:    'var(--spacing-4)',
     width,
     height,
     flexShrink:      0,
@@ -187,8 +187,8 @@ export default function ListCard({
           <div style={contentStyle}>
             {skeleton ? (
               <>
-                <div style={skeletonRect('70%', '20px')} />
-                <div style={skeletonRect('50%', '16px')} />
+                <div style={skeletonRect('70%', 'var(--spacing-20)')} />
+                <div style={skeletonRect('50%', 'var(--spacing-16)')} />
               </>
             ) : (
               <>

@@ -8,7 +8,7 @@ const SIZES = ['xsmall', 'small', 'medium', 'large', 'xlarge']
 function PushBadge() {
   return (
     <div style={{
-      width: '10px', height: '10px', borderRadius: '50%',
+      width: 'var(--spacing-10)', height: 'var(--spacing-10)', borderRadius: '50%',
       backgroundColor: 'var(--color-primary-normal)',
       border: '2px solid var(--color-bg-elevated)',
     }} />
