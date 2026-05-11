@@ -6,11 +6,10 @@ import Section from '../Section'
 
 /* ── 공용 상수 ────────────────────────────────────────────────── */
 const CARD = {
-  width:           '100%',
-  backgroundColor: 'var(--color-fill-normal)',
-  borderRadius:    'var(--spacing-12)',
-  padding:         'var(--spacing-32)',
-  boxSizing:       'border-box',
+  width:        '100%',
+  borderRadius: 'var(--spacing-12)',
+  padding:      'var(--spacing-32)',
+  boxSizing:    'border-box',
 }
 
 const TA_W      = 335

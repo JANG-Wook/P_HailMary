@@ -91,8 +91,7 @@ function ContentBox({ children, style }) {
       gap:             'var(--spacing-24)',
       alignItems:      'flex-start',
       padding:         'var(--spacing-24)',
-      backgroundColor: 'var(--color-fill-alternative)',
-      borderRadius:    '16px',
+      borderRadius: '16px',
       ...style,
     }}>
       {children}
@@ -141,11 +140,10 @@ function SubpropertyCard({ label, children }) {
       display:         'flex',
       flexDirection:   'column',
       gap:             'var(--spacing-24)',
-      padding:         'var(--spacing-24)',
-      backgroundColor: 'var(--color-fill-alternative)',
-      borderRadius:    '16px',
-      width:           '100%',
-      boxSizing:       'border-box',
+      padding:      'var(--spacing-24)',
+      borderRadius: '16px',
+      width:        '100%',
+      boxSizing:    'border-box',
     }}>
       <PropBadge>{label}</PropBadge>
       <InnerCard>{children}</InnerCard>
