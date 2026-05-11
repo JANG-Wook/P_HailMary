@@ -305,7 +305,6 @@ export default function PaginationNavigation({
     alignItems: 'center',
     gap:        'var(--spacing-4)',
     height:     'var(--spacing-32)',
-    overflow:   'clip',
   }
 
   /* ── Compact ──────────────────────────────────────────────── */
