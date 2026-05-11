@@ -65,10 +65,10 @@ export default function Checkbox({
   const boxPx  = BOX_SIZE[size]
   const iconPx = ICON_SIZE[size]
 
-  const padV = size === 'small' ? '2px' : '3px'
+  const padV = size === 'small' ? 'var(--spacing-2)' : 'var(--spacing-3)'
   const padH = size === 'small'
-    ? (tight ? '0px' : '2px')
-    : (tight ? '1px' : '3px')
+    ? (tight ? '0' : 'var(--spacing-2)')
+    : (tight ? 'var(--spacing-1)' : 'var(--spacing-3)')
 
   const wrapperStyle = {
     display:    'flex',
@@ -92,7 +92,7 @@ export default function Checkbox({
   const boxStyle = {
     width:           `${boxPx}px`,
     height:          `${boxPx}px`,
-    borderRadius:    '5px',
+    borderRadius:    'var(--spacing-5)',
     border:          `1.5px solid ${isActive ? 'var(--color-primary-normal)' : 'var(--color-line-normal)'}`,
     backgroundColor: isActive ? 'var(--color-primary-normal)' : 'transparent',
     display:         'flex',
@@ -122,8 +122,8 @@ export default function Checkbox({
     letterSpacing: 'var(--letter-spacing-body-2)',
     color:         'var(--color-label-normal)',
     whiteSpace:    'pre-line',
-    paddingTop:    '1px',
-    paddingBottom: '1px',
+    paddingTop:    'var(--spacing-1)',
+    paddingBottom: 'var(--spacing-1)',
   }
 
   const handleClick = () => {
