@@ -30,7 +30,7 @@ export default function Thumbnail({
   overlay   = null,
   className = '',
 }) {
-  const borderRadius = radius ? '12px' : '0px'
+  const borderRadius = radius ? 'var(--spacing-12)' : '0px'
 
   const outerStyle = {
     position:     'relative',
