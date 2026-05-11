@@ -47,7 +47,7 @@ function PropBadge({ children, isDefault = false }) {
       gap:             'var(--spacing-4)',
       padding:         'var(--spacing-2) var(--spacing-6)',
       backgroundColor: 'var(--color-fill-strong)',
-      borderRadius:    '4px',
+      borderRadius:    'var(--spacing-4)',
       fontFamily:      'SF Mono, ui-monospace, monospace',
       fontSize:        'var(--font-size-caption-1)',
       lineHeight:      'var(--line-height-caption-1)',
@@ -91,7 +91,7 @@ function ContentBox({ children, style }) {
       gap:             'var(--spacing-24)',
       alignItems:      'flex-start',
       padding:         'var(--spacing-24)',
-      borderRadius: '16px',
+      borderRadius: 'var(--spacing-16)',
       ...style,
     }}>
       {children}
@@ -124,7 +124,7 @@ function InnerCard({ children }) {
       padding:         'var(--spacing-24)',
       backgroundColor: 'var(--color-bg-normal)',
       border:          '1px solid var(--color-line-normal)',
-      borderRadius:    '16px',
+      borderRadius:    'var(--spacing-16)',
       width:           '100%',
       boxSizing:       'border-box',
     }}>
@@ -141,7 +141,7 @@ function SubpropertyCard({ label, children }) {
       flexDirection:   'column',
       gap:             'var(--spacing-24)',
       padding:      'var(--spacing-24)',
-      borderRadius: '16px',
+      borderRadius: 'var(--spacing-16)',
       width:        '100%',
       boxSizing:    'border-box',
     }}>
