@@ -60,8 +60,6 @@ export default function Textfield({
       ? focusBorderColor
       : BORDER_COLOR[status]
 
-  const insetWidth = isFocused ? '2px' : '1px'
-
   const containerStyle = {
     display:       'flex',
     flexDirection: 'column',
@@ -78,13 +76,17 @@ export default function Textfield({
       ? 'var(--spacing-12) 0 0 var(--spacing-12)'
       : 'var(--spacing-12)',
     border:          'none',
+    outline:         isFocused ? `2px solid ${borderColor}` : 'none',
+    outlineOffset:   isFocused ? '-1px' : '0',
     backgroundColor: disabled
       ? 'var(--color-fill-alternative)'
       : 'var(--color-bg-transparent)',
     backdropFilter:  'blur(32px)',
     boxShadow:       disabled
       ? `inset 0 0 0 1px ${borderColor}`
-      : `inset 0 0 0 ${insetWidth} ${borderColor}, var(--shadow-normal-xsmall)`,
+      : isFocused
+        ? `var(--shadow-normal-xsmall)`
+        : `inset 0 0 0 1px ${borderColor}, var(--shadow-normal-xsmall)`,
     opacity:         disabled ? 0.4 : 1,
     flex:            hasSplitPanel ? 1 : undefined,
     minWidth:        hasSplitPanel ? 0 : undefined,
