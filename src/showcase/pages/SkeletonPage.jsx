@@ -1,11 +1,9 @@
-import { useState } from 'react'
 import SkeletonText   from '../../design-system/components/SkeletonText/SkeletonText'
 import SkeletonRect   from '../../design-system/components/SkeletonRect/SkeletonRect'
 import SkeletonCircle from '../../design-system/components/SkeletonCircle/SkeletonCircle'
-import Tab            from '../../design-system/components/Tab/Tab'
 import Section, { Case } from '../Section'
 
-/* ── Text 탭 콘텐츠 ─────────────────────────────────────────── */
+/* ── Text 섹션 ─────────────────────────────────────────────── */
 function TextContent() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-32)' }}>
@@ -55,7 +53,7 @@ function TextContent() {
         ))}
       </Section>
 
-      <Section title="Composition Example — 카드 스켈레톤">
+      <Section title="Card">
         <div style={{
           display:         'flex',
           flexDirection:   'column',
@@ -83,90 +81,26 @@ function TextContent() {
   )
 }
 
-/* ── Rectangle 탭 콘텐츠 ─────────────────────────────────────── */
+/* ── Rectangle 섹션 ────────────────────────────────────────── */
 function RectangleContent() {
   return (
-    <div>
-      <div style={{
-        display:    'flex',
-        gap:        'var(--spacing-24)',
-        alignItems: 'flex-start',
-      }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
-          <SkeletonRect color="normal" width={64} height={64} />
-          <p style={{
-            fontSize:      'var(--font-size-caption-1)',
-            lineHeight:    'var(--line-height-caption-1)',
-            letterSpacing: 'var(--letter-spacing-caption-1)',
-            color:         'var(--color-label-assistive)',
-          }}>Color=Normal</p>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
-          <div style={{
-            padding:         'var(--spacing-16)',
-            backgroundColor: 'var(--color-inverse-background)',
-            borderRadius:    'var(--spacing-8)',
-          }}>
-            <SkeletonRect color="white" width={64} height={64} />
-          </div>
-          <p style={{
-            fontSize:      'var(--font-size-caption-1)',
-            lineHeight:    'var(--line-height-caption-1)',
-            letterSpacing: 'var(--letter-spacing-caption-1)',
-            color:         'var(--color-label-assistive)',
-          }}>Color=White</p>
-        </div>
-      </div>
-    </div>
+    <Section title="Rectangle">
+      <SkeletonRect color="normal" width={64} height={64} />
+    </Section>
   )
 }
 
-/* ── Circle 탭 콘텐츠 ───────────────────────────────────────── */
+/* ── Circle 섹션 ───────────────────────────────────────────── */
 function CircleContent() {
   return (
-    <div>
-      <div style={{
-        display:    'flex',
-        gap:        'var(--spacing-24)',
-        alignItems: 'flex-start',
-      }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
-          <SkeletonCircle size={64} color="normal" />
-          <p style={{
-            fontSize:      'var(--font-size-caption-1)',
-            lineHeight:    'var(--line-height-caption-1)',
-            letterSpacing: 'var(--letter-spacing-caption-1)',
-            color:         'var(--color-label-assistive)',
-          }}>Color=Normal</p>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
-          <div style={{
-            padding:         'var(--spacing-16)',
-            backgroundColor: 'var(--color-inverse-background)',
-            borderRadius:    'var(--spacing-8)',
-          }}>
-            <SkeletonCircle size={64} color="white" />
-          </div>
-          <p style={{
-            fontSize:      'var(--font-size-caption-1)',
-            lineHeight:    'var(--line-height-caption-1)',
-            letterSpacing: 'var(--letter-spacing-caption-1)',
-            color:         'var(--color-label-assistive)',
-          }}>Color=White</p>
-        </div>
-      </div>
-    </div>
+    <Section title="Circle">
+      <SkeletonCircle size={64} color="normal" />
+    </Section>
   )
 }
 
-/* ════════════════════════════════════════════════════════════ */
-const TAB_ITEMS = [{ label: 'Text' }, { label: 'Rectangle' }, { label: 'Circle' }]
-
+/* ── 페이지 ─────────────────────────────────────────────────── */
 export default function SkeletonPage() {
-  const [activeTab, setActiveTab] = useState(0)
-
   return (
     <div>
       <h2 style={{
@@ -177,13 +111,9 @@ export default function SkeletonPage() {
         marginBottom: 'var(--spacing-24)',
       }}>Skeleton</h2>
 
-      <div style={{ marginBottom: 'var(--spacing-40)' }}>
-        <Tab items={TAB_ITEMS} value={activeTab} onChange={setActiveTab} />
-      </div>
-
-      {activeTab === 0 && <TextContent />}
-      {activeTab === 1 && <RectangleContent />}
-      {activeTab === 2 && <CircleContent />}
+      <TextContent />
+      <RectangleContent />
+      <CircleContent />
     </div>
   )
 }
