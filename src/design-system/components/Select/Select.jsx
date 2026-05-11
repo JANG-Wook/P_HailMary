@@ -66,8 +66,6 @@ export default function Select({
         ? 'color-mix(in srgb, var(--color-status-negative) 28%, transparent)'
         : 'var(--color-line-neutral)'
 
-  const borderWidth = isFocused ? '2px' : '1px'
-
   const containerStyle = {
     display:       'flex',
     flexDirection: 'column',
@@ -79,12 +77,18 @@ export default function Select({
     display:         'flex',
     alignItems:      'center',
     gap:             'var(--spacing-12)',
-    padding:         isFocused ? 'calc(var(--spacing-12) - 1px)' : 'var(--spacing-12)',
+    padding:         'var(--spacing-12)',
     borderRadius:    'var(--spacing-12)',
-    border:          `${borderWidth} solid ${borderColor}`,
+    border:          'none',
+    outline:         isFocused ? `2px solid ${focusBorderColor}` : 'none',
+    outlineOffset:   isFocused ? '-1px' : '0',
     backgroundColor: disabled ? 'var(--color-interaction-disable)' : 'var(--color-bg-transparent)',
     backdropFilter:  disabled ? 'none' : 'blur(32px)',
-    boxShadow:       disabled ? 'none' : 'var(--shadow-normal-xsmall)',
+    boxShadow:       disabled
+      ? 'none'
+      : isFocused
+        ? 'var(--shadow-normal-xsmall)'
+        : `inset 0 0 0 1px ${borderColor}, var(--shadow-normal-xsmall)`,
     cursor:          disabled ? 'not-allowed' : 'pointer',
     userSelect:      'none',
   }
@@ -149,11 +153,11 @@ export default function Select({
     display:         'inline-flex',
     alignItems:      'center',
     gap:             'var(--spacing-2)',
-    paddingLeft:     '7px',
-    paddingRight:    '7px',
+    paddingLeft:     'var(--spacing-7)',
+    paddingRight:    'var(--spacing-7)',
     paddingTop:      'var(--spacing-4)',
     paddingBottom:   'var(--spacing-4)',
-    borderRadius:    '6px',
+    borderRadius:    'var(--spacing-6)',
     backgroundColor: 'var(--color-fill-alternative)',
     fontSize:        'var(--font-size-caption-1)',
     fontWeight:      'var(--font-weight-medium)',
