@@ -171,12 +171,12 @@ export default function Textarea({
     gap:           'var(--spacing-12)',
     padding:       'var(--spacing-12)',
     borderRadius:  'var(--spacing-12)',
-    border: disabled
-      ? '1px solid var(--color-line-neutral)'
+    border:    'none',
+    boxShadow: disabled
+      ? `inset 0 0 0 1px var(--color-line-neutral)`
       : isFocused
-        ? `2px solid ${FOCUS_BORDER_COLOR[status]}`
-        : `1px solid ${BORDER_COLOR[status]}`,
-    boxShadow:     disabled ? 'none' : 'var(--shadow-normal-xsmall)',
+        ? `inset 0 0 0 2px ${FOCUS_BORDER_COLOR[status]}, var(--shadow-normal-xsmall)`
+        : `inset 0 0 0 1px ${BORDER_COLOR[status]}, var(--shadow-normal-xsmall)`,
     opacity:       disabled ? 0.4 : 1,
   }
 
