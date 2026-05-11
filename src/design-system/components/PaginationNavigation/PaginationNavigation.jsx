@@ -49,40 +49,37 @@ function getVisiblePages(count, value, windowSize) {
   return items
 }
 
-/* ── 인라인 SVG 아이콘 ─────────────────────────────────────────
- * SVG는 원래 정사각형 그대로 유지 (아이콘 형태 보존).
- * 버튼 요소만 narrow(8×16, 12×24)로 지정해 레이아웃 폭을 맞춤.
- * SVG가 버튼 밖으로 시각적으로 넘치지만 overflow:visible(기본값)로
- * 정상 표시되며, PageList의 paddingLeft/Right=16으로 겹침을 방지.
+/* ── 인라인 SVG 아이콘 (피그마 스펙: 세로로 긴 직사각형) ──────
+ * extended/minimize: 8×16px  compact: 12×24px
  */
-function ChevronLeft() {   // 원본 16×16 (extended/minimize용)
+function ChevronLeft() {   // 8×16
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="8" height="16" viewBox="0 0 8 16" fill="none" aria-hidden="true">
+      <path d="M5 3L2.5 8L5 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
 
-function ChevronRight() {  // 원본 16×16
+function ChevronRight() {  // 8×16
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="8" height="16" viewBox="0 0 8 16" fill="none" aria-hidden="true">
+      <path d="M3 3L5.5 8L3 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
 
-function ChevronLeftRegular() {   // 원본 24×24 (compact용)
+function ChevronLeftRegular() {   // 12×24
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M15 6L9 12L15 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="12" height="24" viewBox="0 0 12 24" fill="none" aria-hidden="true">
+      <path d="M7.5 6L4.5 12L7.5 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
 
-function ChevronRightRegular() {  // 원본 24×24
+function ChevronRightRegular() {  // 12×24
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="12" height="24" viewBox="0 0 12 24" fill="none" aria-hidden="true">
+      <path d="M4.5 6L7.5 12L4.5 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
