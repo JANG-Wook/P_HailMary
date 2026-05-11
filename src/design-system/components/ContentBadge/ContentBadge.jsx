@@ -27,8 +27,8 @@ import Icon from '../Icon/Icon'
 const SIZES = {
   xsmall: {
     paddingH:      'var(--spacing-6)',
-    paddingV:      '3px',
-    borderRadius:  '6px',
+    paddingV:      'var(--spacing-3)',
+    borderRadius:  'var(--spacing-6)',
     gap:           'var(--spacing-2)',
     iconSize:      12,
     fontSize:      'var(--font-size-caption-2)',
@@ -38,8 +38,8 @@ const SIZES = {
   small: {
     paddingH:      'var(--spacing-6)',
     paddingV:      'var(--spacing-4)',
-    borderRadius:  '6px',
-    gap:           '3px',
+    borderRadius:  'var(--spacing-6)',
+    gap:           'var(--spacing-3)',
     iconSize:      14,
     fontSize:      'var(--font-size-caption-1)',
     lineHeight:    'var(--line-height-caption-1)',
@@ -47,8 +47,8 @@ const SIZES = {
   },
   medium: {
     paddingH:      'var(--spacing-8)',
-    paddingV:      '5px',
-    borderRadius:  '8px',
+    paddingV:      'var(--spacing-5)',
+    borderRadius:  'var(--spacing-8)',
     gap:           'var(--spacing-4)',
     iconSize:      16,
     fontSize:      'var(--font-size-label-2)',
