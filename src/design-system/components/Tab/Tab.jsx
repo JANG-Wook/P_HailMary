@@ -33,7 +33,14 @@ const SIZE_HEIGHT = {
 }
 
 /* ── 인터랙션 오버레이 opacity ───────────────────────────────── */
-const OVERLAY_OPACITY = { hovered: 0.05, focused: 0.08, pressed: 0.12 }
+const OVERLAY_OPACITY = { hovered: 0.05, pressed: 0.12 }
+
+/* ── 사이즈별 오버레이 border-radius (SegmentedControl knobRadius 기준) ── */
+const KNOB_RADIUS = {
+  small:  'var(--spacing-6)',
+  medium: 'var(--spacing-8)',
+  large:  'var(--spacing-10)',
+}
 
 const SIZE_FONT = {
   small:  { fontSize: 'var(--font-size-body-2)',     lineHeight: 'var(--line-height-body-2-normal)',   letterSpacing: 'var(--letter-spacing-body-2)'    },
@@ -44,11 +51,9 @@ const SIZE_FONT = {
 /* ── 개별 탭 아이템 (독립적인 인터랙션 상태) ─────────────────── */
 function TabItem({ item, isActive, size, resize, onChange }) {
   const [isHovered, setIsHovered] = useState(false)
-  const [isFocused, setIsFocused] = useState(false)
   const [isPressed, setIsPressed] = useState(false)
 
   const overlayOpacity = isPressed ? OVERLAY_OPACITY.pressed
-    : isFocused                    ? OVERLAY_OPACITY.focused
     : isHovered                    ? OVERLAY_OPACITY.hovered
     : 0
 
@@ -73,10 +78,11 @@ function TabItem({ item, isActive, size, resize, onChange }) {
 
   const overlayStyle = {
     position:        'absolute',
-    top:             0,
-    bottom:          0,
+    top:             'var(--spacing-4)',
+    bottom:          'var(--spacing-4)',
     left:            0,
     right:           0,
+    borderRadius:    KNOB_RADIUS[size] ?? KNOB_RADIUS.medium,
     backgroundColor: `color-mix(in srgb, var(--color-label-normal) ${Math.round(overlayOpacity * 100)}%, transparent)`,
     pointerEvents:   'none',
     transition:      'background-color 0.15s ease',
@@ -97,7 +103,7 @@ function TabItem({ item, isActive, size, resize, onChange }) {
     left:            0,
     right:           0,
     bottom:          0,
-    height:          '2px',
+    height:          'var(--spacing-2)',
     backgroundColor: 'var(--color-label-strong)',
     zIndex:          1,
   }
@@ -112,8 +118,7 @@ function TabItem({ item, isActive, size, resize, onChange }) {
       onMouseLeave={() => { setIsHovered(false); setIsPressed(false) }}
       onMouseDown={() => setIsPressed(true)}
       onMouseUp={() => setIsPressed(false)}
-      onFocus={() => setIsFocused(true)}
-      onBlur={() => { setIsFocused(false); setIsPressed(false) }}
+      onBlur={() => setIsPressed(false)}
     >
       <div style={overlayStyle} aria-hidden="true" />
 
@@ -160,7 +165,7 @@ export default function Tab({
     left:            0,
     right:           0,
     bottom:          0,
-    height:          '1px',
+    height:          'var(--spacing-1)',
     backgroundColor: 'var(--color-line-alternative)',
   }
 
