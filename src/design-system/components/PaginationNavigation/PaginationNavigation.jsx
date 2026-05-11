@@ -49,35 +49,37 @@ function getVisiblePages(count, value, windowSize) {
   return items
 }
 
-/* ── 인라인 SVG 아이콘 ─────────────────────────────────────── */
-function ChevronLeft({ size = 16 }) {
+/* ── 인라인 SVG 아이콘 (피그마 스펙: 세로로 긴 직사각형) ──────
+ * extended/minimize: 8×16px  compact: 12×24px
+ */
+function ChevronLeft() {   // 8×16
   return (
-    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="8" height="16" viewBox="0 0 8 16" fill="none" aria-hidden="true">
+      <path d="M5 3L2.5 8L5 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
 
-function ChevronRight({ size = 16 }) {
+function ChevronRight() {  // 8×16
   return (
-    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="8" height="16" viewBox="0 0 8 16" fill="none" aria-hidden="true">
+      <path d="M3 3L5.5 8L3 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
 
-function ChevronLeftRegular({ size = 24 }) {
+function ChevronLeftRegular() {   // 12×24
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M15 6L9 12L15 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="12" height="24" viewBox="0 0 12 24" fill="none" aria-hidden="true">
+      <path d="M7.5 6L4.5 12L7.5 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
 
-function ChevronRightRegular({ size = 24 }) {
+function ChevronRightRegular() {  // 12×24
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="12" height="24" viewBox="0 0 12 24" fill="none" aria-hidden="true">
+      <path d="M4.5 6L7.5 12L4.5 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -86,7 +88,7 @@ function ChevronRightRegular({ size = 24 }) {
 const OVERLAY_OPACITY = { hovered: 0.05, focused: 0.08, pressed: 0.12 }
 
 /* ── 서브컴포넌트: 이전/다음 아이콘 버튼 ──────────────────── */
-function NavButton({ direction, disabled, btnSizeToken, svgSize, onClick }) {
+function NavButton({ direction, disabled, btnWidth, btnHeight, isRegular, onClick }) {
   const [isHovered, setIsHovered] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const [isPressed, setIsPressed] = useState(false)
@@ -109,11 +111,10 @@ function NavButton({ direction, disabled, btnSizeToken, svgSize, onClick }) {
         alignItems:     'center',
         justifyContent: 'center',
         position:       'relative',
-        width:          btnSizeToken,
-        height:         btnSizeToken,
+        width:          btnWidth,
+        height:         btnHeight,
         background:     'none',
         border:         'none',
-        borderRadius:   '50%',
         cursor:         disabled ? 'not-allowed' : 'pointer',
         color,
         flexShrink:     0,
@@ -130,7 +131,7 @@ function NavButton({ direction, disabled, btnSizeToken, svgSize, onClick }) {
       onFocus={() => setIsFocused(true)}
       onBlur={() => { setIsFocused(false); setIsPressed(false) }}
     >
-      <div style={{ position: 'absolute', inset: '-8px', pointerEvents: 'none' }} aria-hidden="true">
+      <div style={{ position: 'absolute', inset: 'calc(var(--spacing-8) * -1)', pointerEvents: 'none' }} aria-hidden="true">
         <div style={{
           position:        'absolute',
           inset:           0,
@@ -140,8 +141,8 @@ function NavButton({ direction, disabled, btnSizeToken, svgSize, onClick }) {
         }} />
       </div>
       {isLeft
-        ? (svgSize === 24 ? <ChevronLeftRegular  size={svgSize} /> : <ChevronLeft  size={svgSize} />)
-        : (svgSize === 24 ? <ChevronRightRegular size={svgSize} /> : <ChevronRight size={svgSize} />)
+        ? (isRegular ? <ChevronLeftRegular  /> : <ChevronLeft  />)
+        : (isRegular ? <ChevronRightRegular /> : <ChevronRight />)
       }
     </button>
   )
@@ -274,7 +275,7 @@ export default function PaginationNavigation({
         style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--spacing-12)' }}
         className={className}
       >
-        <NavButton direction="left"  disabled={isFirst} btnSizeToken="var(--spacing-16)" svgSize={16} onClick={goPrev} />
+        <NavButton direction="left"  disabled={isFirst} btnWidth="var(--spacing-8)" btnHeight="var(--spacing-16)" onClick={goPrev} />
         <span style={{
           fontSize:            'var(--font-size-label-2)',
           lineHeight:          'var(--line-height-label-2)',
@@ -286,16 +287,18 @@ export default function PaginationNavigation({
         }}>
           {currentPage}/{total}
         </span>
-        <NavButton direction="right" disabled={isLast}  btnSizeToken="var(--spacing-16)" svgSize={16} onClick={goNext} />
+        <NavButton direction="right" disabled={isLast}  btnWidth="var(--spacing-8)" btnHeight="var(--spacing-16)" onClick={goNext} />
       </div>
     )
   }
 
   /* ── Compact / Extended 공통 ────────────────────────────────── */
-  const windowSize   = variant === 'extended' ? 9 : 5
-  const btnSizeToken = variant === 'extended' ? 'var(--spacing-16)' : 'var(--spacing-24)'
-  const svgSize      = variant === 'extended' ? 16 : 24
-  const items        = getVisiblePages(total, current, windowSize)
+  const windowSize = variant === 'extended' ? 9 : 5
+  // extended: 8×16px 아이콘, compact: 12×24px 아이콘 (피그마 스펙)
+  const btnWidth   = variant === 'extended' ? 'var(--spacing-8)'  : 'var(--spacing-12)'
+  const btnHeight  = variant === 'extended' ? 'var(--spacing-16)' : 'var(--spacing-24)'
+  const isRegular  = variant === 'compact'
+  const items      = getVisiblePages(total, current, windowSize)
 
   const navStyle = {
     display:    'inline-flex',
@@ -313,9 +316,9 @@ export default function PaginationNavigation({
         className={className}
       >
         <div style={navStyle}>
-          <NavButton direction="left"  disabled={isFirst} btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goPrev} />
+          <NavButton direction="left"  disabled={isFirst} btnWidth={btnWidth} btnHeight={btnHeight} isRegular={isRegular} onClick={goPrev} />
           <PageList items={items} currentPage={currentPage} onPageClick={onChange} />
-          <NavButton direction="right" disabled={isLast}  btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goNext} />
+          <NavButton direction="right" disabled={isLast}  btnWidth={btnWidth} btnHeight={btnHeight} isRegular={isRegular} onClick={goNext} />
         </div>
       </div>
     )
@@ -332,9 +335,9 @@ export default function PaginationNavigation({
       </div>
 
       <div style={navStyle}>
-        <NavButton direction="left"  disabled={isFirst} btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goPrev} />
+        <NavButton direction="left"  disabled={isFirst} btnWidth={btnWidth} btnHeight={btnHeight} isRegular={isRegular} onClick={goPrev} />
         <PageList items={items} currentPage={currentPage} onPageClick={onChange} />
-        <NavButton direction="right" disabled={isLast}  btnSizeToken={btnSizeToken} svgSize={svgSize} onClick={goNext} />
+        <NavButton direction="right" disabled={isLast}  btnWidth={btnWidth} btnHeight={btnHeight} isRegular={isRegular} onClick={goNext} />
       </div>
 
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
