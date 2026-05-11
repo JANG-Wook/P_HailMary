@@ -221,8 +221,8 @@ function SegmentItem({
             aria-hidden="true"
             style={{
               position:      'absolute',
-              top:           '1px',
-              bottom:        '1px',
+              top:           'var(--spacing-1)',
+              bottom:        'var(--spacing-1)',
               right:         0,
               left:          0,
               borderRight:   '1px solid var(--color-line-normal)',
