@@ -35,7 +35,7 @@ const SIZE = {
     borderRadius:  'var(--spacing-6)',
     fontSize:      'var(--font-size-caption-1)',
     lineHeight:    'var(--line-height-caption-1)',
-    iconSize:      10,
+    iconSize:      'var(--spacing-10)',
     gap:           'var(--spacing-2)',
   },
   small: {
@@ -46,7 +46,7 @@ const SIZE = {
     borderRadius:  'var(--spacing-8)',
     fontSize:      'var(--font-size-label-1)',
     lineHeight:    'var(--line-height-label-1-normal)',
-    iconSize:      12,
+    iconSize:      'var(--spacing-12)',
     gap:           'var(--spacing-4)',
   },
   medium: {
@@ -57,7 +57,7 @@ const SIZE = {
     borderRadius:  'var(--spacing-10)',
     fontSize:      'var(--font-size-body-2)',
     lineHeight:    'var(--line-height-body-2-normal)',
-    iconSize:      14,
+    iconSize:      'var(--spacing-14)',
     gap:           'var(--spacing-4)',
   },
   large: {
@@ -68,7 +68,7 @@ const SIZE = {
     borderRadius:  'var(--spacing-12)',
     fontSize:      'var(--font-size-body-2)',
     lineHeight:    'var(--line-height-body-2-normal)',
-    iconSize:      16,
+    iconSize:      'var(--spacing-16)',
     gap:           'var(--spacing-4)',
   },
 }
@@ -79,13 +79,15 @@ function getColorScheme(variant, active) {
     if (active) {
       return {
         backgroundColor: 'color-mix(in srgb, var(--color-primary-normal) 5%, transparent)',
-        border:          '1px solid color-mix(in srgb, var(--color-primary-normal) 43%, transparent)',
+        border:          'none',
+        boxShadow:       'inset 0 0 0 1px color-mix(in srgb, var(--color-primary-normal) 43%, transparent)',
         color:           'var(--color-primary-normal)',
       }
     }
     return {
       backgroundColor: 'transparent',
-      border:          '1px solid var(--color-line-neutral)',
+      border:          'none',
+      boxShadow:       'inset 0 0 0 1px var(--color-line-neutral)',
       color:           'var(--color-label-alternative)',
     }
   }
@@ -153,6 +155,7 @@ export default function Chip({
     borderRadius:    sz.borderRadius,
     backgroundColor: scheme.backgroundColor,
     border:          scheme.border,
+    boxShadow:       scheme.boxShadow,
     color:           scheme.color,
     fontSize:        sz.fontSize,
     lineHeight:      sz.lineHeight,
@@ -178,8 +181,8 @@ export default function Chip({
   const iconWrapStyle = {
     display:    'flex',
     alignItems: 'center',
-    width:      `${sz.iconSize}px`,
-    height:     `${sz.iconSize}px`,
+    width:      sz.iconSize,
+    height:     sz.iconSize,
     flexShrink: 0,
   }
 
