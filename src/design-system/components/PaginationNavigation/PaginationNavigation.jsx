@@ -166,7 +166,7 @@ function PageButton({ page, isActive, onClick }) {
         alignItems:     'center',
         justifyContent: 'center',
         position:       'relative',
-        minWidth:       'var(--spacing-20)',
+        width:          'var(--spacing-20)',
         height:         'calc(var(--spacing-24) + var(--spacing-6))',
         paddingTop:     'var(--spacing-4)',
         paddingBottom:  'var(--spacing-4)',
