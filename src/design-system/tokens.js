@@ -166,6 +166,7 @@ export const color = {
   ios: {
     fillSecondary:   'rgba(120, 120, 128, 0.16)',
     glassBackground: 'rgba(245, 245, 245, 0.60)',
+    accentPrimary:   '#0088FF',
   },
 }
 

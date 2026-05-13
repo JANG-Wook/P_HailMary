@@ -203,6 +203,7 @@ html, body, #root { margin: 0; padding: 0; height: 100%; }
      -------------------------------------------------- */
   --color-ios-fill-secondary:   rgba(120, 120, 128, 0.16);
   --color-ios-glass-background: rgba(245, 245, 245, 0.60);
+  --color-ios-accent-primary:   #0088FF;
 
   /* --------------------------------------------------
      Shadow — Normal (방향성 그림자)

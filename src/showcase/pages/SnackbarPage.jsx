@@ -68,7 +68,7 @@ export default function SnackbarPage() {
         <Case label="true" center>
           <Snackbar
             message="메시지에 마침표를 찍어요."
-            icon={<Icon name="bell" size={20} color="var(--color-static-white)" />}
+            icon={<Icon name="bell" size={22} color="var(--color-static-white)" />}
             actionLabel="텍스트"
             onAction={() => {}}
           />
@@ -77,7 +77,7 @@ export default function SnackbarPage() {
           <Snackbar
             message="메시지에 마침표를 찍어요."
             description="설명은 필요할 때만 써요."
-            icon={<Icon name="bell" size={20} color="var(--color-static-white)" />}
+            icon={<Icon name="bell" size={22} color="var(--color-static-white)" />}
             actionLabel="텍스트"
             onAction={() => {}}
           />

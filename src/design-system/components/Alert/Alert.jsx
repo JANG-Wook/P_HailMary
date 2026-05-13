@@ -74,7 +74,7 @@ function IOSActionButton({ label, isPrimary, onClick }) {
         border:          'none',
         cursor:          'pointer',
         backgroundColor: isPrimary
-          ? 'var(--color-primary-normal)'
+          ? 'var(--color-ios-accent-primary)'
           : 'var(--color-ios-fill-secondary)',
         color:           isPrimary
           ? 'var(--color-static-white)'

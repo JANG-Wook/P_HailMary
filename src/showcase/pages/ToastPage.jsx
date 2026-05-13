@@ -26,7 +26,7 @@ export default function ToastPage() {
               variant={v}
               text="메시지에 마침표를 찍어요."
               leadingIcon={v === 'normal'
-                ? <Icon name="bell" size={20} color="var(--color-static-white)" />
+                ? <Icon name="bell" size={22} color="var(--color-static-white)" />
                 : undefined
               }
             />
@@ -58,7 +58,7 @@ export default function ToastPage() {
           <Toast
             variant="normal"
             text="메시지에 마침표를 찍어요."
-            leadingIcon={<Icon name="bell" size={20} color="var(--color-static-white)" />}
+            leadingIcon={<Icon name="bell" size={22} color="var(--color-static-white)" />}
           />
         </Case>
         <Case label="leadingIcon 없음">

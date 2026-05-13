@@ -97,22 +97,27 @@ export default function TooltipPage() {
 
       {/* ── align — arrow = horizontal (position = left, right) ─ */}
       <Section title="Align  —  arrow = horizontal" gap="var(--spacing-48)">
-        {['start', 'center', 'end'].map(align => (
-          <Case key={align} label={`align="${align}"`} center>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
-              {/* position=right */}
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <AnchorBox />
-                <Tooltip position="right" align={align} label="툴팁" />
+        {['start', 'center', 'end'].map(align => {
+          const wrapAlign =
+            align === 'start' ? 'flex-start' :
+            align === 'end'   ? 'flex-end'   : 'center'
+          return (
+            <Case key={align} label={`align="${align}"`} center>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
+                {/* position=right */}
+                <div style={{ display: 'flex', alignItems: wrapAlign }}>
+                  <AnchorBox />
+                  <Tooltip position="right" align={align} label={"툴팁\n레이블"} />
+                </div>
+                {/* position=left */}
+                <div style={{ display: 'flex', alignItems: wrapAlign }}>
+                  <Tooltip position="left" align={align} label={"툴팁\n레이블"} />
+                  <AnchorBox />
+                </div>
               </div>
-              {/* position=left */}
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Tooltip position="left" align={align} label="툴팁" />
-                <AnchorBox />
-              </div>
-            </div>
-          </Case>
-        ))}
+            </Case>
+          )
+        })}
       </Section>
 
       {/* ── shortcut ──────────────────────────────────────────── */}

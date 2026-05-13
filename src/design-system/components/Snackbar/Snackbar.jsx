@@ -289,7 +289,16 @@ export default function Snackbar({
               flexShrink: 0,
               position:   'relative',
             }}>
-              {icon}
+              <div style={{
+                width:          '22px',
+                height:         '22px',
+                flexShrink:     0,
+                display:        'flex',
+                alignItems:     'center',
+                justifyContent: 'center',
+              }}>
+                {icon}
+              </div>
             </div>
           )}
 

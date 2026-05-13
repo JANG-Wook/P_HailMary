@@ -179,7 +179,7 @@ export default function Toast({
       <div style={containerStyle}>
         {/* Normal: 외부 leadingIcon */}
         {variant === 'normal' && leadingIcon && (
-          <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', height: '22px' }}>
+          <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', width: '22px', height: '22px' }}>
             {leadingIcon}
           </div>
         )}

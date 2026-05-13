@@ -239,28 +239,31 @@ export default function Tooltip({
   }
 
   const textStyle = {
-    fontSize:      spec.fontSize,
-    lineHeight:    spec.lineHeight,
-    letterSpacing: spec.letterSpacing,
-    fontWeight:    'var(--font-weight-medium)',
-    color:         'var(--color-inverse-label)',
-    flex:          '1 0 0',
-    minWidth:      0,
-    margin:        0,
-    position:      'relative',
+    fontSize:            spec.fontSize,
+    lineHeight:          spec.lineHeight,
+    letterSpacing:       spec.letterSpacing,
+    fontWeight:          'var(--font-weight-medium)',
+    fontFeatureSettings: "'ss10' 1",
+    color:               'var(--color-inverse-label)',
+    flex:                '1 0 0',
+    minWidth:            0,
+    margin:              0,
+    whiteSpace:          'pre-line',
+    position:            'relative',
   }
 
   const shortcutStyle = {
-    fontSize:      spec.fontSize,
-    lineHeight:    spec.lineHeight,
-    letterSpacing: spec.letterSpacing,
-    fontWeight:    'var(--font-weight-medium)',
-    color:         'var(--color-inverse-label)',
-    opacity:       0.61,
-    flexShrink:    0,
-    whiteSpace:    'nowrap',
-    margin:        0,
-    position:      'relative',
+    fontSize:            spec.fontSize,
+    lineHeight:          spec.lineHeight,
+    letterSpacing:       spec.letterSpacing,
+    fontWeight:          'var(--font-weight-medium)',
+    fontFeatureSettings: "'ss10' 1",
+    color:               'var(--color-inverse-label)',
+    opacity:             0.61,
+    flexShrink:          0,
+    whiteSpace:          'nowrap',
+    margin:              0,
+    position:            'relative',
   }
 
   return (
