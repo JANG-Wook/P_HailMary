@@ -49,6 +49,7 @@ import IconButtonBackgroundPage from './showcase/pages/IconButtonBackgroundPage'
 import IconButtonPage           from './showcase/pages/IconButtonPage'
 import ChipPage                 from './showcase/pages/ChipPage'
 import ToggleIconPage           from './showcase/pages/ToggleIconPage'
+import ChatRoomPage             from './showcase/pages/ChatRoomPage'
 
 const PAGE_MAP = {
   colors:           ColorsPage,
@@ -99,6 +100,7 @@ const PAGE_MAP = {
   iconButton:               IconButtonPage,
   chip:                     ChipPage,
   toggleIcon:               ToggleIconPage,
+  chatRoom:                 ChatRoomPage,
 }
 
 export default function App() {

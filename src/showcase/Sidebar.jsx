@@ -4,6 +4,12 @@ import Switch from '../design-system/components/Switch/Switch'
 
 const NAV = [
   {
+    group: 'Chat UI',
+    items: [
+      { id: 'chatRoom', label: 'Chat Room' },
+    ],
+  },
+  {
     group: 'Foundation',
     items: [
       { id: 'typography',  label: 'Typography' },

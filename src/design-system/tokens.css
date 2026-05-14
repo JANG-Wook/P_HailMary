@@ -593,3 +593,22 @@ textarea::placeholder {
 .sidebar-scroll::-webkit-scrollbar-thumb:hover {
   background: var(--color-label-assistive);
 }
+
+.chat-room-scroll {
+  scrollbar-gutter: stable both-edges;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line-neutral) transparent;
+}
+.chat-room-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.chat-room-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-room-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-line-neutral);
+  border-radius: 2px;
+}
+.chat-room-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-label-assistive);
+}

@@ -1,0 +1,615 @@
+// 채팅방 UI 컴포넌트 — 상태바, 헤더, 콘텐츠 영역, 메시지 입력창으로 구성
+
+import { useState, useRef, useEffect, useLayoutEffect } from 'react'
+import Icon from '../Icon/Icon'
+
+function StatusIconSignal() {
+  return (
+    <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor">
+      <rect x="0"    y="8"   width="3" height="4"   rx="0.5" />
+      <rect x="4.5"  y="5.5" width="3" height="6.5" rx="0.5" />
+      <rect x="9"    y="3"   width="3" height="9"   rx="0.5" />
+      <rect x="13.5" y="0"   width="3" height="12"  rx="0.5" />
+    </svg>
+  )
+}
+
+function StatusIconWifi() {
+  return (
+    <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
+      <circle cx="8" cy="11" r="1.5" />
+      <path fillRule="evenodd" d="M8 7a4.5 4.5 0 00-3.18 1.32L3.4 6.9A6.5 6.5 0 018 5a6.5 6.5 0 014.6 1.9l-1.42 1.42A4.5 4.5 0 008 7z" />
+      <path fillRule="evenodd" d="M8 3.5A8.5 8.5 0 001.48 6.03L0 4.55A10.5 10.5 0 018 1.5c3 0 5.72 1.24 7.67 3.24l-1.48 1.48A8.5 8.5 0 008 3.5z" opacity="0.6" />
+    </svg>
+  )
+}
+
+function StatusIconBattery() {
+  return (
+    <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
+      <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="currentColor" strokeOpacity="0.35" />
+      <rect x="2" y="2" width="18" height="8" rx="2" fill="currentColor" />
+      <path d="M23 4.5v3c1-.5 1-2.5 0-3z" fill="currentColor" fillOpacity="0.4" />
+    </svg>
+  )
+}
+
+function ChatStatusBar() {
+  return (
+    <div style={{
+      height:          '44px',
+      padding:         '0 var(--spacing-20)',
+      display:         'flex',
+      alignItems:      'center',
+      justifyContent:  'space-between',
+      flexShrink:      0,
+      backgroundColor: 'var(--color-bg-normal)',
+      color:           'var(--color-label-strong)',
+    }}>
+      <span style={{
+        fontSize:   'var(--font-size-caption-1)',
+        fontWeight: 'var(--font-weight-semibold)',
+      }}>9:41</span>
+      <div style={{ display: 'flex', gap: 'var(--spacing-4)', alignItems: 'center' }}>
+        <StatusIconSignal />
+        <StatusIconWifi />
+        <StatusIconBattery />
+      </div>
+    </div>
+  )
+}
+
+function ChatHeader({ title, onReset, onClose }) {
+  const btnStyle = {
+    background: 'none',
+    border:     'none',
+    padding:    0,
+    cursor:     'pointer',
+    display:    'flex',
+    color:      'var(--color-label-normal)',
+  }
+
+  return (
+    <div style={{
+      display:        'flex',
+      alignItems:     'center',
+      justifyContent: 'space-between',
+      padding:        'var(--spacing-20)',
+      flexShrink:     0,
+    }}>
+      <button onClick={onReset} style={btnStyle}>
+        <Icon name="reset" size={24} />
+      </button>
+      <span style={{
+        fontSize:      'var(--font-size-headline-1)',
+        lineHeight:    'var(--line-height-headline-1)',
+        fontWeight:    'var(--font-weight-regular)',
+        color:         'var(--color-label-neutral)',
+        letterSpacing: 'var(--letter-spacing-headline-1)',
+      }}>{title}</span>
+      <button onClick={onClose} style={btnStyle}>
+        <Icon name="close" size={24} />
+      </button>
+    </div>
+  )
+}
+
+function BotTextArea({ title, body }) {
+  const [expanded, setExpanded] = useState(false)
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)', width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)', width: '100%' }}>
+        {title && (
+          <p style={{
+            fontSize:      'var(--font-size-body-2)',
+            lineHeight:    '22px',
+            fontWeight:    'var(--font-weight-bold)',
+            color:         'var(--color-label-neutral)',
+            letterSpacing: 'var(--letter-spacing-heading-1)',
+            wordBreak:     'break-word',
+            margin:        0,
+          }}>{title}</p>
+        )}
+        {body && (
+          <p style={{
+            fontSize:      'var(--font-size-body-2)',
+            lineHeight:    '22px',
+            fontWeight:    'var(--font-weight-regular)',
+            color:         'var(--color-label-neutral)',
+            letterSpacing: 'var(--letter-spacing-heading-1)',
+            wordBreak:     'break-word',
+            margin:        0,
+          }}>{body}</p>
+        )}
+      </div>
+      {expanded && (
+        <p style={{
+          fontSize:      'var(--font-size-body-2)',
+          lineHeight:    '22px',
+          fontWeight:    'var(--font-weight-regular)',
+          color:         'var(--color-label-neutral)',
+          letterSpacing: 'var(--letter-spacing-heading-1)',
+          wordBreak:     'break-word',
+          margin:        0,
+        }}>추가 안내 내용입니다. 더 자세한 정보를 확인하세요.</p>
+      )}
+      <button
+        onClick={() => setExpanded(v => !v)}
+        style={{
+          display:     'flex',
+          alignItems:  'center',
+          justifyContent: 'center',
+          gap:         'var(--spacing-4)',
+          padding:     'var(--spacing-4)',
+          border:      'none',
+          background:  'none',
+          cursor:      'pointer',
+          width:       '100%',
+          fontSize:    'var(--font-size-label-1)',
+          fontWeight:  'var(--font-weight-regular)',
+          lineHeight:  '20px',
+          color:       'var(--color-label-neutral)',
+          fontFamily:  'var(--font-family-base)',
+        }}
+      >
+        <span>{expanded ? '접기' : '더 보기'}</span>
+        <Icon
+          name={expanded ? 'chevronUpSmall' : 'chevronDownSmall'}
+          size={16}
+          color="var(--color-label-neutral)"
+        />
+      </button>
+    </div>
+  )
+}
+
+function BotButtonArea({ mainButton, subButton }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', width: '100%' }}>
+      {mainButton && (
+        <button style={{
+          width:        '100%',
+          padding:      '12px 28px',
+          backgroundColor: 'var(--color-primary-normal)',
+          border:       'none',
+          borderRadius: 'var(--spacing-12)',
+          fontSize:     'var(--font-size-body-1)',
+          fontWeight:   'var(--font-weight-semibold)',
+          lineHeight:   '1.5',
+          letterSpacing: 'var(--letter-spacing-body-1)',
+          color:        'var(--color-static-white)',
+          cursor:       'pointer',
+          fontFamily:   'var(--font-family-base)',
+          boxSizing:    'border-box',
+        }}>{mainButton}</button>
+      )}
+      {subButton && (
+        <button style={{
+          width:        '100%',
+          padding:      '12px 28px',
+          backgroundColor: 'transparent',
+          border:       '1px solid var(--color-line-solid-neutral)',
+          borderRadius: 'var(--spacing-12)',
+          fontSize:     'var(--font-size-body-1)',
+          fontWeight:   'var(--font-weight-semibold)',
+          lineHeight:   '1.5',
+          letterSpacing: 'var(--letter-spacing-body-1)',
+          color:        'var(--color-primary-normal)',
+          cursor:       'pointer',
+          fontFamily:   'var(--font-family-base)',
+          boxSizing:    'border-box',
+        }}>{subButton}</button>
+      )}
+    </div>
+  )
+}
+
+function BotMessage({ title, body, mainButton, subButton }) {
+  return (
+    <div style={{
+      border:          '1px solid var(--color-line-solid-normal)',
+      borderRadius:    'var(--spacing-12)',
+      padding:         'var(--spacing-20)',
+      display:         'flex',
+      flexDirection:   'column',
+      gap:             'var(--spacing-16)',
+      width:           '100%',
+      backgroundColor: 'var(--color-bg-normal)',
+      boxSizing:       'border-box',
+    }}>
+      <BotTextArea title={title} body={body} />
+      {(mainButton || subButton) && (
+        <BotButtonArea mainButton={mainButton} subButton={subButton} />
+      )}
+    </div>
+  )
+}
+
+function formatTime(date) {
+  return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
+}
+
+function BotMessageWrapper({ botName, title, body, mainButton, subButton, timestamp }) {
+  return (
+    <div style={{
+      display:       'flex',
+      flexDirection: 'column',
+      alignItems:    'flex-start',
+      gap:           'var(--spacing-12)',
+      width:         '100%',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-8)' }}>
+        <div style={{
+          width:           '32px',
+          height:          '32px',
+          borderRadius:    '50%',
+          backgroundColor: 'var(--color-bg-normal)',
+          border:          '1px solid var(--color-line-solid-alternative)',
+          display:         'flex',
+          alignItems:      'center',
+          justifyContent:  'center',
+          flexShrink:      0,
+          overflow:        'hidden',
+        }}>
+          <Icon name="agent" size={20} color="var(--color-label-alternative)" />
+        </div>
+        <span style={{
+          fontSize:      'var(--font-size-label-1)',
+          fontWeight:    'var(--font-weight-medium)',
+          lineHeight:    '22px',
+          letterSpacing: 'var(--letter-spacing-heading-1)',
+          color:         'var(--color-label-neutral)',
+          whiteSpace:    'nowrap',
+        }}>{botName}</span>
+      </div>
+
+      <BotMessage title={title} body={body} mainButton={mainButton} subButton={subButton} />
+
+      <span style={{
+        fontSize:   'var(--font-size-caption-1)',
+        fontWeight: 'var(--font-weight-regular)',
+        lineHeight: '14px',
+        color:      'var(--color-label-alternative)',
+        whiteSpace: 'nowrap',
+      }}>{timestamp}</span>
+    </div>
+  )
+}
+
+function UserMessage({ text }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: '100%' }}>
+      <p style={{
+        fontSize:      'var(--font-size-body-1)',
+        lineHeight:    '22px',
+        fontWeight:    'var(--font-weight-bold)',
+        color:         'var(--color-label-neutral)',
+        textAlign:     'right',
+        letterSpacing: 'var(--letter-spacing-heading-1)',
+        wordBreak:     'break-word',
+        margin:        0,
+      }}>{text}</p>
+    </div>
+  )
+}
+
+function ActionButton({ onClick, iconName, iconColor = 'var(--color-bg-normal)', bgColor = 'var(--color-line-solid-normal)' }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        width:           '26px',
+        height:          '26px',
+        borderRadius:    '20px',
+        backgroundColor: bgColor,
+        border:          'none',
+        cursor:          'pointer',
+        display:         'flex',
+        alignItems:      'center',
+        justifyContent:  'center',
+        flexShrink:      0,
+        padding:         0,
+      }}
+    >
+      <Icon name={iconName} size={18} color={iconColor} />
+    </button>
+  )
+}
+
+const INPUT_CONTAINER_STYLE = {
+  padding:         'var(--spacing-16) var(--spacing-20) var(--spacing-20)',
+  backgroundColor: 'var(--color-bg-normal)',
+  borderTop:       '1px solid var(--color-line-solid-alternative)',
+  flexShrink:      0,
+}
+
+function ChatInput({ value, onChange, placeholder, onPlus, onSend }) {
+  const textareaRef = useRef(null)
+  const [focused, setFocused] = useState(false)
+  const expanded = focused
+
+  const handlePillClick = () => {
+    setFocused(true)
+  }
+
+  const handleBlur = () => {
+    setFocused(false)
+  }
+
+  if (expanded) {
+    return (
+      <div style={{ ...INPUT_CONTAINER_STYLE, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
+        <textarea
+          ref={textareaRef}
+          autoFocus
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          onBlur={handleBlur}
+          onKeyDown={e => {
+            if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
+              e.preventDefault()
+              onSend()
+            }
+          }}
+          style={{
+            height:      '72px',
+            border:      'none',
+            outline:     'none',
+            resize:      'none',
+            backgroundColor: 'transparent',
+            fontSize:    'var(--font-size-body-2)',
+            lineHeight:  'var(--line-height-body-2-normal)',
+            color:       'var(--color-label-normal)',
+            letterSpacing: 'var(--letter-spacing-body-2)',
+            fontFamily:  'var(--font-family-base)',
+            padding:     0,
+            width:       '100%',
+            boxSizing:   'border-box',
+          }}
+        />
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '36px' }}>
+          <ActionButton onClick={onPlus} iconName="plus" iconColor="var(--color-bg-normal)" />
+          <ActionButton
+            onClick={onSend}
+            iconName="sendFill"
+            iconColor="var(--color-bg-normal)"
+            bgColor={value.length > 0 ? 'var(--color-primary-normal)' : 'var(--color-line-solid-normal)'}
+          />
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ ...INPUT_CONTAINER_STYLE, display: 'flex', gap: 'var(--spacing-12)', alignItems: 'center' }}>
+      <ActionButton onClick={onPlus} iconName="plus" iconColor="var(--color-bg-normal)" />
+      <div
+        onClick={handlePillClick}
+        style={{
+          flex:            1,
+          height:          '36px',
+          backgroundColor: 'var(--color-bg-normal-alternative)',
+          borderRadius:    '20px',
+          display:         'flex',
+          alignItems:      'center',
+          padding:         '0 var(--spacing-16)',
+          cursor:          'text',
+          overflow:        'hidden',
+        }}
+      >
+        <span style={{
+          fontSize:      'var(--font-size-label-1)',
+          lineHeight:    'var(--line-height-label-1-normal)',
+          color:         value.length > 0 ? 'var(--color-label-normal)' : 'var(--color-label-alternative)',
+          letterSpacing: 'var(--letter-spacing-label-1)',
+          whiteSpace:    'nowrap',
+          overflow:      'hidden',
+          textOverflow:  'ellipsis',
+        }}>{value.length > 0 ? value : placeholder}</span>
+      </div>
+      <ActionButton
+        onClick={onSend}
+        iconName="sendFill"
+        iconColor="var(--color-bg-normal)"
+        bgColor={value.length > 0 ? 'var(--color-primary-normal)' : 'var(--color-line-solid-normal)'}
+      />
+    </div>
+  )
+}
+
+const BANNER_WRAP = {
+  padding: '0 var(--spacing-20)',
+  flexShrink: 0,
+}
+
+export function ChatTopBanner({ title, subtitle }) {
+  return (
+    <div style={BANNER_WRAP}>
+      <div style={{
+        display:         'flex',
+        gap:             'var(--spacing-16)',
+        alignItems:      'center',
+        padding:         'var(--spacing-12) var(--spacing-16)',
+        backgroundColor: 'var(--color-line-solid-alternative)',
+        borderRadius:    'var(--spacing-8)',
+      }}>
+        <Icon name="megaphoneFill" size={24} color="var(--color-primary-normal)" style={{ flexShrink: 0 }} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-2)', minWidth: 0 }}>
+          <span style={{
+            fontSize:      'var(--font-size-label-2)',
+            lineHeight:    '20px',
+            color:         'var(--color-primary-heavy)',
+            overflow:      'hidden',
+            textOverflow:  'ellipsis',
+            whiteSpace:    'nowrap',
+          }}>{title}</span>
+          {subtitle && (
+            <span style={{
+              fontSize:      'var(--font-size-label-2)',
+              lineHeight:    '20px',
+              color:         'var(--color-primary-heavy)',
+              overflow:      'hidden',
+              textOverflow:  'ellipsis',
+              whiteSpace:    'nowrap',
+            }}>{subtitle}</span>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export function ChatBottomBanner({ text }) {
+  return (
+    <div style={BANNER_WRAP}>
+      <div style={{
+        padding:         'var(--spacing-8) var(--spacing-16)',
+        backgroundColor: 'var(--color-line-solid-alternative)',
+        borderRadius:    'var(--spacing-8)',
+        textAlign:       'center',
+      }}>
+        <span style={{
+          fontSize:      'var(--font-size-label-2)',
+          lineHeight:    '20px',
+          fontWeight:    'var(--font-weight-medium)',
+          color:         'var(--color-primary-normal)',
+          overflow:      'hidden',
+          textOverflow:  'ellipsis',
+          whiteSpace:    'nowrap',
+        }}>{text}</span>
+      </div>
+    </div>
+  )
+}
+
+export default function ChatRoom({
+  title        = 'Chatbot name',
+  placeholder  = '메시지를 입력해 주세요',
+  initialValue = '',
+  topBanner,
+  bottomBanner,
+  onReset,
+  onClose,
+  onPlus,
+  onSend,
+  children,
+}) {
+  const [inputValue, setInputValue] = useState(initialValue)
+  const [messages, setMessages] = useState([])
+  const [spacerHeight, setSpacerHeight] = useState(0)
+  const scrollContainerRef = useRef(null)
+  const latestMsgRef = useRef(null)
+  const pendingScrollRef = useRef(false)
+
+  useLayoutEffect(() => {
+    if (scrollContainerRef.current) {
+      setSpacerHeight(scrollContainerRef.current.clientHeight)
+    }
+  }, [])
+
+  useLayoutEffect(() => {
+    if (!pendingScrollRef.current || !latestMsgRef.current || !scrollContainerRef.current) return
+    pendingScrollRef.current = false
+    const container = scrollContainerRef.current
+    const msg = latestMsgRef.current
+    const delta = msg.getBoundingClientRect().top - container.getBoundingClientRect().top
+    container.scrollTop += delta
+  }, [messages.length])
+
+  const handleSend = () => {
+    const text = inputValue.trim()
+    if (!text) return
+    pendingScrollRef.current = true
+    setMessages(prev => [...prev, { id: Date.now(), type: 'user', text }])
+    setInputValue('')
+    onSend?.(text)
+    setTimeout(() => {
+      setMessages(prev => [...prev, {
+        id:         Date.now(),
+        type:       'bot',
+        botName:    '인포뱅크 봇',
+        title:      '챗봇 타이틀 텍스트',
+        body:       '챗봇 본문 텍스트입니다. 원하시는 내용을 안내해 드리겠습니다.',
+        mainButton: '메인 버튼',
+        subButton:  '서브 버튼',
+        timestamp:  formatTime(new Date()),
+      }])
+    }, 500)
+  }
+
+  const handleReset = () => {
+    setMessages([])
+    setInputValue('')
+    onReset?.()
+  }
+
+  return (
+    <div style={{
+      width:           '360px',
+      height:          '100%',
+      display:         'flex',
+      flexDirection:   'column',
+      backgroundColor: 'var(--color-bg-normal)',
+    }}>
+      <ChatStatusBar />
+      <ChatHeader title={title} onReset={handleReset} onClose={onClose} />
+      {topBanner && (
+        <div style={{ flexShrink: 0, paddingBottom: 'var(--spacing-12)' }}>
+          {topBanner}
+        </div>
+      )}
+      <div ref={scrollContainerRef} className="chat-room-scroll" style={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>
+        {messages.length > 0 && (
+          <div style={{
+            display:        'flex',
+            flexDirection:  'column',
+            alignItems:     'center',
+            gap:            'var(--spacing-20)',
+            padding:        'var(--spacing-12) var(--spacing-20) var(--spacing-20)',
+          }}>
+            {messages.map((msg, i) => {
+              const ref = i === messages.length - 1 ? latestMsgRef : null
+              if (msg.type === 'user') {
+                return (
+                  <div key={msg.id} ref={ref} style={{ flexShrink: 0, width: '100%' }}>
+                    <UserMessage text={msg.text} />
+                  </div>
+                )
+              }
+              if (msg.type === 'bot') {
+                return (
+                  <div key={msg.id} ref={ref} style={{ width: '100%' }}>
+                    <BotMessageWrapper
+                      botName={msg.botName}
+                      title={msg.title}
+                      body={msg.body}
+                      mainButton={msg.mainButton}
+                      subButton={msg.subButton}
+                      timestamp={msg.timestamp}
+                    />
+                  </div>
+                )
+              }
+              return null
+            })}
+            <div style={{ height: spacerHeight, flexShrink: 0 }} />
+          </div>
+        )}
+        {children}
+      </div>
+      {bottomBanner && (
+        <div style={{ flexShrink: 0, paddingBottom: 'var(--spacing-12)' }}>
+          {bottomBanner}
+        </div>
+      )}
+      <ChatInput
+        value={inputValue}
+        onChange={setInputValue}
+        placeholder={placeholder}
+        onPlus={onPlus}
+        onSend={handleSend}
+      />
+    </div>
+  )
+}
