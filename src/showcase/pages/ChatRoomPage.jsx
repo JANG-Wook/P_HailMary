@@ -60,7 +60,7 @@ export default function ChatRoomPage() {
         </div>
         <PhoneFrame>
           <ChatRoom
-            title="Chatbot name"
+            title="인포뱅크 봇"
             topBanner={topBannerOn
               ? <ChatTopBanner title="2025년 해외주식 양도소득세 무료 신고 대행" subtitle="서비스 안내" />
               : null

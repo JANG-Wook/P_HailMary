@@ -74,18 +74,18 @@ function ChatHeader({ title, onReset, onClose }) {
       display:        'flex',
       alignItems:     'center',
       justifyContent: 'space-between',
-      padding:        'var(--spacing-20)',
+      padding:        'var(--spacing-16) var(--spacing-20)',
       flexShrink:     0,
     }}>
       <button onClick={onReset} style={btnStyle}>
         <Icon name="reset" size={24} />
       </button>
       <span style={{
-        fontSize:      'var(--font-size-headline-1)',
-        lineHeight:    'var(--line-height-headline-1)',
-        fontWeight:    'var(--font-weight-regular)',
+        fontSize:      'var(--font-size-body-2)',
+        lineHeight:    'var(--line-height-body-2-normal)',
+        fontWeight:    'var(--font-weight-medium)',
         color:         'var(--color-label-neutral)',
-        letterSpacing: 'var(--letter-spacing-headline-1)',
+        letterSpacing: 'var(--letter-spacing-body-2)',
       }}>{title}</span>
       <button onClick={onClose} style={btnStyle}>
         <Icon name="close" size={24} />
@@ -484,7 +484,7 @@ export function ChatBottomBanner({ text }) {
 }
 
 export default function ChatRoom({
-  title        = 'Chatbot name',
+  title        = '인포뱅크 봇',
   placeholder  = '메시지를 입력해 주세요',
   initialValue = '',
   topBanner,
@@ -497,16 +497,29 @@ export default function ChatRoom({
 }) {
   const [inputValue, setInputValue] = useState(initialValue)
   const [messages, setMessages] = useState([])
-  const [spacerHeight, setSpacerHeight] = useState(0)
   const scrollContainerRef = useRef(null)
   const latestMsgRef = useRef(null)
+  const latestUserMsgRef = useRef(null)
+  const spacerRef = useRef(null)
   const pendingScrollRef = useRef(false)
 
+  // 최신 유저 메시지가 상단으로 스크롤 가능하도록 최소 스페이서 높이 계산
   useLayoutEffect(() => {
-    if (scrollContainerRef.current) {
-      setSpacerHeight(scrollContainerRef.current.clientHeight)
+    if (!scrollContainerRef.current || !spacerRef.current) return
+    if (messages.length === 0 || !latestUserMsgRef.current) {
+      spacerRef.current.style.height = '0px'
+      return
     }
-  }, [])
+    const container = scrollContainerRef.current
+    const containerH = container.clientHeight
+    const currentSpacerH = spacerRef.current.offsetHeight
+    const naturalH = container.scrollHeight - currentSpacerH
+    const msgTop = latestUserMsgRef.current.getBoundingClientRect().top
+      - container.getBoundingClientRect().top
+      + container.scrollTop
+    const needed = Math.max(0, msgTop + containerH - naturalH)
+    spacerRef.current.style.height = needed + 'px'
+  }, [messages])
 
   useLayoutEffect(() => {
     if (!pendingScrollRef.current || !latestMsgRef.current || !scrollContainerRef.current) return
@@ -568,32 +581,38 @@ export default function ChatRoom({
             gap:            'var(--spacing-20)',
             padding:        'var(--spacing-12) var(--spacing-20) var(--spacing-20)',
           }}>
-            {messages.map((msg, i) => {
-              const ref = i === messages.length - 1 ? latestMsgRef : null
-              if (msg.type === 'user') {
-                return (
-                  <div key={msg.id} ref={ref} style={{ flexShrink: 0, width: '100%' }}>
-                    <UserMessage text={msg.text} />
-                  </div>
-                )
-              }
-              if (msg.type === 'bot') {
-                return (
-                  <div key={msg.id} ref={ref} style={{ width: '100%' }}>
-                    <BotMessageWrapper
-                      botName={msg.botName}
-                      title={msg.title}
-                      body={msg.body}
-                      mainButton={msg.mainButton}
-                      subButton={msg.subButton}
-                      timestamp={msg.timestamp}
-                    />
-                  </div>
-                )
-              }
-              return null
-            })}
-            <div style={{ height: spacerHeight, flexShrink: 0 }} />
+            {(() => {
+              const lastUserIdx = messages.reduce((acc, m, i) => m.type === 'user' ? i : acc, -1)
+              return messages.map((msg, i) => {
+                const assignRef = (el) => {
+                  if (i === messages.length - 1) latestMsgRef.current = el
+                  if (i === lastUserIdx) latestUserMsgRef.current = el
+                }
+                if (msg.type === 'user') {
+                  return (
+                    <div key={msg.id} ref={assignRef} style={{ flexShrink: 0, width: '100%' }}>
+                      <UserMessage text={msg.text} />
+                    </div>
+                  )
+                }
+                if (msg.type === 'bot') {
+                  return (
+                    <div key={msg.id} ref={assignRef} style={{ width: '100%' }}>
+                      <BotMessageWrapper
+                        botName={msg.botName}
+                        title={msg.title}
+                        body={msg.body}
+                        mainButton={msg.mainButton}
+                        subButton={msg.subButton}
+                        timestamp={msg.timestamp}
+                      />
+                    </div>
+                  )
+                }
+                return null
+              })
+            })()}
+            <div ref={spacerRef} style={{ flexShrink: 0 }} />
           </div>
         )}
         {children}
