@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import Icon from '../Icon/Icon'
+import Avatar from '../Avatar/Avatar'
+import companyAvatar from '/T1_parksy/Company.jpg'
 
 function StatusIconSignal() {
   return (
@@ -94,36 +96,40 @@ function ChatHeader({ title, onReset, onClose }) {
   )
 }
 
-function BotTextArea({ title, body }) {
+function BotTextArea({ title, body, titleOn = true, bodyOn = true, accordionOn = true }) {
   const [expanded, setExpanded] = useState(false)
+  const showTitle = titleOn && title
+  const showBody  = bodyOn && body
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)', width: '100%' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)', width: '100%' }}>
-        {title && (
-          <p style={{
-            fontSize:      'var(--font-size-body-2)',
-            lineHeight:    '22px',
-            fontWeight:    'var(--font-weight-bold)',
-            color:         'var(--color-label-neutral)',
-            letterSpacing: 'var(--letter-spacing-heading-1)',
-            wordBreak:     'break-word',
-            margin:        0,
-          }}>{title}</p>
-        )}
-        {body && (
-          <p style={{
-            fontSize:      'var(--font-size-body-2)',
-            lineHeight:    '22px',
-            fontWeight:    'var(--font-weight-regular)',
-            color:         'var(--color-label-neutral)',
-            letterSpacing: 'var(--letter-spacing-heading-1)',
-            wordBreak:     'break-word',
-            margin:        0,
-          }}>{body}</p>
-        )}
-      </div>
-      {expanded && (
+      {(showTitle || showBody) && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)', width: '100%' }}>
+          {showTitle && (
+            <p style={{
+              fontSize:      'var(--font-size-body-2)',
+              lineHeight:    '22px',
+              fontWeight:    'var(--font-weight-bold)',
+              color:         'var(--color-label-neutral)',
+              letterSpacing: 'var(--letter-spacing-heading-1)',
+              wordBreak:     'break-word',
+              margin:        0,
+            }}>{title}</p>
+          )}
+          {showBody && (
+            <p style={{
+              fontSize:      'var(--font-size-body-2)',
+              lineHeight:    '22px',
+              fontWeight:    'var(--font-weight-regular)',
+              color:         'var(--color-label-neutral)',
+              letterSpacing: 'var(--letter-spacing-heading-1)',
+              wordBreak:     'break-word',
+              margin:        0,
+            }}>{body}</p>
+          )}
+        </div>
+      )}
+      {accordionOn && expanded && (
         <p style={{
           fontSize:      'var(--font-size-body-2)',
           lineHeight:    '22px',
@@ -134,40 +140,45 @@ function BotTextArea({ title, body }) {
           margin:        0,
         }}>추가 안내 내용입니다. 더 자세한 정보를 확인하세요.</p>
       )}
-      <button
-        onClick={() => setExpanded(v => !v)}
-        style={{
-          display:     'flex',
-          alignItems:  'center',
-          justifyContent: 'center',
-          gap:         'var(--spacing-4)',
-          padding:     'var(--spacing-4)',
-          border:      'none',
-          background:  'none',
-          cursor:      'pointer',
-          width:       '100%',
-          fontSize:    'var(--font-size-label-1)',
-          fontWeight:  'var(--font-weight-regular)',
-          lineHeight:  '20px',
-          color:       'var(--color-label-neutral)',
-          fontFamily:  'var(--font-family-base)',
-        }}
-      >
-        <span>{expanded ? '접기' : '더 보기'}</span>
-        <Icon
-          name={expanded ? 'chevronUpSmall' : 'chevronDownSmall'}
-          size={16}
-          color="var(--color-label-neutral)"
-        />
-      </button>
+      {accordionOn && (
+        <button
+          onClick={() => setExpanded(v => !v)}
+          style={{
+            display:     'flex',
+            alignItems:  'center',
+            justifyContent: 'center',
+            gap:         'var(--spacing-4)',
+            padding:     'var(--spacing-4)',
+            border:      'none',
+            background:  'none',
+            cursor:      'pointer',
+            width:       '100%',
+            fontSize:    'var(--font-size-label-1)',
+            fontWeight:  'var(--font-weight-regular)',
+            lineHeight:  '20px',
+            color:       'var(--color-label-neutral)',
+            fontFamily:  'var(--font-family-base)',
+          }}
+        >
+          <span>{expanded ? '접기' : '더 보기'}</span>
+          <Icon
+            name={expanded ? 'chevronUpSmall' : 'chevronDownSmall'}
+            size={16}
+            color="var(--color-label-neutral)"
+          />
+        </button>
+      )}
     </div>
   )
 }
 
-function BotButtonArea({ mainButton, subButton }) {
+function BotButtonArea({ mainButton, subButton, mainOn = true, subOn = true }) {
+  const showMain = mainOn && mainButton
+  const showSub  = subOn && subButton
+  if (!showMain && !showSub) return null
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', width: '100%' }}>
-      {mainButton && (
+      {showMain && (
         <button style={{
           width:        '100%',
           padding:      '12px 28px',
@@ -184,7 +195,7 @@ function BotButtonArea({ mainButton, subButton }) {
           boxSizing:    'border-box',
         }}>{mainButton}</button>
       )}
-      {subButton && (
+      {showSub && (
         <button style={{
           width:        '100%',
           padding:      '12px 28px',
@@ -205,7 +216,37 @@ function BotButtonArea({ mainButton, subButton }) {
   )
 }
 
-function BotMessage({ title, body, mainButton, subButton }) {
+function BotMessageImage({ src }) {
+  return (
+    <div style={{
+      width:           '100%',
+      height:          '240px',
+      borderRadius:    'var(--spacing-8)',
+      overflow:        'hidden',
+      backgroundColor: 'var(--color-line-solid-alternative)',
+      flexShrink:      0,
+    }}>
+      {src && (
+        <img
+          src={src}
+          alt=""
+          draggable={false}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        />
+      )}
+    </div>
+  )
+}
+
+function BotMessage({
+  title, body, mainButton, subButton, imageSrc,
+  imageOn = false, textOn = true, buttonOn = true,
+  titleOn = true, bodyOn = true, accordionOn = true,
+  mainOn = true, subOn = true,
+}) {
+  const hasText   = textOn && (titleOn || bodyOn || accordionOn)
+  const hasButton = buttonOn && ((mainOn && mainButton) || (subOn && subButton))
+  if (!imageOn && !hasText && !hasButton) return null
   return (
     <div style={{
       border:          '1px solid var(--color-line-solid-normal)',
@@ -218,10 +259,73 @@ function BotMessage({ title, body, mainButton, subButton }) {
       backgroundColor: 'var(--color-bg-normal)',
       boxSizing:       'border-box',
     }}>
-      <BotTextArea title={title} body={body} />
-      {(mainButton || subButton) && (
-        <BotButtonArea mainButton={mainButton} subButton={subButton} />
+      {imageOn && <BotMessageImage src={imageSrc} />}
+      {hasText && (
+        <BotTextArea
+          title={title}
+          body={body}
+          titleOn={titleOn}
+          bodyOn={bodyOn}
+          accordionOn={accordionOn}
+        />
       )}
+      {hasButton && (
+        <BotButtonArea
+          mainButton={mainButton}
+          subButton={subButton}
+          mainOn={mainOn}
+          subOn={subOn}
+        />
+      )}
+    </div>
+  )
+}
+
+function MessageBanner({ src }) {
+  if (!src) return null
+  return (
+    <div style={{
+      width:        '100%',
+      borderRadius: 'var(--spacing-8)',
+      overflow:     'hidden',
+    }}>
+      <img
+        src={src}
+        alt=""
+        draggable={false}
+        style={{ width: '100%', height: 'auto', display: 'block' }}
+      />
+    </div>
+  )
+}
+
+function QuickButtonGroup({ items = ['퀵 버튼', '퀵 버튼', '퀵 버튼', '퀵 버튼'] }) {
+  return (
+    <div style={{
+      display:    'flex',
+      flexWrap:   'wrap',
+      gap:        'var(--spacing-6)',
+      width:      '100%',
+    }}>
+      {items.map((label, i) => (
+        <button
+          key={i}
+          style={{
+            padding:         'var(--spacing-8) var(--spacing-12)',
+            border:          '1px solid var(--color-line-solid-normal)',
+            borderRadius:    'var(--spacing-8)',
+            backgroundColor: 'var(--color-bg-normal)',
+            fontSize:        'var(--font-size-label-1)',
+            lineHeight:      'var(--line-height-label-1-normal)',
+            fontWeight:      'var(--font-weight-regular)',
+            letterSpacing:   'var(--letter-spacing-label-1)',
+            color:           'var(--color-label-neutral)',
+            cursor:          'pointer',
+            fontFamily:      'var(--font-family-base)',
+            whiteSpace:      'nowrap',
+          }}
+        >{label}</button>
+      ))}
     </div>
   )
 }
@@ -230,7 +334,14 @@ function formatTime(date) {
   return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
 }
 
-function BotMessageWrapper({ botName, title, body, mainButton, subButton, timestamp }) {
+function BotMessageWrapper({
+  botName, title, body, mainButton, subButton, timestamp, imageSrc, bannerSrc, quickItems, avatarSrc,
+  imageOn = false, textOn = true, buttonOn = true,
+  titleOn = true, bodyOn = true, accordionOn = true,
+  mainOn = true, subOn = true,
+  messageBannerOn = false, quickButtonOn = false,
+}) {
+  const avatar = avatarSrc ?? companyAvatar
   return (
     <div style={{
       display:       'flex',
@@ -240,20 +351,7 @@ function BotMessageWrapper({ botName, title, body, mainButton, subButton, timest
       width:         '100%',
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-8)' }}>
-        <div style={{
-          width:           '32px',
-          height:          '32px',
-          borderRadius:    '50%',
-          backgroundColor: 'var(--color-bg-normal)',
-          border:          '1px solid var(--color-line-solid-alternative)',
-          display:         'flex',
-          alignItems:      'center',
-          justifyContent:  'center',
-          flexShrink:      0,
-          overflow:        'hidden',
-        }}>
-          <Icon name="agent" size={20} color="var(--color-label-alternative)" />
-        </div>
+        <Avatar variant="person" size="small" src={avatar} />
         <span style={{
           fontSize:      'var(--font-size-label-1)',
           fontWeight:    'var(--font-weight-medium)',
@@ -264,7 +362,24 @@ function BotMessageWrapper({ botName, title, body, mainButton, subButton, timest
         }}>{botName}</span>
       </div>
 
-      <BotMessage title={title} body={body} mainButton={mainButton} subButton={subButton} />
+      <BotMessage
+        title={title}
+        body={body}
+        mainButton={mainButton}
+        subButton={subButton}
+        imageSrc={imageSrc}
+        imageOn={imageOn}
+        textOn={textOn}
+        buttonOn={buttonOn}
+        titleOn={titleOn}
+        bodyOn={bodyOn}
+        accordionOn={accordionOn}
+        mainOn={mainOn}
+        subOn={subOn}
+      />
+
+      {messageBannerOn && <MessageBanner src={bannerSrc} />}
+      {quickButtonOn && <QuickButtonGroup items={quickItems} />}
 
       <span style={{
         fontSize:   'var(--font-size-caption-1)',
@@ -487,6 +602,7 @@ export default function ChatRoom({
   title        = '인포뱅크 봇',
   placeholder  = '메시지를 입력해 주세요',
   initialValue = '',
+  initialMessages,
   topBanner,
   bottomBanner,
   onReset,
@@ -496,7 +612,11 @@ export default function ChatRoom({
   children,
 }) {
   const [inputValue, setInputValue] = useState(initialValue)
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState(initialMessages ?? [])
+
+  useEffect(() => {
+    if (initialMessages) setMessages(initialMessages)
+  }, [initialMessages])
   const scrollContainerRef = useRef(null)
   const latestMsgRef = useRef(null)
   const latestUserMsgRef = useRef(null)
@@ -567,12 +687,18 @@ export default function ChatRoom({
     }}>
       <ChatStatusBar />
       <ChatHeader title={title} onReset={handleReset} onClose={onClose} />
-      {topBanner && (
-        <div style={{ flexShrink: 0, paddingBottom: 'var(--spacing-12)' }}>
-          {topBanner}
-        </div>
-      )}
-      <div ref={scrollContainerRef} className="chat-room-scroll" style={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>
+      <div style={{ flex: 1, position: 'relative', minHeight: 0 }}>
+        {topBanner && (
+          <div style={{ position: 'absolute', top: 'var(--spacing-12)', left: 0, right: 0, zIndex: 1 }}>
+            {topBanner}
+          </div>
+        )}
+        {bottomBanner && (
+          <div style={{ position: 'absolute', bottom: 'var(--spacing-12)', left: 0, right: 0, zIndex: 1 }}>
+            {bottomBanner}
+          </div>
+        )}
+        <div ref={scrollContainerRef} className="chat-room-scroll" style={{ height: '100%', overflowY: 'auto' }}>
         {messages.length > 0 && (
           <div style={{
             display:        'flex',
@@ -605,6 +731,20 @@ export default function ChatRoom({
                         mainButton={msg.mainButton}
                         subButton={msg.subButton}
                         timestamp={msg.timestamp}
+                        imageSrc={msg.imageSrc}
+                        bannerSrc={msg.bannerSrc}
+                        quickItems={msg.quickItems}
+                        avatarSrc={msg.avatarSrc}
+                        imageOn={msg.imageOn}
+                        textOn={msg.textOn}
+                        buttonOn={msg.buttonOn}
+                        titleOn={msg.titleOn}
+                        bodyOn={msg.bodyOn}
+                        accordionOn={msg.accordionOn}
+                        mainOn={msg.mainOn}
+                        subOn={msg.subOn}
+                        messageBannerOn={msg.messageBannerOn}
+                        quickButtonOn={msg.quickButtonOn}
                       />
                     </div>
                   )
@@ -616,12 +756,8 @@ export default function ChatRoom({
           </div>
         )}
         {children}
-      </div>
-      {bottomBanner && (
-        <div style={{ flexShrink: 0, paddingBottom: 'var(--spacing-12)' }}>
-          {bottomBanner}
         </div>
-      )}
+      </div>
       <ChatInput
         value={inputValue}
         onChange={setInputValue}
