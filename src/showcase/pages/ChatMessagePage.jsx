@@ -14,7 +14,7 @@ function PhoneFrame({ children }) {
       height:          '780px',
       overflow:        'hidden',
       borderRadius:    'var(--spacing-24)',
-      boxShadow:       '0 0 0 1px var(--color-line-solid-normal), 0 8px 32px rgba(0,0,0,0.10)',
+      boxShadow:       '0 0 0 1px var(--color-line-solid-normal), var(--shadow-normal-large)',
       backgroundColor: 'var(--color-bg-normal)',
       flexShrink:      0,
     }}>
@@ -38,8 +38,8 @@ function ToggleRow({ label, active, onChange, indent = 0, disabled = false, hasC
         <button
           onClick={onToggleExpand}
           style={{
-            width:           '20px',
-            height:          '20px',
+            width:           'var(--spacing-20)',
+            height:          'var(--spacing-20)',
             border:          'none',
             background:      'none',
             cursor:          'pointer',
@@ -57,7 +57,7 @@ function ToggleRow({ label, active, onChange, indent = 0, disabled = false, hasC
           />
         </button>
       ) : (
-        <span style={{ width: '20px', flexShrink: 0 }} />
+        <span style={{ width: 'var(--spacing-20)', flexShrink: 0 }} />
       )}
       <Switch size="small" active={active} onChange={disabled ? undefined : onChange} />
       <span style={{
@@ -84,8 +84,8 @@ function GroupHeader({ label, indent = 0, expanded, onToggleExpand }) {
       <button
         onClick={onToggleExpand}
         style={{
-          width:           '20px',
-          height:          '20px',
+          width:           'var(--spacing-20)',
+          height:          'var(--spacing-20)',
           border:          'none',
           background:      'none',
           cursor:          'pointer',

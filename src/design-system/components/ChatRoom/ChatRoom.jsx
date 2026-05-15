@@ -3,6 +3,11 @@
 import { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import Icon from '../Icon/Icon'
 import Avatar from '../Avatar/Avatar'
+import Button from '../Button/Button'
+import TextButton from '../TextButton/TextButton'
+import Chip from '../Chip/Chip'
+import Thumbnail from '../Thumbnail/Thumbnail'
+import IconButtonSolid from '../IconButton/IconButtonSolid'
 import companyAvatar from '/T1_parksy/Company.jpg'
 
 function StatusIconSignal() {
@@ -108,7 +113,7 @@ function BotTextArea({ title, body, titleOn = true, bodyOn = true, accordionOn =
           {showTitle && (
             <p style={{
               fontSize:      'var(--font-size-body-2)',
-              lineHeight:    '22px',
+              lineHeight:    'var(--line-height-body-2-normal)',
               fontWeight:    'var(--font-weight-bold)',
               color:         'var(--color-label-neutral)',
               letterSpacing: 'var(--letter-spacing-heading-1)',
@@ -119,7 +124,7 @@ function BotTextArea({ title, body, titleOn = true, bodyOn = true, accordionOn =
           {showBody && (
             <p style={{
               fontSize:      'var(--font-size-body-2)',
-              lineHeight:    '22px',
+              lineHeight:    'var(--line-height-body-2-normal)',
               fontWeight:    'var(--font-weight-regular)',
               color:         'var(--color-label-neutral)',
               letterSpacing: 'var(--letter-spacing-heading-1)',
@@ -132,7 +137,7 @@ function BotTextArea({ title, body, titleOn = true, bodyOn = true, accordionOn =
       {accordionOn && expanded && (
         <p style={{
           fontSize:      'var(--font-size-body-2)',
-          lineHeight:    '22px',
+          lineHeight:    'var(--line-height-body-2-normal)',
           fontWeight:    'var(--font-weight-regular)',
           color:         'var(--color-label-neutral)',
           letterSpacing: 'var(--letter-spacing-heading-1)',
@@ -141,33 +146,27 @@ function BotTextArea({ title, body, titleOn = true, bodyOn = true, accordionOn =
         }}>추가 안내 내용입니다. 더 자세한 정보를 확인하세요.</p>
       )}
       {accordionOn && (
-        <button
-          onClick={() => setExpanded(v => !v)}
-          style={{
-            display:     'flex',
-            alignItems:  'center',
-            justifyContent: 'center',
-            gap:         'var(--spacing-4)',
-            padding:     'var(--spacing-4)',
-            border:      'none',
-            background:  'none',
-            cursor:      'pointer',
-            width:       '100%',
-            fontSize:    'var(--font-size-label-1)',
-            fontWeight:  'var(--font-weight-regular)',
-            lineHeight:  '20px',
-            color:       'var(--color-label-neutral)',
-            fontFamily:  'var(--font-family-base)',
-          }}
-        >
-          <span>{expanded ? '접기' : '더 보기'}</span>
-          <Icon
-            name={expanded ? 'chevronUpSmall' : 'chevronDownSmall'}
-            size={16}
-            color="var(--color-label-neutral)"
+        <div style={{ display: 'flex', width: '100%' }}>
+          <TextButton
+            color="assistive"
+            size="small"
+            label={expanded ? '접기' : '더 보기'}
+            trailingIcon={
+              <Icon name={expanded ? 'chevronUpSmall' : 'chevronDownSmall'} size={16} />
+            }
+            onClick={() => setExpanded(v => !v)}
+            className="chatroom-fullwidth-btn"
           />
-        </button>
+        </div>
       )}
+    </div>
+  )
+}
+
+function FullWidthButton({ variant, label }) {
+  return (
+    <div style={{ display: 'flex', width: '100%' }}>
+      <Button variant={variant} color="primary" size="large" label={label} className="chatroom-fullwidth-btn" />
     </div>
   )
 }
@@ -178,64 +177,14 @@ function BotButtonArea({ mainButton, subButton, mainOn = true, subOn = true }) {
   if (!showMain && !showSub) return null
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', width: '100%' }}>
-      {showMain && (
-        <button style={{
-          width:        '100%',
-          padding:      '12px 28px',
-          backgroundColor: 'var(--color-primary-normal)',
-          border:       'none',
-          borderRadius: 'var(--spacing-12)',
-          fontSize:     'var(--font-size-body-1)',
-          fontWeight:   'var(--font-weight-semibold)',
-          lineHeight:   '1.5',
-          letterSpacing: 'var(--letter-spacing-body-1)',
-          color:        'var(--color-static-white)',
-          cursor:       'pointer',
-          fontFamily:   'var(--font-family-base)',
-          boxSizing:    'border-box',
-        }}>{mainButton}</button>
-      )}
-      {showSub && (
-        <button style={{
-          width:        '100%',
-          padding:      '12px 28px',
-          backgroundColor: 'transparent',
-          border:       '1px solid var(--color-line-solid-neutral)',
-          borderRadius: 'var(--spacing-12)',
-          fontSize:     'var(--font-size-body-1)',
-          fontWeight:   'var(--font-weight-semibold)',
-          lineHeight:   '1.5',
-          letterSpacing: 'var(--letter-spacing-body-1)',
-          color:        'var(--color-primary-normal)',
-          cursor:       'pointer',
-          fontFamily:   'var(--font-family-base)',
-          boxSizing:    'border-box',
-        }}>{subButton}</button>
-      )}
+      {showMain && <FullWidthButton variant="solid" label={mainButton} />}
+      {showSub  && <FullWidthButton variant="outlined" label={subButton} />}
     </div>
   )
 }
 
 function BotMessageImage({ src }) {
-  return (
-    <div style={{
-      width:           '100%',
-      height:          '240px',
-      borderRadius:    'var(--spacing-8)',
-      overflow:        'hidden',
-      backgroundColor: 'var(--color-line-solid-alternative)',
-      flexShrink:      0,
-    }}>
-      {src && (
-        <img
-          src={src}
-          alt=""
-          draggable={false}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-        />
-      )}
-    </div>
-  )
+  return <Thumbnail src={src} alt="" ratio="7/6" radius />
 }
 
 function BotMessage({
@@ -308,23 +257,7 @@ function QuickButtonGroup({ items = ['퀵 버튼', '퀵 버튼', '퀵 버튼', '
       width:      '100%',
     }}>
       {items.map((label, i) => (
-        <button
-          key={i}
-          style={{
-            padding:         'var(--spacing-8) var(--spacing-12)',
-            border:          '1px solid var(--color-line-solid-normal)',
-            borderRadius:    'var(--spacing-8)',
-            backgroundColor: 'var(--color-bg-normal)',
-            fontSize:        'var(--font-size-label-1)',
-            lineHeight:      'var(--line-height-label-1-normal)',
-            fontWeight:      'var(--font-weight-regular)',
-            letterSpacing:   'var(--letter-spacing-label-1)',
-            color:           'var(--color-label-neutral)',
-            cursor:          'pointer',
-            fontFamily:      'var(--font-family-base)',
-            whiteSpace:      'nowrap',
-          }}
-        >{label}</button>
+        <Chip key={i} variant="outlined" size="small" label={label} />
       ))}
     </div>
   )
@@ -355,7 +288,7 @@ function BotMessageWrapper({
         <span style={{
           fontSize:      'var(--font-size-label-1)',
           fontWeight:    'var(--font-weight-medium)',
-          lineHeight:    '22px',
+          lineHeight:    'var(--line-height-label-1-reading)',
           letterSpacing: 'var(--letter-spacing-heading-1)',
           color:         'var(--color-label-neutral)',
           whiteSpace:    'nowrap',
@@ -397,7 +330,7 @@ function UserMessage({ text }) {
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: '100%' }}>
       <p style={{
         fontSize:      'var(--font-size-body-1)',
-        lineHeight:    '22px',
+        lineHeight:    'var(--line-height-body-1-normal)',
         fontWeight:    'var(--font-weight-bold)',
         color:         'var(--color-label-neutral)',
         textAlign:     'right',
@@ -409,26 +342,17 @@ function UserMessage({ text }) {
   )
 }
 
-function ActionButton({ onClick, iconName, iconColor = 'var(--color-bg-normal)', bgColor = 'var(--color-line-solid-normal)' }) {
+function ActionButton({ onClick, iconName, ariaLabel, iconColor = 'var(--color-bg-normal)', bgColor = 'var(--color-line-solid-normal)' }) {
   return (
-    <button
+    <IconButtonSolid
       onClick={onClick}
-      style={{
-        width:           '26px',
-        height:          '26px',
-        borderRadius:    '20px',
-        backgroundColor: bgColor,
-        border:          'none',
-        cursor:          'pointer',
-        display:         'flex',
-        alignItems:      'center',
-        justifyContent:  'center',
-        flexShrink:      0,
-        padding:         0,
-      }}
-    >
-      <Icon name={iconName} size={18} color={iconColor} />
-    </button>
+      size="custom"
+      customSize={26}
+      color={iconColor}
+      backgroundColor={bgColor}
+      aria-label={ariaLabel}
+      icon={<Icon name={iconName} size={18} color={iconColor} />}
+    />
   )
 }
 
@@ -484,10 +408,11 @@ function ChatInput({ value, onChange, placeholder, onPlus, onSend }) {
           }}
         />
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '36px' }}>
-          <ActionButton onClick={onPlus} iconName="plus" iconColor="var(--color-bg-normal)" />
+          <ActionButton onClick={onPlus} iconName="plus" ariaLabel="추가" iconColor="var(--color-bg-normal)" />
           <ActionButton
             onClick={onSend}
             iconName="sendFill"
+            ariaLabel="보내기"
             iconColor="var(--color-bg-normal)"
             bgColor={value.length > 0 ? 'var(--color-primary-normal)' : 'var(--color-line-solid-normal)'}
           />
@@ -498,7 +423,7 @@ function ChatInput({ value, onChange, placeholder, onPlus, onSend }) {
 
   return (
     <div style={{ ...INPUT_CONTAINER_STYLE, display: 'flex', gap: 'var(--spacing-12)', alignItems: 'center' }}>
-      <ActionButton onClick={onPlus} iconName="plus" iconColor="var(--color-bg-normal)" />
+      <ActionButton onClick={onPlus} iconName="plus" ariaLabel="추가" iconColor="var(--color-bg-normal)" />
       <div
         onClick={handlePillClick}
         style={{
@@ -553,7 +478,7 @@ export function ChatTopBanner({ title, subtitle }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-2)', minWidth: 0 }}>
           <span style={{
             fontSize:      'var(--font-size-label-2)',
-            lineHeight:    '20px',
+            lineHeight:    'var(--line-height-label-2)',
             color:         'var(--color-primary-heavy)',
             overflow:      'hidden',
             textOverflow:  'ellipsis',
@@ -562,7 +487,7 @@ export function ChatTopBanner({ title, subtitle }) {
           {subtitle && (
             <span style={{
               fontSize:      'var(--font-size-label-2)',
-              lineHeight:    '20px',
+              lineHeight:    'var(--line-height-label-2)',
               color:         'var(--color-primary-heavy)',
               overflow:      'hidden',
               textOverflow:  'ellipsis',
@@ -586,7 +511,7 @@ export function ChatBottomBanner({ text }) {
       }}>
         <span style={{
           fontSize:      'var(--font-size-label-2)',
-          lineHeight:    '20px',
+          lineHeight:    'var(--line-height-label-2)',
           fontWeight:    'var(--font-weight-medium)',
           color:         'var(--color-primary-normal)',
           overflow:      'hidden',

@@ -612,3 +612,7 @@ textarea::placeholder {
 .chat-room-scroll::-webkit-scrollbar-thumb:hover {
   background: var(--color-label-assistive);
 }
+
+.chatroom-fullwidth-btn {
+  width: 100%;
+}

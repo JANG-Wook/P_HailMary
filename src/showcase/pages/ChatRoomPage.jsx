@@ -12,7 +12,7 @@ function PhoneFrame({ children }) {
       height:          '780px',
       overflow:        'hidden',
       borderRadius:    'var(--spacing-24)',
-      boxShadow:       '0 0 0 1px var(--color-line-solid-normal), 0 8px 32px rgba(0,0,0,0.10)',
+      boxShadow:       '0 0 0 1px var(--color-line-solid-normal), var(--shadow-normal-large)',
       backgroundColor: 'var(--color-bg-normal)',
     }}>
       {children}
