@@ -108,7 +108,7 @@ export default function Checkbox({
     right:           tight ? '-7px' : '-4px',
     bottom:          tight ? '-5px' : '-4px',
     left:            tight ? '-7px' : '-4px',
-    borderRadius:    '1000px',
+    borderRadius:    'var(--radius-full)',
     backgroundColor: 'var(--color-label-normal)',
     opacity:         OVERLAY_OPACITY[effectiveInteraction] ?? 0,
     pointerEvents:   'none',

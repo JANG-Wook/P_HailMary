@@ -2,6 +2,9 @@ import { useState } from 'react'
 import Textarea from '../../design-system/components/Textfield/Textarea'
 import Icon    from '../../design-system/components/Icon/Icon'
 import Chip    from '../../design-system/components/Chip/Chip'
+import TextButton from '../../design-system/components/TextButton/TextButton'
+import IconButtonNormal from '../../design-system/components/IconButton/IconButtonNormal'
+import IconButtonSolid  from '../../design-system/components/IconButton/IconButtonSolid'
 import Section from '../Section'
 
 /* ── 공용 상수 ────────────────────────────────────────────────── */
@@ -70,46 +73,33 @@ function SubSection({ title, children }) {
 
 /* ── bottom bar 리소스 헬퍼 ──────────────────────────────────── */
 function AssistiveBtn({ children = '텍스트' }) {
-  return (
-    <button tabIndex={-1} style={{
-      background: 'none', border: 'none', cursor: 'pointer',
-      padding: '0 var(--spacing-4)',
-      fontSize: 'var(--font-size-body-1)', fontWeight: 'var(--font-weight-semibold)',
-      lineHeight: 'var(--line-height-body-1-normal)',
-      color: 'var(--color-label-alternative)', whiteSpace: 'nowrap',
-    }}>{children}</button>
-  )
+  return <TextButton tabIndex={-1} color="assistive" size="medium" label={children} />
 }
 
 function PrimaryBtn({ children = '텍스트' }) {
-  return (
-    <button tabIndex={-1} style={{
-      background: 'none', border: 'none', cursor: 'pointer',
-      padding: '0 var(--spacing-4)',
-      fontSize: 'var(--font-size-body-1)', fontWeight: 'var(--font-weight-semibold)',
-      lineHeight: 'var(--line-height-body-1-normal)',
-      color: 'var(--color-primary-normal)', whiteSpace: 'nowrap',
-    }}>{children}</button>
-  )
+  return <TextButton tabIndex={-1} color="primary" size="medium" label={children} />
 }
 
 function NormalIconBtn() {
   return (
-    <button tabIndex={-1} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0', display: 'flex', alignItems: 'center' }}>
-      <Icon name="circleCloseFill" size={24} color="var(--color-label-assistive)" />
-    </button>
+    <IconButtonNormal
+      tabIndex={-1}
+      aria-label="지우기"
+      color="var(--color-label-assistive)"
+      icon={<Icon name="circleCloseFill" size={24} />}
+    />
   )
 }
 
 function PrimaryIconBtn() {
   return (
-    <button tabIndex={-1} style={{
-      background: 'var(--color-primary-normal)', border: 'none', cursor: 'pointer',
-      padding: 'var(--spacing-7)', borderRadius: '1000px',
-      display: 'flex', alignItems: 'center',
-    }}>
-      <Icon name="arrowUp" size={18} color="var(--color-static-white)" />
-    </button>
+    <IconButtonSolid
+      tabIndex={-1}
+      size="custom"
+      customSize={32}
+      aria-label="보내기"
+      icon={<Icon name="arrowUp" size={18} />}
+    />
   )
 }
 

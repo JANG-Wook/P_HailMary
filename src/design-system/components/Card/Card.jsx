@@ -33,6 +33,7 @@
 
 import { useState } from 'react'
 import Icon from '../Icon/Icon'
+import IconButtonNormal from '../IconButton/IconButtonNormal'
 
 const PLATFORM = {
   desktop: {
@@ -244,29 +245,15 @@ export default function Card({
             </div>
 
             {(onToggleSave !== null || saved) && (
-              <button
-                type="button"
-                aria-label={saved ? '북마크 해제' : '북마크'}
-                aria-pressed={saved}
-                style={{
-                  display:        'flex',
-                  alignItems:     'center',
-                  justifyContent: 'center',
-                  flexShrink:     0,
-                  background:     'none',
-                  border:         'none',
-                  padding:        0,
-                  cursor:         onToggleSave ? 'pointer' : 'default',
-                  outline:        'none',
-                }}
-                onClick={handleSaveClick}
-              >
-                <Icon
-                  name={saved ? 'bookmarkFill' : 'bookmark'}
-                  size={p.toggleIconSize}
+              <div style={{ margin: 'calc(-1 * var(--spacing-8))' }}>
+                <IconButtonNormal
+                  aria-label={saved ? '북마크 해제' : '북마크'}
+                  aria-pressed={saved}
                   color="var(--color-static-white)"
+                  onClick={onToggleSave ? handleSaveClick : undefined}
+                  icon={<Icon name={saved ? 'bookmarkFill' : 'bookmark'} size={p.toggleIconSize} />}
                 />
-              </button>
+              </div>
             )}
           </div>
         )}

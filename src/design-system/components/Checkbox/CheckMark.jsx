@@ -84,7 +84,7 @@ export default function CheckMark({
     bottom:          '-4px',
     left:            tight ? '-6px' : '-4px',
     right:           tight ? '-6px' : '-4px',
-    borderRadius:    '1000px',
+    borderRadius:    'var(--radius-full)',
     backgroundColor: 'var(--color-label-normal)',
     opacity:         OVERLAY_OPACITY[effectiveInteraction] ?? 0,
     pointerEvents:   'none',

@@ -8,6 +8,7 @@ import TextButton from '../TextButton/TextButton'
 import Chip from '../Chip/Chip'
 import Thumbnail from '../Thumbnail/Thumbnail'
 import IconButtonSolid from '../IconButton/IconButtonSolid'
+import IconButtonNormal from '../IconButton/IconButtonNormal'
 import companyAvatar from '/T1_parksy/Company.jpg'
 
 function StatusIconSignal() {
@@ -67,26 +68,19 @@ function ChatStatusBar() {
 }
 
 function ChatHeader({ title, onReset, onClose }) {
-  const btnStyle = {
-    background: 'none',
-    border:     'none',
-    padding:    0,
-    cursor:     'pointer',
-    display:    'flex',
-    color:      'var(--color-label-normal)',
-  }
-
   return (
     <div style={{
       display:        'flex',
       alignItems:     'center',
       justifyContent: 'space-between',
-      padding:        'var(--spacing-16) var(--spacing-20)',
+      padding:        'var(--spacing-8) var(--spacing-12)',
       flexShrink:     0,
     }}>
-      <button onClick={onReset} style={btnStyle}>
-        <Icon name="reset" size={24} />
-      </button>
+      <IconButtonNormal
+        aria-label="대화 초기화"
+        onClick={onReset}
+        icon={<Icon name="reset" size={24} />}
+      />
       <span style={{
         fontSize:      'var(--font-size-body-2)',
         lineHeight:    'var(--line-height-body-2-normal)',
@@ -94,14 +88,16 @@ function ChatHeader({ title, onReset, onClose }) {
         color:         'var(--color-label-neutral)',
         letterSpacing: 'var(--letter-spacing-body-2)',
       }}>{title}</span>
-      <button onClick={onClose} style={btnStyle}>
-        <Icon name="close" size={24} />
-      </button>
+      <IconButtonNormal
+        aria-label="채팅방 닫기"
+        onClick={onClose}
+        icon={<Icon name="close" size={24} />}
+      />
     </div>
   )
 }
 
-function BotTextArea({ title, body, titleOn = true, bodyOn = true, accordionOn = true }) {
+function BotTextArea({ title, body, accordionText = '추가 안내 내용입니다. 더 자세한 정보를 확인하세요.', titleOn = true, bodyOn = true, accordionOn = true }) {
   const [expanded, setExpanded] = useState(false)
   const showTitle = titleOn && title
   const showBody  = bodyOn && body
@@ -143,7 +139,7 @@ function BotTextArea({ title, body, titleOn = true, bodyOn = true, accordionOn =
           letterSpacing: 'var(--letter-spacing-heading-1)',
           wordBreak:     'break-word',
           margin:        0,
-        }}>추가 안내 내용입니다. 더 자세한 정보를 확인하세요.</p>
+        }}>{accordionText}</p>
       )}
       {accordionOn && (
         <div style={{ display: 'flex', width: '100%' }}>
@@ -188,7 +184,7 @@ function BotMessageImage({ src }) {
 }
 
 function BotMessage({
-  title, body, mainButton, subButton, imageSrc,
+  title, body, accordionText, mainButton, subButton, imageSrc,
   imageOn = false, textOn = true, buttonOn = true,
   titleOn = true, bodyOn = true, accordionOn = true,
   mainOn = true, subOn = true,
@@ -213,6 +209,7 @@ function BotMessage({
         <BotTextArea
           title={title}
           body={body}
+          accordionText={accordionText}
           titleOn={titleOn}
           bodyOn={bodyOn}
           accordionOn={accordionOn}
@@ -268,7 +265,7 @@ function formatTime(date) {
 }
 
 function BotMessageWrapper({
-  botName, title, body, mainButton, subButton, timestamp, imageSrc, bannerSrc, quickItems, avatarSrc,
+  botName, title, body, accordionText, mainButton, subButton, timestamp, imageSrc, bannerSrc, quickItems, avatarSrc,
   imageOn = false, textOn = true, buttonOn = true,
   titleOn = true, bodyOn = true, accordionOn = true,
   mainOn = true, subOn = true,
@@ -298,6 +295,7 @@ function BotMessageWrapper({
       <BotMessage
         title={title}
         body={body}
+        accordionText={accordionText}
         mainButton={mainButton}
         subButton={subButton}
         imageSrc={imageSrc}
@@ -653,6 +651,7 @@ export default function ChatRoom({
                         botName={msg.botName}
                         title={msg.title}
                         body={msg.body}
+                        accordionText={msg.accordionText}
                         mainButton={msg.mainButton}
                         subButton={msg.subButton}
                         timestamp={msg.timestamp}

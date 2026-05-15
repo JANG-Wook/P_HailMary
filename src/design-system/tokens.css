@@ -255,6 +255,12 @@ html, body, #root { margin: 0; padding: 0; height: 100%; }
     0px 0px 6px rgba(0, 0, 0, 0.08);
 
   /* --------------------------------------------------
+     Border Radius
+     원형/필 모양에 사용 (alias)
+     -------------------------------------------------- */
+  --radius-full: 9999px;
+
+  /* --------------------------------------------------
      Layout — Screen & Container
      Web Desktop: 1440px viewport, 1100px container, 20px padding
      Web Mobile : 375px viewport, 335px content,    20px padding
@@ -615,4 +621,22 @@ textarea::placeholder {
 
 .chatroom-fullwidth-btn {
   width: 100%;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line-neutral) transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--color-line-neutral);
+  border-radius: 2px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: var(--color-label-assistive);
 }

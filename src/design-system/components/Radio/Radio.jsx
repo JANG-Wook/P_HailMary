@@ -94,7 +94,7 @@ export default function Radio({
   const boxStyle = {
     width:           `${boxPx}px`,
     height:          `${boxPx}px`,
-    borderRadius:    '9999px',
+    borderRadius:    'var(--radius-full)',
     border:          `1.5px solid ${checked ? 'var(--color-primary-normal)' : 'var(--color-line-normal)'}`,
     backgroundColor: checked ? 'var(--color-primary-normal)' : 'transparent',
     display:         'flex',
@@ -108,7 +108,7 @@ export default function Radio({
   const dotStyle = {
     width:           `${dotPx}px`,
     height:          `${dotPx}px`,
-    borderRadius:    '9999px',
+    borderRadius:    'var(--radius-full)',
     backgroundColor: 'var(--color-static-white)',
     flexShrink:      0,
   }
@@ -119,7 +119,7 @@ export default function Radio({
     right:           tight ? '-7px' : '-4px',
     bottom:          tight ? '-5px' : '-4px',
     left:            tight ? '-7px' : '-4px',
-    borderRadius:    '1000px',
+    borderRadius:    'var(--radius-full)',
     backgroundColor: 'var(--color-label-normal)',
     opacity:         OVERLAY_OPACITY[effectiveInteraction] ?? 0,
     pointerEvents:   'none',

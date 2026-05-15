@@ -135,7 +135,7 @@ function NavButton({ direction, disabled, btnWidth, btnHeight, isRegular, onClic
         <div style={{
           position:        'absolute',
           inset:           0,
-          borderRadius:    '1000px',
+          borderRadius:    'var(--radius-full)',
           backgroundColor: `color-mix(in srgb, var(--color-label-normal) ${Math.round(overlayOpacity * 100)}%, transparent)`,
           transition:      'background-color 0.15s ease',
         }} />

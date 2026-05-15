@@ -85,14 +85,14 @@ export default function PageIndicatorCounter({
         position: 'absolute',
         inset:    0,
         overflow: 'clip',
-        borderRadius: '1000px',
+        borderRadius: 'var(--radius-full)',
       }} aria-hidden="true">
         {alternative ? (
           /* Android: 단일 불투명 배경 */
           <div style={{
             position:        'absolute',
             inset:           0,
-            borderRadius:    '1000px',
+            borderRadius:    'var(--radius-full)',
             backgroundColor: 'var(--color-cool-neutral-30)',
             opacity:         0.61,
           }} />
@@ -102,7 +102,7 @@ export default function PageIndicatorCounter({
             <div style={{
               position:        'absolute',
               inset:           0,
-              borderRadius:    '1000px',
+              borderRadius:    'var(--radius-full)',
               backgroundColor: 'var(--color-static-white)',
               opacity:         0.35,
               mixBlendMode:    'plus-lighter',
@@ -110,7 +110,7 @@ export default function PageIndicatorCounter({
             <div style={{
               position:        'absolute',
               inset:           0,
-              borderRadius:    '1000px',
+              borderRadius:    'var(--radius-full)',
               backgroundColor: 'var(--color-static-black)',
               opacity:         0.28,
             }} />

@@ -149,7 +149,7 @@ function CloseButton({ onClick }) {
         style={{
           position:        'absolute',
           inset:           '-8px',
-          borderRadius:    '1000px',
+          borderRadius:    'var(--radius-full)',
           backgroundColor: `color-mix(in srgb, var(--color-static-white) ${Math.round(overlayOpacity * 100)}%, transparent)`,
           pointerEvents:   'none',
           transition:      'background-color 0.15s ease',

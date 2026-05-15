@@ -125,7 +125,7 @@ export default function PaginationDots({
         const dotStyle = {
           width:           sz,
           height:          sz,
-          borderRadius:    '1000px',
+          borderRadius:    'var(--radius-full)',
           backgroundColor: vspec.color,
           opacity,
           flexShrink:      0,

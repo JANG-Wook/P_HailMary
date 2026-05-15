@@ -329,6 +329,10 @@ export const iconSize = {
   container: 64,   // 터치 영역 (px)
 }
 
+export const radius = {
+  full: '9999px',
+}
+
 export const spacing = {
   '0-5': '0.5px',
   '1':   '1px',

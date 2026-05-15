@@ -6,8 +6,9 @@ const NAV = [
   {
     group: 'Chat UI',
     items: [
-      { id: 'chatRoom',    label: 'Chat Room'    },
-      { id: 'chatMessage', label: 'Chat Message' },
+      { id: 'chatRoom',        label: 'Chat Room'        },
+      { id: 'chatMessage',     label: 'Chat Message'     },
+      { id: 'chatMessageTest', label: 'Test'             },
     ],
   },
   {

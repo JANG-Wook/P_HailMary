@@ -51,7 +51,7 @@ export default function Switch({
     left:            `${pad}px`,
     width:           `${thumb}px`,
     height:          `${thumb}px`,
-    borderRadius:    '1000px',
+    borderRadius:    'var(--radius-full)',
     backgroundColor: 'var(--color-static-white)',
     transform:       active ? `translateX(${travel}px)` : 'translateX(0)',
     transition:      'transform 0.2s ease',

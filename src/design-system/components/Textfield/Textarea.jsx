@@ -80,7 +80,7 @@ function CustomScrollBar({ scrollRef }) {
         width:           '100%',
         height:          `${thumbHeight}px`,
         backgroundColor: 'var(--color-fill-strong)',
-        borderRadius:    '1000px',
+        borderRadius:    'var(--radius-full)',
       }} />
     </div>
   )
