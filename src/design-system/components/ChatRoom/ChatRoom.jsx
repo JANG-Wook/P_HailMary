@@ -67,7 +67,7 @@ function ChatStatusBar() {
   )
 }
 
-function ChatHeader({ title, onReset, onClose }) {
+function ChatHeader({ title, onReset, onClose, resetDisabled = false, closeDisabled = false }) {
   return (
     <div style={{
       display:        'flex',
@@ -79,6 +79,7 @@ function ChatHeader({ title, onReset, onClose }) {
       <IconButtonNormal
         aria-label="대화 초기화"
         onClick={onReset}
+        disabled={resetDisabled}
         icon={<Icon name="reset" size={24} />}
       />
       <span style={{
@@ -91,6 +92,7 @@ function ChatHeader({ title, onReset, onClose }) {
       <IconButtonNormal
         aria-label="채팅방 닫기"
         onClick={onClose}
+        disabled={closeDisabled}
         icon={<Icon name="close" size={24} />}
       />
     </div>
@@ -125,6 +127,7 @@ function BotTextArea({ title, body, accordionText = '추가 안내 내용입니�
               color:         'var(--color-label-neutral)',
               letterSpacing: 'var(--letter-spacing-heading-1)',
               wordBreak:     'break-word',
+              whiteSpace:    'pre-wrap',
               margin:        0,
             }}>{body}</p>
           )}
@@ -138,6 +141,7 @@ function BotTextArea({ title, body, accordionText = '추가 안내 내용입니�
           color:         'var(--color-label-neutral)',
           letterSpacing: 'var(--letter-spacing-heading-1)',
           wordBreak:     'break-word',
+          whiteSpace:    'pre-wrap',
           margin:        0,
         }}>{accordionText}</p>
       )}
@@ -532,6 +536,8 @@ export default function ChatRoom({
   onClose,
   onPlus,
   onSend,
+  resetDisabled = false,
+  closeDisabled = false,
   children,
 }) {
   const [inputValue, setInputValue] = useState(initialValue)
@@ -609,7 +615,7 @@ export default function ChatRoom({
       backgroundColor: 'var(--color-bg-normal)',
     }}>
       <ChatStatusBar />
-      <ChatHeader title={title} onReset={handleReset} onClose={onClose} />
+      <ChatHeader title={title} onReset={handleReset} onClose={onClose} resetDisabled={resetDisabled} closeDisabled={closeDisabled} />
       <div style={{ flex: 1, position: 'relative', minHeight: 0 }}>
         {topBanner && (
           <div style={{ position: 'absolute', top: 'var(--spacing-12)', left: 0, right: 0, zIndex: 1 }}>

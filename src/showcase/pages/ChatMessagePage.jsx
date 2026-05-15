@@ -6,6 +6,7 @@ import Switch          from '../../design-system/components/Switch/Switch'
 import Checkbox        from '../../design-system/components/Checkbox/Checkbox'
 import Radio           from '../../design-system/components/Radio/Radio'
 import Textfield       from '../../design-system/components/Textfield/Textfield'
+import Textarea        from '../../design-system/components/Textfield/Textarea'
 import Select          from '../../design-system/components/Select/Select'
 import TextButton      from '../../design-system/components/TextButton/TextButton'
 import IconButtonNormal from '../../design-system/components/IconButton/IconButtonNormal'
@@ -309,6 +310,7 @@ export default function ChatMessagePage() {
           <ChatRoom
             title="인포뱅크 봇"
             initialMessages={cfg.messageOn ? initialMessages : []}
+            resetDisabled
           />
         </PhoneFrame>
 
@@ -380,8 +382,9 @@ export default function ChatMessagePage() {
                     onChange={toggleChild('bodyOn', 'textOn', ['titleOn', 'bodyOn', 'accordionOn'])}
                     label="Body Text"
                   >
-                    <Textfield
+                    <Textarea
                       placeholder={PH.body}
+                      resize="fixed"
                       value={texts.body}
                       onChange={e => setText('body')(e.target.value)}
                     />
@@ -392,8 +395,9 @@ export default function ChatMessagePage() {
                     onChange={toggleChild('accordionOn', 'textOn', ['titleOn', 'bodyOn', 'accordionOn'])}
                     label="Accordion Text"
                   >
-                    <Textfield
+                    <Textarea
                       placeholder={PH.accordion}
+                      resize="fixed"
                       value={texts.accordion}
                       onChange={e => setText('accordion')(e.target.value)}
                     />
