@@ -9,6 +9,11 @@ import Chip from '../Chip/Chip'
 import Thumbnail from '../Thumbnail/Thumbnail'
 import IconButtonSolid from '../IconButton/IconButtonSolid'
 import IconButtonNormal from '../IconButton/IconButtonNormal'
+import Radio from '../Radio/Radio'
+import Checkbox from '../Checkbox/Checkbox'
+import Textfield from '../Textfield/Textfield'
+import Textarea from '../Textfield/Textarea'
+import Select from '../Select/Select'
 import companyAvatar from '/T1_parksy/Company.jpg'
 
 function StatusIconSignal() {
@@ -187,15 +192,75 @@ function BotMessageImage({ src }) {
   return <Thumbnail src={src} alt="" ratio="7/6" radius />
 }
 
+// 입력 폼 컨트롤 (유형별 분기)
+function FormControl({ type, options = [] }) {
+  switch (type) {
+    case 'boolean':
+    case 'checkboxSingle':
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
+          {options.map((o, i) => (
+            <Radio key={o.id ?? i} label={o.label || `옵션 ${i + 1}`} checked={i === 0} />
+          ))}
+        </div>
+      )
+    case 'checkboxMulti':
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
+          {options.map((o, i) => (
+            <Checkbox key={o.id ?? i} label={o.label || `옵션 ${i + 1}`} state={i === 0 ? 'checked' : 'unchecked'} />
+          ))}
+        </div>
+      )
+    case 'textfield':
+      return <Textfield placeholder="값을 입력해 주세요" />
+    case 'textarea':
+      return <Textarea placeholder="값을 입력해 주세요" resize="fixed" />
+    case 'date':
+      return <Textfield placeholder="YYYY.MM.DD" icon="calendar" />
+    case 'datetime':
+      return <Textfield placeholder="YYYY.MM.DD HH:MM" icon="calendar" />
+    case 'selectSingle':
+      return <Select placeholder="값 선택" />
+    case 'selectMulti':
+      return <Select render="chip" value={[]} placeholder="값 선택" />
+    default:
+      return null
+  }
+}
+
+function BotInputForm({ description, type, options }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', width: '100%' }}>
+      {description && (
+        <p style={{
+          fontSize:      'var(--font-size-body-2)',
+          lineHeight:    'var(--line-height-body-2-normal)',
+          fontWeight:    'var(--font-weight-bold)',
+          color:         'var(--color-label-neutral)',
+          letterSpacing: 'var(--letter-spacing-heading-1)',
+          wordBreak:     'break-word',
+          margin:        0,
+        }}>{description}</p>
+      )}
+      <FormControl type={type} options={options} />
+    </div>
+  )
+}
+
 function BotMessage({
   title, body, accordionText, mainButton, subButton, imageSrc,
   imageOn = false, textOn = true, buttonOn = true,
   titleOn = true, bodyOn = true, accordionOn = true,
   mainOn = true, subOn = true,
+  messageMode = 'single',
+  formDescription, formType, formOptions,
 }) {
-  const hasText   = textOn && (titleOn || bodyOn || accordionOn)
-  const hasButton = buttonOn && ((mainOn && mainButton) || (subOn && subButton))
-  if (!imageOn && !hasText && !hasButton) return null
+  const isInputForm = messageMode === 'inputForm'
+  const hasText   = textOn && (titleOn || bodyOn || (accordionOn && !isInputForm))
+  const hasButton = !isInputForm && buttonOn && ((mainOn && mainButton) || (subOn && subButton))
+  const showImage = !isInputForm && imageOn
+  if (!showImage && !hasText && !hasButton && !isInputForm) return null
   return (
     <div style={{
       border:          '1px solid var(--color-line-solid-normal)',
@@ -208,7 +273,7 @@ function BotMessage({
       backgroundColor: 'var(--color-bg-normal)',
       boxSizing:       'border-box',
     }}>
-      {imageOn && <BotMessageImage src={imageSrc} />}
+      {showImage && <BotMessageImage src={imageSrc} />}
       {hasText && (
         <BotTextArea
           title={title}
@@ -216,7 +281,58 @@ function BotMessage({
           accordionText={accordionText}
           titleOn={titleOn}
           bodyOn={bodyOn}
-          accordionOn={accordionOn}
+          accordionOn={accordionOn && !isInputForm}
+        />
+      )}
+      {isInputForm && (
+        <>
+          <BotInputForm description={formDescription} type={formType} options={formOptions} />
+          <FullWidthButton variant="solid" label="확인" />
+        </>
+      )}
+      {hasButton && (
+        <BotButtonArea
+          mainButton={mainButton}
+          subButton={subButton}
+          mainOn={mainOn}
+          subOn={subOn}
+        />
+      )}
+    </div>
+  )
+}
+
+// 캐로셀 카드 — 280px 폭, 240×240 정사각형 이미지, 아코디언 없음
+function CarouselCard({
+  title, body, mainButton, subButton, imageSrc,
+  imageOn = false, textOn = true, buttonOn = true,
+  titleOn = true, bodyOn = true,
+  mainOn = true, subOn = true,
+}) {
+  const hasText   = textOn && (titleOn || bodyOn)
+  const hasButton = buttonOn && ((mainOn && mainButton) || (subOn && subButton))
+  if (!imageOn && !hasText && !hasButton) return null
+  return (
+    <div style={{
+      border:          '1px solid var(--color-line-solid-normal)',
+      borderRadius:    'var(--spacing-12)',
+      padding:         'var(--spacing-20)',
+      display:         'flex',
+      flexDirection:   'column',
+      gap:             'var(--spacing-16)',
+      width:           '280px',
+      backgroundColor: 'var(--color-bg-normal)',
+      boxSizing:       'border-box',
+      flexShrink:      0,
+    }}>
+      {imageOn && <Thumbnail src={imageSrc} alt="" ratio="1/1" radius />}
+      {hasText && (
+        <BotTextArea
+          title={title}
+          body={body}
+          titleOn={titleOn}
+          bodyOn={bodyOn}
+          accordionOn={false}
         />
       )}
       {hasButton && (
@@ -227,6 +343,27 @@ function BotMessage({
           subOn={subOn}
         />
       )}
+    </div>
+  )
+}
+
+// 캐로셀 컨테이너 — 가로 스크롤
+function CarouselArea({ cards }) {
+  if (!cards || cards.length === 0) return null
+  return (
+    <div
+      className="scrollbar-thin"
+      style={{
+        display:    'flex',
+        gap:        'var(--spacing-8)',
+        overflowX:  'auto',
+        width:      '100%',
+        paddingBottom: 'var(--spacing-8)',
+      }}
+    >
+      {cards.map(card => (
+        <CarouselCard key={card.id} {...card} />
+      ))}
     </div>
   )
 }
@@ -274,6 +411,8 @@ function BotMessageWrapper({
   titleOn = true, bodyOn = true, accordionOn = true,
   mainOn = true, subOn = true,
   messageBannerOn = false, quickButtonOn = false,
+  mode = 'single', carouselCards,
+  formDescription, formType, formOptions,
 }) {
   const avatar = avatarSrc ?? companyAvatar
   return (
@@ -296,22 +435,30 @@ function BotMessageWrapper({
         }}>{botName}</span>
       </div>
 
-      <BotMessage
-        title={title}
-        body={body}
-        accordionText={accordionText}
-        mainButton={mainButton}
-        subButton={subButton}
-        imageSrc={imageSrc}
-        imageOn={imageOn}
-        textOn={textOn}
-        buttonOn={buttonOn}
-        titleOn={titleOn}
-        bodyOn={bodyOn}
-        accordionOn={accordionOn}
-        mainOn={mainOn}
-        subOn={subOn}
-      />
+      {mode === 'carousel' ? (
+        <CarouselArea cards={carouselCards} />
+      ) : (
+        <BotMessage
+          title={title}
+          body={body}
+          accordionText={accordionText}
+          mainButton={mainButton}
+          subButton={subButton}
+          imageSrc={imageSrc}
+          imageOn={imageOn}
+          textOn={textOn}
+          buttonOn={buttonOn}
+          titleOn={titleOn}
+          bodyOn={bodyOn}
+          accordionOn={accordionOn}
+          mainOn={mainOn}
+          subOn={subOn}
+          messageMode={mode}
+          formDescription={formDescription}
+          formType={formType}
+          formOptions={formOptions}
+        />
+      )}
 
       {messageBannerOn && <MessageBanner src={bannerSrc} />}
       {quickButtonOn && <QuickButtonGroup items={quickItems} />}
@@ -675,6 +822,11 @@ export default function ChatRoom({
                         subOn={msg.subOn}
                         messageBannerOn={msg.messageBannerOn}
                         quickButtonOn={msg.quickButtonOn}
+                        mode={msg.mode}
+                        carouselCards={msg.carouselCards}
+                        formDescription={msg.formDescription}
+                        formType={msg.formType}
+                        formOptions={msg.formOptions}
                       />
                     </div>
                   )

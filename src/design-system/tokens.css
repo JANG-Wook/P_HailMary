@@ -640,3 +640,18 @@ textarea::placeholder {
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: var(--color-label-assistive);
 }
+
+.chat-msg-tab-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-label-alternative);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-2);
+  transition: background-color 0.15s, color 0.15s;
+}
+.chat-msg-tab-close:hover {
+  color: var(--color-label-normal);
+  background-color: var(--color-fill-normal);
+}

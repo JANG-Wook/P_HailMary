@@ -1,15 +1,16 @@
 // 챗봇 메시지 응답 설정 페이지 — 좌측 미리보기 + 우측 토글/입력 패널
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import ChatRoom        from '../../design-system/components/ChatRoom/ChatRoom'
 import Switch          from '../../design-system/components/Switch/Switch'
 import Checkbox        from '../../design-system/components/Checkbox/Checkbox'
-import Radio           from '../../design-system/components/Radio/Radio'
 import Textfield       from '../../design-system/components/Textfield/Textfield'
 import Textarea        from '../../design-system/components/Textfield/Textarea'
 import Select          from '../../design-system/components/Select/Select'
+import Menu            from '../../design-system/components/Menu/Menu'
 import TextButton      from '../../design-system/components/TextButton/TextButton'
 import IconButtonNormal from '../../design-system/components/IconButton/IconButtonNormal'
+import Tab             from '../../design-system/components/Tab/Tab'
 import Icon            from '../../design-system/components/Icon/Icon'
 import chatbotImg      from '/T1_parksy/Chatbot img.png'
 import chatbotBanner   from '/T1_parksy/Chatbot Banner.png'
@@ -26,6 +27,72 @@ const PH = {
 }
 
 const FILE_CAPTION = '* Jpg, Jpeg 형식 지원 (최대 10MB)'
+
+const ACTION_TYPES = [
+  { value: 'single',    label: '단일 메시지'    },
+  { value: 'carousel',  label: '캐로셀 메시지'  },
+  { value: 'inputForm', label: '입력 폼 메시지' },
+  { value: 'rag',       label: 'RAG 메시지'     },
+  { value: 'branch',    label: '분기 연결'      },
+]
+
+const FORM_TYPES = [
+  { value: 'boolean',        label: 'Boolean',              hasOptions: true  },
+  { value: 'textfield',      label: 'String (Textfield)',   hasOptions: false },
+  { value: 'textarea',       label: 'String (Textarea)',    hasOptions: false },
+  { value: 'date',           label: 'Date',                 hasOptions: false },
+  { value: 'datetime',       label: 'Date time',            hasOptions: false },
+  { value: 'selectSingle',   label: 'Select (단일 선택)',    hasOptions: true  },
+  { value: 'selectMulti',    label: 'Select (복수 선택)',    hasOptions: true  },
+  { value: 'checkboxSingle', label: 'Checkbox (단일 선택)',  hasOptions: true  },
+  { value: 'checkboxMulti',  label: 'Checkbox (복수 선택)',  hasOptions: true  },
+]
+
+/* ── Select 트리거 + Menu 드롭다운 (재사용 가능) ─────────────── */
+function MenuSelect({ value, onChange, options, placeholder = '값' }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+  const selected = options.find(o => o.value === value)
+
+  useEffect(() => {
+    if (!open) return
+    const handler = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [open])
+
+  return (
+    <div ref={ref} style={{ position: 'relative' }}>
+      <Select
+        placeholder={placeholder}
+        value={selected?.label}
+        onClick={() => setOpen(o => !o)}
+        forceFocused={open}
+      />
+      {open && (
+        <div style={{
+          position: 'absolute',
+          top:      'calc(100% + var(--spacing-4))',
+          left:     0,
+          right:    0,
+          zIndex:   10,
+        }}>
+          <Menu
+            variant="normal"
+            cellPadding="12px"
+            items={options.map(o => ({
+              label:    o.label,
+              active:   o.value === value,
+              onClick:  () => { onChange(o.value); setOpen(false) },
+            }))}
+          />
+        </div>
+      )}
+    </div>
+  )
+}
 
 /* ── 미리보기 폰 프레임 ────────────────────────────────────── */
 function PhoneFrame({ children }) {
@@ -54,18 +121,18 @@ function SwitchRow({ label, active, onChange, disabled = false }) {
     }}>
       <Switch size="small" active={active} onChange={onChange} disabled={disabled} />
       <span style={{
-        fontSize:      'var(--font-size-label-1)',
-        lineHeight:    'var(--line-height-label-1-normal)',
+        fontSize:      'var(--font-size-body-2)',
+        lineHeight:    'var(--line-height-body-2-normal)',
         fontWeight:    'var(--font-weight-semibold)',
         color:         'var(--color-label-normal)',
-        letterSpacing: 'var(--letter-spacing-label-1)',
+        letterSpacing: 'var(--letter-spacing-body-2)',
       }}>{label}</span>
     </div>
   )
 }
 
-/* ── 섹션 외곽: 번호 칩 + 좌측 막대 ────────────────────────── */
-function NumberedSection({ index, children }) {
+/* ── 섹션 외곽: 아이콘 칩 + 좌측 막대 ────────────────────────── */
+function NumberedSection({ icon, children }) {
   return (
     <section style={{ display: 'flex', gap: 'var(--spacing-12)' }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
@@ -73,19 +140,20 @@ function NumberedSection({ index, children }) {
           width:           'var(--spacing-24)',
           height:          'var(--spacing-24)',
           borderRadius:    'var(--radius-full)',
-          backgroundColor: 'var(--color-fill-strong)',
+          backgroundColor: 'var(--color-fill-normal)',
           color:           'var(--color-label-normal)',
-          fontSize:        'var(--font-size-caption-1)',
-          fontWeight:      'var(--font-weight-semibold)',
           display:         'flex',
           alignItems:      'center',
           justifyContent:  'center',
-        }}>{index}</div>
+          flexShrink:      0,
+        }}>
+          <Icon name={icon} size={14} />
+        </div>
         <div style={{
           width:           '2px',
           flex:            1,
           marginTop:       'var(--spacing-4)',
-          backgroundColor: 'var(--color-line-neutral)',
+          backgroundColor: 'var(--color-line-alternative)',
           borderRadius:    'var(--radius-full)',
         }} />
       </div>
@@ -133,7 +201,21 @@ function FieldGroup({ label, children }) {
 function CheckBlock({ checked, onChange, label, children }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-12)' }}>
-      <Checkbox state={checked ? 'checked' : 'unchecked'} bold label={label} onChange={onChange} />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-8)' }}>
+        <Checkbox state={checked ? 'checked' : 'unchecked'} onChange={onChange} />
+        <span
+          onClick={onChange}
+          style={{
+            fontSize:      'var(--font-size-label-1)',
+            lineHeight:    'var(--line-height-label-1-normal)',
+            fontWeight:    'var(--font-weight-semibold)',
+            color:         'var(--color-label-normal)',
+            letterSpacing: 'var(--letter-spacing-label-1)',
+            cursor:        'pointer',
+            userSelect:    'none',
+          }}
+        >{label}</span>
+      </div>
       {checked && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
           {children}
@@ -184,7 +266,7 @@ function QuickButtonItem({ index, label, onLabelChange, onRemove }) {
           fontWeight:    'var(--font-weight-semibold)',
           color:         'var(--color-label-normal)',
           letterSpacing: 'var(--letter-spacing-label-1)',
-        }}>Quick Button {index + 1}</span>
+        }}>퀵 버튼 {index + 1}</span>
       </div>
       <FieldGroup label="버튼명">
         <Textfield
@@ -202,8 +284,27 @@ function QuickButtonItem({ index, label, onLabelChange, onRemove }) {
 
 /* ───────────────────────────────────────────────────── */
 
+// 캐로셀 카드 초기값 — 토글 + 텍스트를 한 객체에 평탄화
+function defaultCarouselCard(id) {
+  return {
+    id,
+    imageOn:   true,
+    textOn:    true,
+    titleOn:   true,
+    bodyOn:    true,
+    buttonOn:  true,
+    mainOn:    true,
+    subOn:     true,
+    title:     '',
+    body:      '',
+    mainLabel: '',
+    subLabel:  '',
+    imageFile: '',
+  }
+}
+
 export default function ChatMessagePage() {
-  /* 스위치/체크박스 상태 */
+  /* 스위치/체크박스 상태 (single 모드 + 공유) */
   const [cfg, setCfg] = useState({
     messageOn:        true,
     imageOn:          true,
@@ -219,7 +320,7 @@ export default function ChatMessagePage() {
   })
   const [mode, setMode] = useState('single')
 
-  /* 텍스트 입력 상태 */
+  /* 텍스트 입력 상태 (single 모드) */
   const [texts, setTexts] = useState({
     title:     '',
     body:      '',
@@ -238,6 +339,48 @@ export default function ChatMessagePage() {
     { id: 2, label: '' },
   ])
 
+  /* 캐로셀 카드 상태 */
+  const [carouselCards, setCarouselCards] = useState([
+    defaultCarouselCard(1),
+    defaultCarouselCard(2),
+  ])
+  const [activeCardIdx, setActiveCardIdx] = useState(0)
+
+  /* 입력 폼 상태 */
+  const [form, setForm] = useState({
+    description: '',
+    type:        'boolean',
+    options:     [
+      { id: 1, label: '예'     },
+      { id: 2, label: '아니오' },
+    ],
+  })
+  const setFormField = (key, v) => setForm(prev => ({ ...prev, [key]: v }))
+  const addFormOption    = () => setForm(prev => {
+    const nextId = (prev.options[prev.options.length - 1]?.id ?? 0) + 1
+    return { ...prev, options: [...prev.options, { id: nextId, label: '' }] }
+  })
+  const removeFormOption = id => setForm(prev => ({ ...prev, options: prev.options.filter(o => o.id !== id) }))
+  const updateFormOption = (id, label) => setForm(prev => ({
+    ...prev,
+    options: prev.options.map(o => o.id === id ? { ...o, label } : o),
+  }))
+
+  const currentFormType = FORM_TYPES.find(t => t.value === form.type)
+  const formHasOptions  = currentFormType?.hasOptions ?? false
+
+  const isCarousel  = mode === 'carousel'
+  const isInputForm = mode === 'inputForm'
+
+  // 캐로셀 모드일 때는 현재 활성 카드, 아니면 cfg+texts를 합친 객체
+  const activeCard = isCarousel
+    ? carouselCards[activeCardIdx]
+    : { ...cfg, ...texts }
+
+  const updateActiveCard = patch => setCarouselCards(prev => prev.map((c, i) =>
+    i === activeCardIdx ? { ...c, ...patch } : c
+  ))
+
   const toggle  = key => () => setCfg(prev => ({ ...prev, [key]: !prev[key] }))
   const setText = key => v  => setTexts(prev => ({ ...prev, [key]: v }))
 
@@ -247,6 +390,40 @@ export default function ChatMessagePage() {
     if (!siblings.some(k => next[k])) next[parentKey] = false
     return next
   })
+
+  // 카드 단위 핸들러 (mode에 따라 single 또는 carousel 카드 갱신)
+  const toggleCard = key => () => {
+    if (isCarousel) updateActiveCard({ [key]: !activeCard[key] })
+    else            toggle(key)()
+  }
+  const toggleCardChild = (childKey, parentKey, siblings) => () => {
+    if (isCarousel) {
+      const next = { ...activeCard, [childKey]: !activeCard[childKey] }
+      if (!siblings.some(k => next[k])) next[parentKey] = false
+      updateActiveCard(next)
+    } else {
+      toggleChild(childKey, parentKey, siblings)()
+    }
+  }
+  const setCardText = key => v => {
+    if (isCarousel) updateActiveCard({ [key]: v })
+    else            setText(key)(v)
+  }
+
+  // 캐로셀 탭 추가/삭제
+  const addCarouselCard = () => setCarouselCards(prev => {
+    const nextId = (prev[prev.length - 1]?.id ?? 0) + 1
+    return [...prev, defaultCarouselCard(nextId)]
+  })
+  const removeCardAt = idx => {
+    if (carouselCards.length <= 1) return
+    setCarouselCards(prev => prev.filter((_, i) => i !== idx))
+    setActiveCardIdx(curr => {
+      if (curr === idx) return Math.max(0, curr - 1)
+      if (curr > idx)   return curr - 1
+      return curr
+    })
+  }
 
   const addQuick    = () => setQuickList(prev => [...prev, { id: Date.now(), label: '' }])
   const removeQuick = id => setQuickList(prev => prev.filter(it => it.id !== id))
@@ -258,6 +435,23 @@ export default function ChatMessagePage() {
     return quickList.map(it => it.label.trim() || PH.quickItem)
   }, [quickList])
 
+  // 캐로셀 카드를 미리보기용으로 변환 (빈 값 → placeholder)
+  const carouselPreview = useMemo(() => carouselCards.map(c => ({
+    id:         c.id,
+    title:      c.title.trim()     ? c.title     : PH.title,
+    body:       c.body.trim()      ? c.body      : PH.body,
+    mainButton: c.mainLabel.trim() ? c.mainLabel : PH.mainLabel,
+    subButton:  c.subLabel.trim()  ? c.subLabel  : PH.subLabel,
+    imageSrc:   chatbotImg,
+    imageOn:    c.imageOn,
+    textOn:     c.textOn,
+    buttonOn:   c.buttonOn,
+    titleOn:    c.titleOn,
+    bodyOn:     c.bodyOn,
+    mainOn:     c.mainOn,
+    subOn:      c.subOn,
+  })), [carouselCards])
+
   const initialMessages = useMemo(() => ([
     {
       id:   'u1',
@@ -268,7 +462,12 @@ export default function ChatMessagePage() {
       id:            'b1',
       type:          'bot',
       botName:       '인포뱅크 봇',
-      title:         texts.title.trim()     ? texts.title     : PH.title,
+      mode,
+      carouselCards:   isCarousel ? carouselPreview : undefined,
+      formDescription: form.description,
+      formType:        form.type,
+      formOptions:     form.options.map(o => ({ ...o, label: o.label.trim() || `옵션 ${o.id}` })),
+      title:           texts.title.trim()     ? texts.title     : PH.title,
       body:          texts.body.trim()      ? texts.body      : PH.body,
       accordionText: texts.accordion.trim() ? texts.accordion : PH.accordion,
       mainButton:    texts.mainLabel.trim() ? texts.mainLabel : PH.mainLabel,
@@ -288,7 +487,7 @@ export default function ChatMessagePage() {
       messageBannerOn: cfg.messageBannerOn,
       quickButtonOn:   cfg.quickButtonOn,
     },
-  ]), [cfg, texts, quickPreview])
+  ]), [cfg, texts, quickPreview, mode, isCarousel, carouselPreview, form])
 
   /* ─── 렌더 ─── */
   return (
@@ -335,92 +534,196 @@ export default function ChatMessagePage() {
             marginBottom:  'var(--spacing-32)',
             paddingBottom: 'var(--spacing-12)',
             borderBottom:  '1px solid var(--color-line-solid-normal)',
-          }}>응답 설정</h3>
+          }}>액션</h3>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
 
-            {/* 1. Message */}
-            <NumberedSection index={1}>
-              <SwitchRow label="Message" active={cfg.messageOn} disabled />
+            {/* 1. 액션 유형 */}
+            <NumberedSection icon="sparkle">
+              <SwitchRow label="액션 유형" active={cfg.messageOn} disabled />
               {cfg.messageOn && (
                 <SectionCard>
-                  <div style={{ display: 'flex', gap: 'var(--spacing-32)' }}>
-                    <Radio checked={mode === 'single'}   label="Single"   onChange={() => setMode('single')} />
-                    <Radio checked={mode === 'carousel'} label="Carousel" onChange={() => setMode('carousel')} />
-                  </div>
+                  <MenuSelect value={mode} onChange={setMode} options={ACTION_TYPES} placeholder="액션 유형 선택" />
                 </SectionCard>
               )}
             </NumberedSection>
 
-            {/* 2. Image */}
-            <NumberedSection index={2}>
-              <SwitchRow label="Image" active={cfg.imageOn} onChange={toggle('imageOn')} />
-              {cfg.imageOn && (
-                <FileUploadCard value={imageFile} onChange={setImageFile} />
-              )}
-            </NumberedSection>
+            {/* 캐로셀 탭 바 (캐로셀 모드에서만) */}
+            {isCarousel && (
+              <div>
+                <Tab
+                  items={carouselCards.map((_, i) => ({
+                    label: (
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--spacing-8)' }}>
+                        캐로셀 {i + 1}
+                        {carouselCards.length > 1 && (
+                          <span
+                            role="button"
+                            aria-label={`캐로셀 ${i + 1} 삭제`}
+                            className="chat-msg-tab-close"
+                            onClick={e => { e.stopPropagation(); removeCardAt(i) }}
+                          >
+                            <Icon name="close" size={16} />
+                          </span>
+                        )}
+                      </span>
+                    ),
+                  }))}
+                  value={activeCardIdx}
+                  onChange={setActiveCardIdx}
+                  size="small"
+                  scroll
+                  trailingContent={
+                    <TextButton
+                      color="primary"
+                      size="small"
+                      label="추가"
+                      leadingIcon={<Icon name="plus" size={16} />}
+                      onClick={addCarouselCard}
+                    />
+                  }
+                />
+              </div>
+            )}
+
+            {/* 2. Image (입력 폼 모드에서는 숨김) */}
+            {!isInputForm && (
+              <NumberedSection icon="image">
+                <SwitchRow label="이미지" active={activeCard.imageOn} onChange={toggleCard('imageOn')} />
+                {activeCard.imageOn && (
+                  <FileUploadCard
+                    value={isCarousel ? (activeCard.imageFile ?? '') : imageFile}
+                    onChange={isCarousel ? (v => updateActiveCard({ imageFile: v })) : setImageFile}
+                  />
+                )}
+              </NumberedSection>
+            )}
 
             {/* 3. Text */}
-            <NumberedSection index={3}>
-              <SwitchRow label="Text" active={cfg.textOn} onChange={toggle('textOn')} />
-              {cfg.textOn && (
+            <NumberedSection icon="documentText">
+              <SwitchRow label="텍스트" active={activeCard.textOn} onChange={toggleCard('textOn')} />
+              {activeCard.textOn && (
                 <SectionCard>
                   <CheckBlock
-                    checked={cfg.titleOn}
-                    onChange={toggleChild('titleOn', 'textOn', ['titleOn', 'bodyOn', 'accordionOn'])}
-                    label="Title Text"
+                    checked={activeCard.titleOn}
+                    onChange={toggleCardChild('titleOn', 'textOn', (isCarousel || isInputForm) ? ['titleOn', 'bodyOn'] : ['titleOn', 'bodyOn', 'accordionOn'])}
+                    label="제목 텍스트"
                   >
                     <Textfield
                       placeholder={PH.title}
-                      value={texts.title}
-                      onChange={e => setText('title')(e.target.value)}
+                      value={activeCard.title}
+                      onChange={e => setCardText('title')(e.target.value)}
                     />
                   </CheckBlock>
 
                   <CheckBlock
-                    checked={cfg.bodyOn}
-                    onChange={toggleChild('bodyOn', 'textOn', ['titleOn', 'bodyOn', 'accordionOn'])}
-                    label="Body Text"
+                    checked={activeCard.bodyOn}
+                    onChange={toggleCardChild('bodyOn', 'textOn', (isCarousel || isInputForm) ? ['titleOn', 'bodyOn'] : ['titleOn', 'bodyOn', 'accordionOn'])}
+                    label="본문 텍스트"
                   >
                     <Textarea
                       placeholder={PH.body}
                       resize="fixed"
-                      value={texts.body}
-                      onChange={e => setText('body')(e.target.value)}
+                      value={activeCard.body}
+                      onChange={e => setCardText('body')(e.target.value)}
                     />
                   </CheckBlock>
 
-                  <CheckBlock
-                    checked={cfg.accordionOn}
-                    onChange={toggleChild('accordionOn', 'textOn', ['titleOn', 'bodyOn', 'accordionOn'])}
-                    label="Accordion Text"
-                  >
-                    <Textarea
-                      placeholder={PH.accordion}
-                      resize="fixed"
-                      value={texts.accordion}
-                      onChange={e => setText('accordion')(e.target.value)}
-                    />
-                  </CheckBlock>
+                  {!isCarousel && !isInputForm && (
+                    <CheckBlock
+                      checked={activeCard.accordionOn}
+                      onChange={toggleCardChild('accordionOn', 'textOn', ['titleOn', 'bodyOn', 'accordionOn'])}
+                      label="아코디언 텍스트"
+                    >
+                      <Textarea
+                        placeholder={PH.accordion}
+                        resize="fixed"
+                        value={activeCard.accordion}
+                        onChange={e => setCardText('accordion')(e.target.value)}
+                      />
+                    </CheckBlock>
+                  )}
                 </SectionCard>
               )}
             </NumberedSection>
 
-            {/* 4. Button */}
-            <NumberedSection index={4}>
-              <SwitchRow label="Button" active={cfg.buttonOn} onChange={toggle('buttonOn')} />
-              {cfg.buttonOn && (
+            {/* 4. 입력 폼 (입력 폼 모드일 때만) */}
+            {isInputForm && (
+              <NumberedSection icon="keyboard">
+                <SwitchRow label="입력 폼" active disabled />
+                <SectionCard>
+                  <FieldGroup label="입력 폼 설명">
+                    <Textfield
+                      placeholder="값"
+                      value={form.description}
+                      onChange={e => setFormField('description', e.target.value)}
+                    />
+                  </FieldGroup>
+
+                  <FieldGroup label="입력 폼 유형">
+                    <MenuSelect
+                      value={form.type}
+                      onChange={v => setFormField('type', v)}
+                      options={FORM_TYPES}
+                      placeholder="값"
+                    />
+                  </FieldGroup>
+
+                  {formHasOptions && (
+                    <FieldGroup label="선택 값">
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
+                        {form.options.map(o => (
+                          <div key={o.id} style={{ display: 'flex', gap: 'var(--spacing-8)', alignItems: 'center' }}>
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <Textfield
+                                placeholder="값"
+                                value={o.label}
+                                onChange={e => updateFormOption(o.id, e.target.value)}
+                              />
+                            </div>
+                            <div style={{ margin: 'calc(-1 * var(--spacing-8))' }}>
+                              <IconButtonNormal
+                                aria-label="선택 값 삭제"
+                                color="var(--color-label-alternative)"
+                                disabled={form.options.length <= 1}
+                                onClick={() => removeFormOption(o.id)}
+                                icon={<Icon name="close" size={20} />}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                        <div style={{ display: 'flex' }}>
+                          <TextButton
+                            color="primary"
+                            size="small"
+                            label="선택 값 추가"
+                            leadingIcon={<Icon name="plus" size={16} />}
+                            onClick={addFormOption}
+                          />
+                        </div>
+                      </div>
+                    </FieldGroup>
+                  )}
+                </SectionCard>
+              </NumberedSection>
+            )}
+
+            {/* 4. Button (입력 폼 모드 아닐 때) */}
+            {!isInputForm && (
+            <NumberedSection icon="component">
+              <SwitchRow label="버튼" active={activeCard.buttonOn} onChange={toggleCard('buttonOn')} />
+              {activeCard.buttonOn && (
                 <SectionCard>
                   <CheckBlock
-                    checked={cfg.mainOn}
-                    onChange={toggleChild('mainOn', 'buttonOn', ['mainOn', 'subOn'])}
-                    label="Main Button"
+                    checked={activeCard.mainOn}
+                    onChange={toggleCardChild('mainOn', 'buttonOn', ['mainOn', 'subOn'])}
+                    label="메인 버튼"
                   >
                     <FieldGroup label="버튼명">
                       <Textfield
                         placeholder={PH.mainLabel}
-                        value={texts.mainLabel}
-                        onChange={e => setText('mainLabel')(e.target.value)}
+                        value={activeCard.mainLabel}
+                        onChange={e => setCardText('mainLabel')(e.target.value)}
                       />
                     </FieldGroup>
                     <FieldGroup label="연결응답">
@@ -429,15 +732,15 @@ export default function ChatMessagePage() {
                   </CheckBlock>
 
                   <CheckBlock
-                    checked={cfg.subOn}
-                    onChange={toggleChild('subOn', 'buttonOn', ['mainOn', 'subOn'])}
-                    label="Sub Button"
+                    checked={activeCard.subOn}
+                    onChange={toggleCardChild('subOn', 'buttonOn', ['mainOn', 'subOn'])}
+                    label="서브 버튼"
                   >
                     <FieldGroup label="버튼명">
                       <Textfield
                         placeholder={PH.subLabel}
-                        value={texts.subLabel}
-                        onChange={e => setText('subLabel')(e.target.value)}
+                        value={activeCard.subLabel}
+                        onChange={e => setCardText('subLabel')(e.target.value)}
                       />
                     </FieldGroup>
                     <FieldGroup label="연결응답">
@@ -447,18 +750,19 @@ export default function ChatMessagePage() {
                 </SectionCard>
               )}
             </NumberedSection>
+            )}
 
             {/* 5. Message Banner */}
-            <NumberedSection index={5}>
-              <SwitchRow label="Message Banner" active={cfg.messageBannerOn} onChange={toggle('messageBannerOn')} />
+            <NumberedSection icon="megaphone">
+              <SwitchRow label="메시지 배너" active={cfg.messageBannerOn} onChange={toggle('messageBannerOn')} />
               {cfg.messageBannerOn && (
                 <FileUploadCard value={bannerFile} onChange={setBannerFile} />
               )}
             </NumberedSection>
 
             {/* 6. Quick Button */}
-            <NumberedSection index={6}>
-              <SwitchRow label="Quick Button" active={cfg.quickButtonOn} onChange={toggle('quickButtonOn')} />
+            <NumberedSection icon="thunder">
+              <SwitchRow label="퀵 버튼" active={cfg.quickButtonOn} onChange={toggle('quickButtonOn')} />
               {cfg.quickButtonOn && (
                 <SectionCard>
                   {quickList.map((item, idx) => (
