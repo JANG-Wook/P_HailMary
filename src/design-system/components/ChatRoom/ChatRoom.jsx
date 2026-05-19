@@ -332,26 +332,41 @@ function InteractiveSelect({ heading, options, mode, placeholder = '값 선택' 
   )
 }
 
-// 미리보기용 — DateInput을 로컬 state로 감싼 래퍼
+// 미리보기용 — DateInput을 로컬 state로 감싼 래퍼 (대화방 폭에 맞게 100%)
 function DateInputLocal({ heading, placeholder }) {
   const [val, setVal] = useState(null)
-  return <DateInput heading={heading} placeholder={placeholder} value={val} onChange={setVal} />
+  return <DateInput heading={heading} placeholder={placeholder} value={val} onChange={setVal} calendarWidth="100%" />
 }
 
 // 미리보기용 — Date + Time 입력을 함께 표시
-function DateTimeInputLocal({ heading, placeholder }) {
+function DateTimeInputLocal({ heading, placeholder, timePlaceholder }) {
   const [date, setDate] = useState(null)
   const [time, setTime] = useState(null)
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
-      <DateInput heading={heading} placeholder={placeholder} value={date} onChange={setDate} />
-      <TimeInput value={time} onChange={setTime} placeholder="시간 선택" />
+      <DateInput heading={heading} placeholder={placeholder} value={date} onChange={setDate} calendarWidth="100%" />
+      <TimeInput value={time} onChange={setTime} placeholder={timePlaceholder || '시간 선택'} />
     </div>
   )
 }
 
+// 미리보기용 — 기간 선택 DateInput
+function DateRangeInputLocal({ heading, placeholder }) {
+  const [range, setRange] = useState(null)
+  return (
+    <DateInput
+      mode="range"
+      heading={heading}
+      placeholder={placeholder}
+      value={range}
+      onChange={setRange}
+      calendarWidth="100%"
+    />
+  )
+}
+
 // 입력 폼 컨트롤 (유형별 분기) — heading은 컴포넌트의 heading prop 우선 사용
-function FormControl({ type, options = [], heading, placeholder }) {
+function FormControl({ type, options = [], heading, placeholder, timePlaceholder }) {
   switch (type) {
     case 'boolean':
     case 'checkboxSingle':
@@ -367,7 +382,9 @@ function FormControl({ type, options = [], heading, placeholder }) {
     case 'date':
       return <DateInputLocal heading={heading} placeholder={placeholder} />
     case 'datetime':
-      return <DateTimeInputLocal heading={heading} placeholder={placeholder} />
+      return <DateTimeInputLocal heading={heading} placeholder={placeholder} timePlaceholder={timePlaceholder} />
+    case 'dateRange':
+      return <DateRangeInputLocal heading={heading} placeholder={placeholder} />
     case 'selectSingle':
       return <InteractiveSelect heading={heading} options={options} mode="single" placeholder={placeholder} />
     case 'selectMulti':
@@ -377,9 +394,9 @@ function FormControl({ type, options = [], heading, placeholder }) {
   }
 }
 
-function BotInputForm({ description, placeholder, type, options }) {
+function BotInputForm({ description, placeholder, timePlaceholder, type, options }) {
   // type 변경 시 내부 state 초기화를 위해 key 사용
-  return <FormControl key={type} type={type} options={options} heading={description} placeholder={placeholder} />
+  return <FormControl key={type} type={type} options={options} heading={description} placeholder={placeholder} timePlaceholder={timePlaceholder} />
 }
 
 function BotMessage({
@@ -388,7 +405,7 @@ function BotMessage({
   titleOn = true, bodyOn = true, accordionOn = true,
   mainOn = true, subOn = true,
   messageMode = 'single',
-  formDescription, formPlaceholder, formType, formOptions,
+  formDescription, formPlaceholder, formTimePlaceholder, formType, formOptions,
 }) {
   const isInputForm = messageMode === 'inputForm'
   const hasText   = textOn && (titleOn || bodyOn || (accordionOn && !isInputForm))
@@ -420,7 +437,7 @@ function BotMessage({
       )}
       {isInputForm && (
         <>
-          <BotInputForm description={formDescription} placeholder={formPlaceholder} type={formType} options={formOptions} />
+          <BotInputForm description={formDescription} placeholder={formPlaceholder} timePlaceholder={formTimePlaceholder} type={formType} options={formOptions} />
           <FullWidthButton variant="solid" label="확인" />
         </>
       )}
@@ -546,7 +563,7 @@ function BotMessageWrapper({
   mainOn = true, subOn = true,
   messageBannerOn = false, quickButtonOn = false,
   mode = 'single', carouselCards,
-  formDescription, formPlaceholder, formType, formOptions,
+  formDescription, formPlaceholder, formTimePlaceholder, formType, formOptions,
 }) {
   const avatar = avatarSrc ?? companyAvatar
   return (
@@ -590,6 +607,7 @@ function BotMessageWrapper({
           messageMode={mode}
           formDescription={formDescription}
           formPlaceholder={formPlaceholder}
+          formTimePlaceholder={formTimePlaceholder}
           formType={formType}
           formOptions={formOptions}
         />
@@ -961,6 +979,7 @@ export default function ChatRoom({
                         carouselCards={msg.carouselCards}
                         formDescription={msg.formDescription}
                         formPlaceholder={msg.formPlaceholder}
+                        formTimePlaceholder={msg.formTimePlaceholder}
                         formType={msg.formType}
                         formOptions={msg.formOptions}
                       />

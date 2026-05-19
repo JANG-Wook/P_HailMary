@@ -655,3 +655,7 @@ textarea::placeholder {
   color: var(--color-label-normal);
   background-color: var(--color-fill-normal);
 }
+
+.ds-fullwidth {
+  width: 100%;
+}

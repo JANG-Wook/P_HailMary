@@ -16,7 +16,7 @@ const sameDay = (a, b) => !!(a && b)
 
 const dayKey = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`
 
-export default function Calendar({ mode = 'single', value, onChange }) {
+export default function Calendar({ mode = 'single', value, onChange, width = '320px' }) {
   // 초기 보기 월 — value 기준, 없으면 오늘
   const today  = new Date()
   const anchor = mode === 'range'
@@ -100,7 +100,7 @@ export default function Calendar({ mode = 'single', value, onChange }) {
 
   return (
     <div style={{
-      width:           '320px',
+      width,
       padding:         'var(--spacing-20)',
       backgroundColor: 'var(--color-bg-normal)',
       borderRadius:    'var(--spacing-12)',
@@ -209,7 +209,7 @@ export default function Calendar({ mode = 'single', value, onChange }) {
                   top:             '50%',
                   transform:       'translateY(-50%)',
                   height:          'var(--spacing-32)',
-                  backgroundColor: 'color-mix(in srgb, var(--color-primary-normal) 8%, transparent)',
+                  backgroundColor: 'color-mix(in srgb, var(--color-primary-normal) 5%, transparent)',
                   ...bandStyle,
                 }} />
               )}

@@ -79,6 +79,7 @@ export default function TimeInput({
           textAlign:       'left',
         }}
       >
+        <Icon name="clock" size={20} color="var(--color-label-alternative)" />
         <span style={{
           flex:          1,
           minWidth:      0,
@@ -90,7 +91,6 @@ export default function TimeInput({
           letterSpacing: 'var(--letter-spacing-body-1)',
           color:         hasValue ? 'var(--color-label-normal)' : 'var(--color-label-assistive)',
         }}>{hasValue ? display : placeholder}</span>
-        <Icon name="clock" size={20} color="var(--color-label-alternative)" />
       </button>
 
       {open && (

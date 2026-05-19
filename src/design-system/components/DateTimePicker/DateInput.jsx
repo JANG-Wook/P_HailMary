@@ -16,12 +16,13 @@ const formatRange = (r) => {
 }
 
 export default function DateInput({
-  mode        = 'single',
+  mode           = 'single',
   value,
   onChange,
-  placeholder = '날짜 선택',
+  placeholder    = '날짜 선택',
   heading,
-  disabled    = false,
+  disabled       = false,
+  calendarWidth  = '320px',
 }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
@@ -82,6 +83,7 @@ export default function DateInput({
           textAlign:       'left',
         }}
       >
+        <Icon name="calendar" size={20} color="var(--color-label-alternative)" />
         <span style={{
           flex:          1,
           minWidth:      0,
@@ -93,7 +95,6 @@ export default function DateInput({
           letterSpacing: 'var(--letter-spacing-body-1)',
           color:         hasValue ? 'var(--color-label-normal)' : 'var(--color-label-assistive)',
         }}>{hasValue ? display : placeholder}</span>
-        <Icon name="calendar" size={20} color="var(--color-label-alternative)" />
       </button>
 
       {open && (
@@ -101,9 +102,10 @@ export default function DateInput({
           position: 'absolute',
           top:      'calc(100% + var(--spacing-4))',
           left:     0,
+          ...(calendarWidth === '100%' ? { right: 0 } : { width: calendarWidth }),
           zIndex:   10,
         }}>
-          <Calendar mode={mode} value={value} onChange={handleChange} />
+          <Calendar mode={mode} value={value} onChange={handleChange} width="100%" />
         </div>
       )}
     </div>

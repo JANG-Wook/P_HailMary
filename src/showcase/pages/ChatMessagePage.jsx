@@ -39,8 +39,9 @@ const ACTION_TYPES = [
 const FORM_TYPES = [
   { value: 'textfield',      label: 'String (Textfield)',   hasOptions: false, hasGuide: true,  sampleDesc: '휴대폰 번호', samplePlaceholder: '휴대폰 번호를 입력해 주세요.' },
   { value: 'textarea',       label: 'String (Textarea)',    hasOptions: false, hasGuide: true,  sampleDesc: '주관식 의견', samplePlaceholder: '의견을 남겨주세요.'           },
-  { value: 'date',           label: 'Date',                 hasOptions: false, hasGuide: true,  sampleDesc: '예약일',     samplePlaceholder: 'YYYY.MM.DD'                  },
-  { value: 'datetime',       label: 'Date time',            hasOptions: false, hasGuide: true,  sampleDesc: '예약 일시',  samplePlaceholder: 'YYYY.MM.DD HH:MM'            },
+  { value: 'date',           label: 'Date (단일 선택)',         hasOptions: false, hasGuide: true,  sampleDesc: '예약일',     samplePlaceholder: '날짜 선택'                   },
+  { value: 'dateRange',      label: 'Date (기간 선택)',         hasOptions: false, hasGuide: true,  sampleDesc: '예약 기간',  samplePlaceholder: '기간 선택'                   },
+  { value: 'datetime',       label: 'Date time (단일 선택)',    hasOptions: false, hasGuide: true,  hasTime: true, sampleDesc: '예약 일시',  samplePlaceholder: '날짜 선택', sampleTimePlaceholder: '시간 선택' },
   { value: 'selectSingle',   label: 'Select (단일 선택)',    hasOptions: true,  hasGuide: true,  sampleDesc: '항목',       samplePlaceholder: '항목을 선택해 주세요.'         },
   { value: 'selectMulti',    label: 'Select (복수 선택)',    hasOptions: true,  hasGuide: true,  sampleDesc: '항목',       samplePlaceholder: '항목을 선택해 주세요.'         },
   { value: 'checkboxSingle', label: 'Checkbox (단일 선택)',  hasOptions: true,  hasGuide: false, sampleDesc: '항목',       samplePlaceholder: ''                            },
@@ -54,8 +55,9 @@ const defaultFormOptionsFor = (type) => {
   return [{ id: 1, label: '' }, { id: 2, label: '' }]
 }
 
-const sampleDescFor        = (type) => FORM_TYPES.find(t => t.value === type)?.sampleDesc        ?? ''
-const samplePlaceholderFor = (type) => FORM_TYPES.find(t => t.value === type)?.samplePlaceholder ?? ''
+const sampleDescFor            = (type) => FORM_TYPES.find(t => t.value === type)?.sampleDesc            ?? ''
+const samplePlaceholderFor     = (type) => FORM_TYPES.find(t => t.value === type)?.samplePlaceholder     ?? ''
+const sampleTimePlaceholderFor = (type) => FORM_TYPES.find(t => t.value === type)?.sampleTimePlaceholder ?? ''
 
 /* ── Select 트리거 + Menu 드롭다운 (재사용 가능) ─────────────── */
 function MenuSelect({ value, onChange, options, placeholder = '값' }) {
@@ -357,19 +359,21 @@ export default function ChatMessagePage() {
 
   /* 입력 폼 상태 */
   const [form, setForm] = useState({
-    type:        'textfield',
-    description: sampleDescFor('textfield'),
-    guideText:   samplePlaceholderFor('textfield'),
-    options:     defaultFormOptionsFor('textfield'),
+    type:          'textfield',
+    description:   sampleDescFor('textfield'),
+    guideText:     samplePlaceholderFor('textfield'),
+    timeGuideText: sampleTimePlaceholderFor('textfield'),
+    options:       defaultFormOptionsFor('textfield'),
   })
   const setFormField = (key, v) => setForm(prev => ({ ...prev, [key]: v }))
 
   // 입력 폼 유형 변경 — 설명/안내 문구/선택 값을 새 유형에 맞게 초기화
   const changeFormType = (newType) => setForm({
-    type:        newType,
-    description: sampleDescFor(newType),
-    guideText:   samplePlaceholderFor(newType),
-    options:     defaultFormOptionsFor(newType),
+    type:          newType,
+    description:   sampleDescFor(newType),
+    guideText:     samplePlaceholderFor(newType),
+    timeGuideText: sampleTimePlaceholderFor(newType),
+    options:       defaultFormOptionsFor(newType),
   })
   const addFormOption    = () => setForm(prev => {
     const nextId = (prev.options[prev.options.length - 1]?.id ?? 0) + 1
@@ -384,6 +388,7 @@ export default function ChatMessagePage() {
   const currentFormType = FORM_TYPES.find(t => t.value === form.type)
   const formHasOptions  = currentFormType?.hasOptions ?? false
   const formHasGuide    = currentFormType?.hasGuide   ?? false
+  const formHasTime     = currentFormType?.hasTime    ?? false
 
   const isCarousel  = mode === 'carousel'
   const isInputForm = mode === 'inputForm'
@@ -481,7 +486,8 @@ export default function ChatMessagePage() {
       mode,
       carouselCards:   isCarousel ? carouselPreview : undefined,
       formDescription: form.description.trim() ? form.description : sampleDescFor(form.type),
-      formPlaceholder: form.guideText.trim()   ? form.guideText   : samplePlaceholderFor(form.type),
+      formPlaceholder:     form.guideText.trim()     ? form.guideText     : samplePlaceholderFor(form.type),
+      formTimePlaceholder: form.timeGuideText.trim() ? form.timeGuideText : sampleTimePlaceholderFor(form.type),
       formType:        form.type,
       formOptions:     form.options.map(o => ({ ...o, label: o.label.trim() || `옵션 ${o.id}` })),
       title:           texts.title.trim()     ? texts.title     : PH.title,
@@ -692,6 +698,16 @@ export default function ChatMessagePage() {
                         placeholder={samplePlaceholderFor(form.type)}
                         value={form.guideText}
                         onChange={e => setFormField('guideText', e.target.value)}
+                      />
+                    </FieldGroup>
+                  )}
+
+                  {formHasTime && (
+                    <FieldGroup label="입력 폼 시간 안내 문구">
+                      <Textfield
+                        placeholder={sampleTimePlaceholderFor(form.type)}
+                        value={form.timeGuideText}
+                        onChange={e => setFormField('timeGuideText', e.target.value)}
                       />
                     </FieldGroup>
                   )}
