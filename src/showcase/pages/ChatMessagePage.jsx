@@ -37,16 +37,25 @@ const ACTION_TYPES = [
 ]
 
 const FORM_TYPES = [
-  { value: 'boolean',        label: 'Boolean',              hasOptions: true  },
-  { value: 'textfield',      label: 'String (Textfield)',   hasOptions: false },
-  { value: 'textarea',       label: 'String (Textarea)',    hasOptions: false },
-  { value: 'date',           label: 'Date',                 hasOptions: false },
-  { value: 'datetime',       label: 'Date time',            hasOptions: false },
-  { value: 'selectSingle',   label: 'Select (단일 선택)',    hasOptions: true  },
-  { value: 'selectMulti',    label: 'Select (복수 선택)',    hasOptions: true  },
-  { value: 'checkboxSingle', label: 'Checkbox (단일 선택)',  hasOptions: true  },
-  { value: 'checkboxMulti',  label: 'Checkbox (복수 선택)',  hasOptions: true  },
+  { value: 'textfield',      label: 'String (Textfield)',   hasOptions: false, hasGuide: true,  sampleDesc: '휴대폰 번호', samplePlaceholder: '휴대폰 번호를 입력해 주세요.' },
+  { value: 'textarea',       label: 'String (Textarea)',    hasOptions: false, hasGuide: true,  sampleDesc: '주관식 의견', samplePlaceholder: '의견을 남겨주세요.'           },
+  { value: 'date',           label: 'Date',                 hasOptions: false, hasGuide: true,  sampleDesc: '예약일',     samplePlaceholder: 'YYYY.MM.DD'                  },
+  { value: 'datetime',       label: 'Date time',            hasOptions: false, hasGuide: true,  sampleDesc: '예약 일시',  samplePlaceholder: 'YYYY.MM.DD HH:MM'            },
+  { value: 'selectSingle',   label: 'Select (단일 선택)',    hasOptions: true,  hasGuide: true,  sampleDesc: '항목',       samplePlaceholder: '항목을 선택해 주세요.'         },
+  { value: 'selectMulti',    label: 'Select (복수 선택)',    hasOptions: true,  hasGuide: true,  sampleDesc: '항목',       samplePlaceholder: '항목을 선택해 주세요.'         },
+  { value: 'checkboxSingle', label: 'Checkbox (단일 선택)',  hasOptions: true,  hasGuide: false, sampleDesc: '항목',       samplePlaceholder: ''                            },
+  { value: 'checkboxMulti',  label: 'Checkbox (복수 선택)',  hasOptions: true,  hasGuide: false, sampleDesc: '항목',       samplePlaceholder: ''                            },
+  { value: 'boolean',        label: 'Boolean',              hasOptions: true,  hasGuide: false, sampleDesc: '동의 여부',  samplePlaceholder: ''                            },
+  { value: 'number',         label: 'Number',               hasOptions: false, hasGuide: true,  sampleDesc: '예약 인원',  samplePlaceholder: '숫자를 입력해 주세요.'          },
 ]
+
+const defaultFormOptionsFor = (type) => {
+  if (type === 'boolean') return [{ id: 1, label: '예' }, { id: 2, label: '아니오' }]
+  return [{ id: 1, label: '' }, { id: 2, label: '' }]
+}
+
+const sampleDescFor        = (type) => FORM_TYPES.find(t => t.value === type)?.sampleDesc        ?? ''
+const samplePlaceholderFor = (type) => FORM_TYPES.find(t => t.value === type)?.samplePlaceholder ?? ''
 
 /* ── Select 트리거 + Menu 드롭다운 (재사용 가능) ─────────────── */
 function MenuSelect({ value, onChange, options, placeholder = '값' }) {
@@ -348,14 +357,20 @@ export default function ChatMessagePage() {
 
   /* 입력 폼 상태 */
   const [form, setForm] = useState({
-    description: '',
-    type:        'boolean',
-    options:     [
-      { id: 1, label: '예'     },
-      { id: 2, label: '아니오' },
-    ],
+    type:        'textfield',
+    description: sampleDescFor('textfield'),
+    guideText:   samplePlaceholderFor('textfield'),
+    options:     defaultFormOptionsFor('textfield'),
   })
   const setFormField = (key, v) => setForm(prev => ({ ...prev, [key]: v }))
+
+  // 입력 폼 유형 변경 — 설명/안내 문구/선택 값을 새 유형에 맞게 초기화
+  const changeFormType = (newType) => setForm({
+    type:        newType,
+    description: sampleDescFor(newType),
+    guideText:   samplePlaceholderFor(newType),
+    options:     defaultFormOptionsFor(newType),
+  })
   const addFormOption    = () => setForm(prev => {
     const nextId = (prev.options[prev.options.length - 1]?.id ?? 0) + 1
     return { ...prev, options: [...prev.options, { id: nextId, label: '' }] }
@@ -368,6 +383,7 @@ export default function ChatMessagePage() {
 
   const currentFormType = FORM_TYPES.find(t => t.value === form.type)
   const formHasOptions  = currentFormType?.hasOptions ?? false
+  const formHasGuide    = currentFormType?.hasGuide   ?? false
 
   const isCarousel  = mode === 'carousel'
   const isInputForm = mode === 'inputForm'
@@ -464,7 +480,8 @@ export default function ChatMessagePage() {
       botName:       '인포뱅크 봇',
       mode,
       carouselCards:   isCarousel ? carouselPreview : undefined,
-      formDescription: form.description,
+      formDescription: form.description.trim() ? form.description : sampleDescFor(form.type),
+      formPlaceholder: form.guideText.trim()   ? form.guideText   : samplePlaceholderFor(form.type),
       formType:        form.type,
       formOptions:     form.options.map(o => ({ ...o, label: o.label.trim() || `옵션 ${o.id}` })),
       title:           texts.title.trim()     ? texts.title     : PH.title,
@@ -652,31 +669,41 @@ export default function ChatMessagePage() {
               <NumberedSection icon="keyboard">
                 <SwitchRow label="입력 폼" active disabled />
                 <SectionCard>
-                  <FieldGroup label="입력 폼 설명">
-                    <Textfield
-                      placeholder="값"
-                      value={form.description}
-                      onChange={e => setFormField('description', e.target.value)}
-                    />
-                  </FieldGroup>
-
                   <FieldGroup label="입력 폼 유형">
                     <MenuSelect
                       value={form.type}
-                      onChange={v => setFormField('type', v)}
+                      onChange={changeFormType}
                       options={FORM_TYPES}
                       placeholder="값"
                     />
                   </FieldGroup>
 
+                  <FieldGroup label="입력 폼 설명">
+                    <Textfield
+                      placeholder={sampleDescFor(form.type)}
+                      value={form.description}
+                      onChange={e => setFormField('description', e.target.value)}
+                    />
+                  </FieldGroup>
+
+                  {formHasGuide && (
+                    <FieldGroup label="입력 폼 안내 문구">
+                      <Textfield
+                        placeholder={samplePlaceholderFor(form.type)}
+                        value={form.guideText}
+                        onChange={e => setFormField('guideText', e.target.value)}
+                      />
+                    </FieldGroup>
+                  )}
+
                   {formHasOptions && (
                     <FieldGroup label="선택 값">
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
-                        {form.options.map(o => (
+                        {form.options.map((o, i) => (
                           <div key={o.id} style={{ display: 'flex', gap: 'var(--spacing-8)', alignItems: 'center' }}>
                             <div style={{ flex: 1, minWidth: 0 }}>
                               <Textfield
-                                placeholder="값"
+                                placeholder={`옵션 ${i + 1}`}
                                 value={o.label}
                                 onChange={e => updateFormOption(o.id, e.target.value)}
                               />

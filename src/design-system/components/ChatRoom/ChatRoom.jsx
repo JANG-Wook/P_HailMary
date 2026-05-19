@@ -14,6 +14,7 @@ import Checkbox from '../Checkbox/Checkbox'
 import Textfield from '../Textfield/Textfield'
 import Textarea from '../Textfield/Textarea'
 import Select from '../Select/Select'
+import Menu from '../Menu/Menu'
 import companyAvatar from '/T1_parksy/Company.jpg'
 
 function StatusIconSignal() {
@@ -192,60 +193,173 @@ function BotMessageImage({ src }) {
   return <Thumbnail src={src} alt="" ratio="7/6" radius />
 }
 
-// 입력 폼 컨트롤 (유형별 분기)
-function FormControl({ type, options = [] }) {
+// 헤딩 prop이 없는 컨트롤(Radio/Checkbox)용 외부 헤딩 라벨
+function FormHeading({ text }) {
+  if (!text) return null
+  return (
+    <p style={{
+      fontSize:      'var(--font-size-label-1)',
+      lineHeight:    'var(--line-height-label-1-normal)',
+      fontWeight:    'var(--font-weight-semibold)',
+      color:         'var(--color-label-normal)',
+      letterSpacing: 'var(--letter-spacing-label-1)',
+      wordBreak:     'break-word',
+      margin:        0,
+    }}>{text}</p>
+  )
+}
+
+const labelOf = (options, id, fallbackIdx) => {
+  const idx = options.findIndex(o => o.id === id)
+  const found = idx >= 0 ? options[idx] : null
+  return found?.label || `옵션 ${(idx >= 0 ? idx : fallbackIdx) + 1}`
+}
+
+function RadioGroup({ heading, options }) {
+  const [selectedId, setSelectedId] = useState(options[0]?.id)
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
+      <FormHeading text={heading} />
+      {options.map((o, i) => (
+        <Radio
+          key={o.id}
+          label={o.label || `옵션 ${i + 1}`}
+          checked={selectedId === o.id}
+          onChange={() => setSelectedId(o.id)}
+        />
+      ))}
+    </div>
+  )
+}
+
+function CheckboxList({ heading, options }) {
+  const [selected, setSelected] = useState(() => new Set(options[0] ? [options[0].id] : []))
+  const toggle = id => setSelected(prev => {
+    const next = new Set(prev)
+    if (next.has(id)) next.delete(id)
+    else              next.add(id)
+    return next
+  })
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
+      <FormHeading text={heading} />
+      {options.map((o, i) => (
+        <Checkbox
+          key={o.id}
+          label={o.label || `옵션 ${i + 1}`}
+          state={selected.has(o.id) ? 'checked' : 'unchecked'}
+          onChange={() => toggle(o.id)}
+        />
+      ))}
+    </div>
+  )
+}
+
+function InteractiveSelect({ heading, options, mode, placeholder = '값 선택' }) {
+  const [open, setOpen] = useState(false)
+  const [selectedIds, setSelectedIds] = useState([])
+  const ref = useRef(null)
+
+  useEffect(() => {
+    if (!open) return
+    const handler = e => {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [open])
+
+  const handlePick = id => {
+    if (mode === 'multi') {
+      setSelectedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
+    } else {
+      setSelectedIds([id])
+      setOpen(false)
+    }
+  }
+
+  const visibleChips = selectedIds
+    .filter(id => options.some(o => o.id === id))
+    .map(id => labelOf(options, id, 0))
+
+  const singleLabel = selectedIds[0] && options.some(o => o.id === selectedIds[0])
+    ? labelOf(options, selectedIds[0], 0)
+    : ''
+
+  return (
+    <div ref={ref} style={{ position: 'relative' }}>
+      {mode === 'multi' ? (
+        <Select
+          heading={heading}
+          render="chip"
+          value={visibleChips}
+          placeholder={placeholder}
+          onClick={() => setOpen(o => !o)}
+          forceFocused={open}
+          onRemoveChip={chipValue => setSelectedIds(prev => prev.filter(id => labelOf(options, id, 0) !== chipValue))}
+        />
+      ) : (
+        <Select
+          heading={heading}
+          value={singleLabel}
+          placeholder={placeholder}
+          onClick={() => setOpen(o => !o)}
+          forceFocused={open}
+        />
+      )}
+      {open && (
+        <div style={{
+          position: 'absolute',
+          top:      'calc(100% + var(--spacing-4))',
+          left:     0,
+          right:    0,
+          zIndex:   10,
+        }}>
+          <Menu
+            variant="normal"
+            cellPadding="12px"
+            items={options.map((o, i) => ({
+              label:    o.label || `옵션 ${i + 1}`,
+              active:   selectedIds.includes(o.id),
+              onClick:  () => handlePick(o.id),
+            }))}
+          />
+        </div>
+      )}
+    </div>
+  )
+}
+
+// 입력 폼 컨트롤 (유형별 분기) — heading은 컴포넌트의 heading prop 우선 사용
+function FormControl({ type, options = [], heading, placeholder }) {
   switch (type) {
     case 'boolean':
     case 'checkboxSingle':
-      return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
-          {options.map((o, i) => (
-            <Radio key={o.id ?? i} label={o.label || `옵션 ${i + 1}`} checked={i === 0} />
-          ))}
-        </div>
-      )
+      return <RadioGroup heading={heading} options={options} />
     case 'checkboxMulti':
-      return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
-          {options.map((o, i) => (
-            <Checkbox key={o.id ?? i} label={o.label || `옵션 ${i + 1}`} state={i === 0 ? 'checked' : 'unchecked'} />
-          ))}
-        </div>
-      )
+      return <CheckboxList heading={heading} options={options} />
     case 'textfield':
-      return <Textfield placeholder="값을 입력해 주세요" />
+      return <Textfield heading={heading} placeholder={placeholder} />
+    case 'number':
+      return <Textfield heading={heading} type="number" placeholder={placeholder} />
     case 'textarea':
-      return <Textarea placeholder="값을 입력해 주세요" resize="fixed" />
+      return <Textarea heading={heading} placeholder={placeholder} resize="fixed" />
     case 'date':
-      return <Textfield placeholder="YYYY.MM.DD" icon="calendar" />
+      return <Textfield heading={heading} placeholder={placeholder} icon="calendar" />
     case 'datetime':
-      return <Textfield placeholder="YYYY.MM.DD HH:MM" icon="calendar" />
+      return <Textfield heading={heading} placeholder={placeholder} icon="calendar" />
     case 'selectSingle':
-      return <Select placeholder="값 선택" />
+      return <InteractiveSelect heading={heading} options={options} mode="single" placeholder={placeholder} />
     case 'selectMulti':
-      return <Select render="chip" value={[]} placeholder="값 선택" />
+      return <InteractiveSelect heading={heading} options={options} mode="multi" placeholder={placeholder} />
     default:
       return null
   }
 }
 
-function BotInputForm({ description, type, options }) {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', width: '100%' }}>
-      {description && (
-        <p style={{
-          fontSize:      'var(--font-size-body-2)',
-          lineHeight:    'var(--line-height-body-2-normal)',
-          fontWeight:    'var(--font-weight-bold)',
-          color:         'var(--color-label-neutral)',
-          letterSpacing: 'var(--letter-spacing-heading-1)',
-          wordBreak:     'break-word',
-          margin:        0,
-        }}>{description}</p>
-      )}
-      <FormControl type={type} options={options} />
-    </div>
-  )
+function BotInputForm({ description, placeholder, type, options }) {
+  // type 변경 시 내부 state 초기화를 위해 key 사용
+  return <FormControl key={type} type={type} options={options} heading={description} placeholder={placeholder} />
 }
 
 function BotMessage({
@@ -254,7 +368,7 @@ function BotMessage({
   titleOn = true, bodyOn = true, accordionOn = true,
   mainOn = true, subOn = true,
   messageMode = 'single',
-  formDescription, formType, formOptions,
+  formDescription, formPlaceholder, formType, formOptions,
 }) {
   const isInputForm = messageMode === 'inputForm'
   const hasText   = textOn && (titleOn || bodyOn || (accordionOn && !isInputForm))
@@ -286,7 +400,7 @@ function BotMessage({
       )}
       {isInputForm && (
         <>
-          <BotInputForm description={formDescription} type={formType} options={formOptions} />
+          <BotInputForm description={formDescription} placeholder={formPlaceholder} type={formType} options={formOptions} />
           <FullWidthButton variant="solid" label="확인" />
         </>
       )}
@@ -412,7 +526,7 @@ function BotMessageWrapper({
   mainOn = true, subOn = true,
   messageBannerOn = false, quickButtonOn = false,
   mode = 'single', carouselCards,
-  formDescription, formType, formOptions,
+  formDescription, formPlaceholder, formType, formOptions,
 }) {
   const avatar = avatarSrc ?? companyAvatar
   return (
@@ -455,6 +569,7 @@ function BotMessageWrapper({
           subOn={subOn}
           messageMode={mode}
           formDescription={formDescription}
+          formPlaceholder={formPlaceholder}
           formType={formType}
           formOptions={formOptions}
         />
@@ -825,6 +940,7 @@ export default function ChatRoom({
                         mode={msg.mode}
                         carouselCards={msg.carouselCards}
                         formDescription={msg.formDescription}
+                        formPlaceholder={msg.formPlaceholder}
                         formType={msg.formType}
                         formOptions={msg.formOptions}
                       />
