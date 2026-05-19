@@ -15,6 +15,8 @@ import Textfield from '../Textfield/Textfield'
 import Textarea from '../Textfield/Textarea'
 import Select from '../Select/Select'
 import Menu from '../Menu/Menu'
+import DateInput from '../DateTimePicker/DateInput'
+import TimeInput from '../DateTimePicker/TimeInput'
 import companyAvatar from '/T1_parksy/Company.jpg'
 
 function StatusIconSignal() {
@@ -330,6 +332,24 @@ function InteractiveSelect({ heading, options, mode, placeholder = '값 선택' 
   )
 }
 
+// 미리보기용 — DateInput을 로컬 state로 감싼 래퍼
+function DateInputLocal({ heading, placeholder }) {
+  const [val, setVal] = useState(null)
+  return <DateInput heading={heading} placeholder={placeholder} value={val} onChange={setVal} />
+}
+
+// 미리보기용 — Date + Time 입력을 함께 표시
+function DateTimeInputLocal({ heading, placeholder }) {
+  const [date, setDate] = useState(null)
+  const [time, setTime] = useState(null)
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
+      <DateInput heading={heading} placeholder={placeholder} value={date} onChange={setDate} />
+      <TimeInput value={time} onChange={setTime} placeholder="시간 선택" />
+    </div>
+  )
+}
+
 // 입력 폼 컨트롤 (유형별 분기) — heading은 컴포넌트의 heading prop 우선 사용
 function FormControl({ type, options = [], heading, placeholder }) {
   switch (type) {
@@ -345,9 +365,9 @@ function FormControl({ type, options = [], heading, placeholder }) {
     case 'textarea':
       return <Textarea heading={heading} placeholder={placeholder} resize="fixed" />
     case 'date':
-      return <Textfield heading={heading} placeholder={placeholder} icon="calendar" />
+      return <DateInputLocal heading={heading} placeholder={placeholder} />
     case 'datetime':
-      return <Textfield heading={heading} placeholder={placeholder} icon="calendar" />
+      return <DateTimeInputLocal heading={heading} placeholder={placeholder} />
     case 'selectSingle':
       return <InteractiveSelect heading={heading} options={options} mode="single" placeholder={placeholder} />
     case 'selectMulti':

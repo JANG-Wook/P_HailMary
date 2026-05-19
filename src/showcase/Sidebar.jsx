@@ -73,6 +73,7 @@ const NAV = [
       { id: 'switch',           label: 'Switch'              },
       { id: 'segmentedControl', label: 'Segmented Control'   },
       { id: 'framedStyle',      label: 'Framed Style'        },
+      { id: 'dateTimePicker',   label: 'Date & Time Picker'  },
     ],
   },
   {
