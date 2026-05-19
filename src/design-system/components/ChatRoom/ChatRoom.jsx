@@ -498,23 +498,82 @@ function CarouselCard({
   )
 }
 
-// 캐로셀 컨테이너 — 가로 스크롤
+// 캐로셀 컨테이너 — 가로 스크롤 + 호버 시 좌우 화살표 fade-in
 function CarouselArea({ cards }) {
+  const scrollRef = useRef(null)
+  const [hover, setHover] = useState(false)
+
   if (!cards || cards.length === 0) return null
+
+  const scrollByCard = (dir) => {
+    // 카드 폭 280px + gap 8px
+    scrollRef.current?.scrollBy({ left: dir * 288, behavior: 'smooth' })
+  }
+
+  const multipleCards = cards.length > 1
+
+  const navBtnStyle = {
+    position:        'absolute',
+    top:             '50%',
+    transform:       'translateY(-50%)',
+    zIndex:          1,
+    width:           'var(--spacing-32)',
+    height:          'var(--spacing-32)',
+    borderRadius:    'var(--radius-full)',
+    backgroundColor: 'var(--color-bg-normal)',
+    border:          '1px solid var(--color-line-alternative)',
+    boxShadow:       'var(--shadow-normal-small)',
+    display:         'flex',
+    alignItems:      'center',
+    justifyContent:  'center',
+    cursor:          'pointer',
+    padding:         0,
+    color:           'var(--color-label-normal)',
+    opacity:         hover ? 1 : 0,
+    pointerEvents:   hover ? 'auto' : 'none',
+    transition:      'opacity 0.15s ease',
+  }
+
   return (
     <div
-      className="scrollbar-thin"
-      style={{
-        display:    'flex',
-        gap:        'var(--spacing-8)',
-        overflowX:  'auto',
-        width:      '100%',
-        paddingBottom: 'var(--spacing-8)',
-      }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{ position: 'relative', width: '100%' }}
     >
-      {cards.map(card => (
-        <CarouselCard key={card.id} {...card} />
-      ))}
+      <div
+        ref={scrollRef}
+        className="scrollbar-hidden"
+        style={{
+          display:   'flex',
+          gap:       'var(--spacing-8)',
+          overflowX: 'auto',
+          width:     '100%',
+        }}
+      >
+        {cards.map(card => (
+          <CarouselCard key={card.id} {...card} />
+        ))}
+      </div>
+      {multipleCards && (
+        <>
+          <button
+            type="button"
+            aria-label="이전 카드"
+            onClick={() => scrollByCard(-1)}
+            style={{ ...navBtnStyle, left: 'var(--spacing-4)' }}
+          >
+            <Icon name="chevronLeftSmall" size={20} />
+          </button>
+          <button
+            type="button"
+            aria-label="다음 카드"
+            onClick={() => scrollByCard(1)}
+            style={{ ...navBtnStyle, right: 'var(--spacing-4)' }}
+          >
+            <Icon name="chevronRightSmall" size={20} />
+          </button>
+        </>
+      )}
     </div>
   )
 }

@@ -392,6 +392,7 @@ export default function ChatMessagePage() {
 
   const isCarousel  = mode === 'carousel'
   const isInputForm = mode === 'inputForm'
+  const isPending   = mode === 'rag' || mode === 'branch' // 미구현 — 섹션 2~6 숨김
 
   // 캐로셀 모드일 때는 현재 활성 카드, 아니면 cfg+texts를 합친 객체
   const activeCard = isCarousel
@@ -539,7 +540,7 @@ export default function ChatMessagePage() {
         <div className="scrollbar-thin" style={{
           flex:            1,
           minWidth:        '420px',
-          maxHeight:       PANEL_HEIGHT,
+          height:          PANEL_HEIGHT,
           overflowY:       'auto',
           padding:         'var(--spacing-24)',
           borderRadius:    'var(--spacing-12)',
@@ -571,6 +572,7 @@ export default function ChatMessagePage() {
               )}
             </NumberedSection>
 
+            {!isPending && <>
             {/* 캐로셀 탭 바 (캐로셀 모드에서만) */}
             {isCarousel && (
               <div>
@@ -829,6 +831,7 @@ export default function ChatMessagePage() {
                 </SectionCard>
               )}
             </NumberedSection>
+            </>}
 
           </div>
         </div>
